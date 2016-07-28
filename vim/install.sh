@@ -22,12 +22,12 @@ set -e                                      # Abort on error
 command -v vim >/dev/null 2>&1 || { echo >&2 "I require vim but it's not installed.  Aborting."; exit 1; }
 
 if [[ -e ~/.vimrc ]]; then
-   if [[ ! $(readlink -f ~/.vimrc) = $(readlink -f vimrc) ]]; then
+   if ! cmp -s ~/.vimrc vimrc ; then
       echo ".vimrc exists already. Please remove before installing new vimrc"
       exit 1
    fi
 else
-   ln -s $PWD/vimrc ~/.vimrc
+   cp vimrc ~/.vimrc
 fi
 
 #get vundle
