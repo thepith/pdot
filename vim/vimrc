@@ -23,12 +23,19 @@ Plugin 'scrooloose/nerdcommenter'
 Bundle 'gnuplot.vim'
 Bundle 'christoomey/vim-tmux-navigator'
 Plugin 'benmills/vimux'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'nvie/vim-flake8'
 
 "
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 filetype plugin on
+set encoding=utf-8
+
+"simply Fold
+let g:SimpylFold_docstring_preview=1
 
 "syntastic
 let g:syntastic_quiet_messages = {
@@ -241,6 +248,18 @@ set pastetoggle=<F4>
 set shiftwidth=3
 set softtabstop=3
 set expandtab
+
+"python
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
+let python_highlight_all=1
 
 "------------------------------------------------------------
 " Mappings
