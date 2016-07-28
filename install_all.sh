@@ -21,7 +21,6 @@ set -e                                      # Abort on error
 echo "making and installing all Programs (configurations)"
 
 progs=(vim)
-echo ${progs[@]}
 for i in "${progs[@]}"; do
    echo "installing $i"
    cd $i
