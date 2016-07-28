@@ -20,7 +20,7 @@ set -e                                      # Abort on error
 
 echo "making and installing all Programs (configurations)"
 
-progs=(vim)
+progs=(vim tmux)
 for i in "${progs[@]}"; do
    echo "installing $i"
    cd $i

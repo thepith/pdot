@@ -19,8 +19,6 @@ set -o nounset                              # Treat unset variables as an error
 set -e                                      # Abort on error
 
 #configure setup of vimrc
-command -v vim >/dev/null 2>&1 || { echo >&2 "I require vim but it's not installed.  Aborting."; exit 1; }
-
 if [[ -e ~/.vimrc ]]; then
    if ! cmp -s ~/.vimrc vimrc ; then
       echo ".vimrc exists already. Please remove before installing new vimrc"
