@@ -350,17 +350,15 @@ nnoremap <C-Left> :tabprevious<enter>
 nnoremap <C-Right> :tabnext<enter>
 
 "Vimux
-" Prompt for a command to run
-map <F5> :VimuxPromptCommand
-
+" Inspect runner pane
+map <F5> :w<enter>:VimuxRunCommand "./".expand('%') <enter>
 " Run last command executed by VimuxRunCommand
 map <F6> :w<enter>:VimuxRunLastCommand<enter>
-
-" Inspect runner pane
-map <F7> :VimuxInspectRunner<enter>
-
+" Prompt for a command to run
+map <F7> :VimuxPromptCommand<enter>
 " Interrupt any command running in the runner pane
 map <F8> :VimuxInterruptRunner<enter>
+let g:VimuxOrientation = "h"
 
 " Initialize Directories
 function! InitializeDirectories()
