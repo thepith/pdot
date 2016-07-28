@@ -11,7 +11,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'scrooloose/syntastic'
-"Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 Bundle 'Tex-9'
 Bundle 'bash-support.vim'
 Bundle 'awk-support.vim'
@@ -22,6 +21,7 @@ Bundle 'fortran_codecomplete.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdcommenter'
 Bundle 'gnuplot.vim'
+Bundle 'christoomey/vim-tmux-navigator'
 Plugin 'benmills/vimux'
 
 "
@@ -30,41 +30,11 @@ filetype plugin indent on    " required
 
 filetype plugin on
 
-"InstallVim
-function! InstallVim(mach)
-   silent !echo $'In bashrc Template change your name etc. Recomendet date Format:\n DATE: \%F \n TIME: \%H:\%M \n YEAR : ""' > /tmp/viminstallbash
-   silent !vim +PluginInstall +qall ; echo "Installed Plugins"
-   tabe +5 ~/.vim/bundle/bash-support.vim/bash-support/templates/Templates
-   pedit /tmp/viminstallbash
-   if a:mach ==? "cluster"
-      echo "skip latexmk"
-   else
-      silent !echo $'This Installscript utilizes latexmk. If latexmk is not available configure it by hand.\n In the .latexmkrc the following is recomended:\n $pdf_previewer = "start $PATHTOPDFVIEWER"; $pdf_mode = 1; $bibtex_use = 2; $pdflatex = \"pdflatex --shell-escape \%O \%S\";' > /tmp/viminstall
-      tabe ~/.latexmkrc
-      pedit /tmp/viminstall
-   endif
-endfunction
-map <SPACE> <leader>
-
 "syntastic
 let g:syntastic_quiet_messages = {
    \ "regex": "\\max"}
 let g:syntastic_fortran_compiler = "ifort"
 
-""vim-latex
-"" " IMPORTANT: grep will sometimes skip displaying the file name if you
-"" " search in a singe file. This will confuse Latex-Suite. Set your grep
-"" " program to always generate a file-name.
-"set grepprg=grep\ -nH\ $*
-"let g:Tex_DefaultTargetFormat = 'pdf'
-"let g:Tex_CompileRule_pdf = 'latexmk -pdf $*'
-"let g:Tex_ViewRule_pdf = 'latexmk -quiet -pv $* &> /dev/null '
-au BufEnter,BufNew *.dtx map <F9> :w<enter>:!pdflatex % <enter>
-"au BufEnter,BufNew *.tex map <F8> <leader>lv
-""working only in terminal ... therefore disabling menus
-"let g:Tex_Menus = 0
-"let g:Tex_PackagesMenu = 0
-"let g:Tex_GotoError=0
 "tex
 let g:tex_flavor='latex'
 let g:tex_comment_nospell= 1
@@ -77,11 +47,7 @@ let g:tex_nine_config ={
    \}
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
-" 
 "bash-support
-" " OPTIONAL: This enables automatic indentation as you type.
-" " filetype indent on
-" 
 autocmd Filetype sh map <F9> :w<enter>:!./% <enter>
 let g:BASH_Executable			= '/bin/bash'
 let g:BASH_OutputGvim                   = "buffer"
@@ -92,6 +58,7 @@ let g:Awk_OutputGvim                   = "buffer"
 
 command! Nline :normal i<enter><Esc>
 
+"functions to automatically change date in bash/awk files
 function! Datef()
    Nline
    normal k
@@ -109,7 +76,9 @@ function! Adaptrevdate()
       ''
    endif
 endfunction
+
 autocmd Filetype sh autocmd BufWritePre,FileWritePre *.sh :call Adaptrevdate()
+autocmd Filetype awk autocmd BufWritePre,FileWritePre *.awk :call Adaptrevdate()
 
 function! Adaptcreatedate()
    if getline(16) =~#"^#       CREATED: .*"
@@ -134,7 +103,6 @@ endfunction
 command! Date :call Datef()
 
 "fortran.vim
-au BufEnter,BufNew *.F90 map <F9> :w<enter>:!make molsim_ser<enter>
 let fortran_free_source=1
 let fortran_do_enddo=1
 let fortran_have_tabs=1
@@ -189,30 +157,13 @@ endif
 set t_Co=256
 colorscheme solarized
 
-"------------------------------------------------------------
-" Features
-"
-" These options and commands enable some very useful features in Vim, that
-" no user should have to live without.
-
-" Set 'nocompatible' to ward off unexpected things that your distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
-set nocompatible
-
-" Attempt to determine the type of a file based on its name and possibly its
-" contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
-" filetype indent plugin on
-"
 " save and restore folds when a file is closed and re-opened
 autocmd BufWinLeave ?* mkview
 autocmd BufWinEnter ?* silent loadview 
+"save view in tmp folder to delete then regulary
 set viewdir=/tmp/$USER/vimviews
 
 
-"------------------------------------------------------------
-" Must have options {{{1
-"
 " These are highly recommended options.
 
 " One such option is the 'hidden' option, which allows you to re-use the same
@@ -233,14 +184,6 @@ set showcmd
 
 " Highlight searches 
 set hlsearch
-
-"------------------------------------------------------------
-" Usability options
-"
-" These are options that users frequently set in their .vimrc. Some of them
-" change Vim's behaviour in ways which deviate from the true Vi way, but
-" which are considered to add usability. Which, if any, of these options to
-" use is very much a personal preference, but they are harmless.
 
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -287,7 +230,7 @@ set number
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
 
-" Use <F11> to toggle between 'paste' and 'nopaste'
+" Use <F4> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F4>
 
 
@@ -295,11 +238,9 @@ set pastetoggle=<F4>
 " Indentation options
 
 " Indentation settings for using 3 spaces instead of tabs.
-" Do not change 'tabstop' from its default value of 8 with this setup.
 set shiftwidth=3
 set softtabstop=3
 set expandtab
-"set list
 
 "------------------------------------------------------------
 " Mappings
@@ -310,7 +251,7 @@ set expandtab
 " which is the default
 map Y y$
 
-" Map <C-r> turn off search highlighting until the
+" Map <leadr>nn turn off search highlighting until the
 " next search
 nmap <leader>nn :nohl<enter>
 
@@ -319,23 +260,18 @@ nmap <S-Enter> O<Esc>j
 nmap <CR> o<Esc>k
 
 "------------------------------------------------------------
-" if &diff
-"     colorscheme evening
-" endif
 
+"spelling
 hi clear SpellBad
 hi SpellBad cterm=underline
 
+"set clipboard to system cliboard
 set clipboard=unnamed
 
 "gnuplot
 au BufRead,BufNewFile *.gpl,*.gpi set filetype=gnuplot
-au FileType gnuplot map <F9> :w<enter>:!pregnu % <enter>
-au FileType gnuplot map <F5> :w<enter>:!gnuplot % <enter>
-au FileType gnuplot map <F8> :w<enter>:!/cygdrive/c/Pascal_Programme/Sumatra/SumatraPDF.exe %<.pdf & <enter>
 
-nmap <F12> :normal A   !Pascal Hebbeker <ESC>
-
+"syntax
 filetype indent off
 syntax on
 
@@ -360,6 +296,7 @@ autocmd BufNewFile,BufRead * setlocal formatoptions-=tc
 set splitbelow
 set splitright
 
+" do not use arrow keys!
 noremap <Up>    :echo "Stop using arrow keys, stupid" <enter>
 noremap <Down>  :echo "Stop using arrow keys, stupid" <enter>
 noremap <Left>  :echo "Stop using arrow keys, stupid" <enter>
@@ -369,43 +306,47 @@ inoremap <Down>  <Esc>:echo "Stop using arrow keys, stupid" <enter> i
 inoremap <Left>  <Esc>:echo "Stop using arrow keys, stupid" <enter> i
 inoremap <Right> <Esc>:echo "Stop using arrow keys, stupid" <enter> i
 
-function! SetupSrc()
-  echo "setupsrc"
-  let fname = expand("%:p")
-  checktime
-  execute "au FileChangedShell " . fname . " :echo"
-  !chmod a+x %
-  execute('! cd ~/bin ; ln -s src/' . expand('%') . ' ' . expand('%:r') . ' ; cd - ')
-  checktime
-  execute "au! FileChangedShell " . fname
-endfunction
+"function! SetupSrc()
+  "echo "setupsrc"
+  "let fname = expand("%:p")
+  "checktime
+  "execute "au FileChangedShell " . fname . " :echo"
+  "!chmod a+x %
+  "execute('! cd ~/bin ; ln -s src/' . expand('%') . ' ' . expand('%:r') . ' ; cd - ')
+  "checktime
+  "execute "au! FileChangedShell " . fname
+"endfunction
 
+" Switch between block and vertical cursor
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-map <f10> :w<enter>:make<enter>
+map <F10> :w<enter>:make<enter>
 map <F11> :w<enter>:make<enter>:call VimuxRunCommand('make run')<enter>
 
-nnoremap <c-H> gt
-nnoremap <c-L> gT
+"navigate tabs
+nnoremap <C-Left> gt
+nnoremap <C-Right> gT
 
+"Vimux
 " Prompt for a command to run
-map rp :VimuxPromptCommand
+map <C-rp> :VimuxPromptCommand
 
 " Run last command executed by VimuxRunCommand
-map rl :w<enter>:VimuxRunLastCommand<enter>
+map <C-rl> :w<enter>:VimuxRunLastCommand<enter>
 
 " Inspect runner pane
-map ri :VimuxInspectRunner<enter>
+map <C-ri> :VimuxInspectRunner<enter>
 
 " Close all other tmux panes in current window
-map rx :VimuxClosePanes<enter>
+map <C-rx> :VimuxClosePanes<enter>
 
 " Interrupt any command running in the runner pane
-map rs :VimuxInterruptRunner<enter>
+map <C-rs> :VimuxInterruptRunner<enter>
 
+" Initialize Directories
 function! InitializeDirectories()
    let separator = "."
    let parent = "/tmp/".$USER.""
