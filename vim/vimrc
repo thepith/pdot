@@ -332,19 +332,16 @@ nnoremap <C-Right> gT
 
 "Vimux
 " Prompt for a command to run
-map <C-rp> :VimuxPromptCommand
+map <F5> :VimuxPromptCommand
 
 " Run last command executed by VimuxRunCommand
-map <C-rl> :w<enter>:VimuxRunLastCommand<enter>
+map <F6> :w<enter>:VimuxRunLastCommand<enter>
 
 " Inspect runner pane
-map <C-ri> :VimuxInspectRunner<enter>
-
-" Close all other tmux panes in current window
-map <C-rx> :VimuxClosePanes<enter>
+map <F7> :VimuxInspectRunner<enter>
 
 " Interrupt any command running in the runner pane
-map <C-rs> :VimuxInterruptRunner<enter>
+map <F8> :VimuxInterruptRunner<enter>
 
 " Initialize Directories
 function! InitializeDirectories()
