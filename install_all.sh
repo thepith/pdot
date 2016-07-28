@@ -21,12 +21,10 @@ set -e                                      # Abort on error
 echo "making and installing all Programs (configurations)"
 
 progs=(vim)
-
-mkdir -p bin
-
+echo ${progs[@]}
 for i in "${progs[@]}"; do
-   echo "installing ${!i}"
-   cd ${!i}
+   echo "installing $i"
+   cd $i
    ./install.sh
    cd ../
 done

@@ -155,11 +155,11 @@ if solenv == "dark"
 set background=dark
 endif
 set t_Co=256
-colorscheme solarized
+silent! colorscheme solarized
 
 " save and restore folds when a file is closed and re-opened
-autocmd BufWinLeave ?* mkview
-autocmd BufWinEnter ?* silent loadview 
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* loadview 
 "save view in tmp folder to delete then regulary
 set viewdir=/tmp/$USER/vimviews
 

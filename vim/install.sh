@@ -26,9 +26,23 @@ if [[ -e ~/.vimrc ]]; then
       echo ".vimrc exists already. Please remove before installing new vimrc"
       exit 1
    fi
+else
+   ln -s $PWD/vimrc ~/.vimrc
 fi
 
-ln -s ~/.vimrc vimrc
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
+#get vundle
+REPOSRC=https://github.com/VundleVim/Vundle.vim.git 
+LOCALREPO=~/.vim/bundle/Vundle.vim
+# We do it this way so that we can abstract if from just git later on
+LOCALREPO_VC_DIR=$LOCALREPO/.git
 
+if [ ! -d $LOCALREPO_VC_DIR ]
+then
+git clone $REPOSRC $LOCALREPO
+else
+cd $LOCALREPO
+git pull $REPOSRC
+fi
+
+#install plugins
+vim +"set viewoptions=" +PluginInstall +qall
