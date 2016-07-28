@@ -46,3 +46,15 @@ fi
 
 #install plugins
 vim +"set viewoptions=" +PluginInstall +qall
+
+#it is required to edit the template files of bash-supprot and awk-support
+read -e -p "Modify the vim template files of bash-support and awk-support? (y/n)" -i "n" dotemp
+case ${answer:0:1} in
+    y|Y )
+      vim -p ~/.vim/bundle/bash-support.vim/bash-support/templates/Templates ~/.vim/bundle/awk-support.vim/awk-support/templates/Templates
+    ;;
+    * )
+        echo "keeping template files as they are"
+    ;;
+esac
+
