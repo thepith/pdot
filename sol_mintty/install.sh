@@ -21,9 +21,9 @@ set -e                                      # Abort on error
 #configure setup of vimrc
 confile=solrc
 rc=${SHELL#/bin/}rc
-src="source .$confile"
+src="source ~/.$confile"
 
-if grep -xq "source .solrc" ~/.$rc
+if grep -xq "source ~/.solrc" ~/.$rc
 then
    echo "$confile is already sourced in $rc. Adding nothing to $rc"
 else
