@@ -1,0 +1,7 @@
+#SOL.mintty
+defcolor="tsolarizecolor"
+alias soldark='source ~/.sol/colors/sol.dark ; export SOLVAR="dark"'
+alias sollight='source ~/.sol/colors/sol.light ; export SOLVAR="light"'
+eval `dircolors ~/.sol/dircolors/dircolors.ansi-$defcolor`
+source ~/.sol/colors/sol.$defcolor
+export SOLVAR="$defcolor"

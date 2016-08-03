@@ -14,7 +14,7 @@
 #        AUTHOR: YOUR NAME (), 
 #  ORGANIZATION: 
 #       CREATED: 28/07/2016 09:09
-#      REVISION: 2016-07-28 11:20
+#      REVISION: 2016-08-03 10:46
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
@@ -38,8 +38,8 @@ fi
 
 case ${doconf:0:1} in
     y|Y )
-   confvar=( tauthor tauthorref tcompany tcopyright temail tlicense torganization tdate ttime tyear )
-   confdef=( 'YOUR NAME' 'YN' '' '' 'YOUR.NAME@DOMAIN' '' '' '%F' '%H:%M' '')
+   confvar=( tauthor tauthorref tcompany tcopyright temail tlicense torganization tdate ttime tyear tsolarizecolor)
+   confdef=( 'YOUR NAME' 'YN' '' '' 'YOUR.NAME@DOMAIN' '' '' '%F' '%H:%M' '' 'dark')
    for (( i=0; i<${#confvar[@]}; i++ )) ; do
       read -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
       confdef[$i]=$ans
