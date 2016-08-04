@@ -20,7 +20,7 @@ set -e                                      # Abort on error
 
 #configure setup of vimrc
 confile=solrc
-rc=${SHELL#/bin/}rc
+rc=${SHELL#*/bin/}rc
 src="source ~/.$confile"
 
 if grep -xq "source ~/.solrc" ~/.$rc
