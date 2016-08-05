@@ -64,51 +64,53 @@ let g:BASH_OutputGvim                   = "buffer"
 let g:Awk_OutputGvim                   = "buffer"
 
 
-command! Nline :normal i<enter><Esc>
+if !has("compatible")
+   command! Nline :normal i<enter><Esc>
 
-"functions to automatically change date in bash/awk files
-function! Datef()
-   Nline
-   normal k
-   r !date +"\%F \%R"
-   normal k
-   normal 3J
-endfunction
+   "functions to automatically change date in bash/awk files
+   function! Datef()
+      Nline
+      normal k
+      r !date +"\%F \%R"
+      normal k
+      normal 3J
+   endfunction
 
-function! Adaptrevdate()
-   if getline(17) =~#"^#      REVISION: .*"
-      let b:newdate = substitute(system('date +"%F %R"'), "^", "#      REVISION: ", "")
-      17s/^.*$/\=b:newdate/"
-      ''
-      18d
-      ''
-   endif
-endfunction
+   function! Adaptrevdate()
+      if getline(17) =~#"^#      REVISION: .*"
+         let b:newdate = substitute(system('date +"%F %R"'), "^", "#      REVISION: ", "")
+         17s/^.*$/\=b:newdate/"
+         ''
+         18d
+         ''
+      endif
+   endfunction
 
-autocmd Filetype sh autocmd BufWritePre,FileWritePre *.sh :call Adaptrevdate()
-autocmd Filetype awk autocmd BufWritePre,FileWritePre *.awk :call Adaptrevdate()
+   autocmd Filetype sh autocmd BufWritePre,FileWritePre *.sh :call Adaptrevdate()
+   autocmd Filetype awk autocmd BufWritePre,FileWritePre *.awk :call Adaptrevdate()
 
-function! Adaptcreatedate()
-   if getline(16) =~#"^#       CREATED: .*"
-      let b:newdate = substitute(system('date +"%F %R"'), "^", "#       CREATED: ", "")
-      16s/.*/\=b:newdate/
-      ''
-      17d
-      ''
-   endif
-   if getline(4) =~#"^#          FILE: .*"
-      let b:file = substitute(expand("%:t"), "^", "#          FILE: ", "")
-      4s/^.*$/\=b:file/"
-      ''
-   endif
-   if getline(6) =~#"^#         USAGE: \./[a-zA-Z0-9_]*\.sh.*"
-      let b:file = expand("%:t")
-      6s/[a-zA-Z0-9_]*\.sh/\=b:file/"
-      ''
-   endif
-endfunction
+   function! Adaptcreatedate()
+      if getline(16) =~#"^#       CREATED: .*"
+         let b:newdate = substitute(system('date +"%F %R"'), "^", "#       CREATED: ", "")
+         16s/.*/\=b:newdate/
+         ''
+         17d
+         ''
+      endif
+      if getline(4) =~#"^#          FILE: .*"
+         let b:file = substitute(expand("%:t"), "^", "#          FILE: ", "")
+         4s/^.*$/\=b:file/"
+         ''
+      endif
+      if getline(6) =~#"^#         USAGE: \./[a-zA-Z0-9_]*\.sh.*"
+         let b:file = expand("%:t")
+         6s/[a-zA-Z0-9_]*\.sh/\=b:file/"
+         ''
+      endif
+   endfunction
 
-command! Date :call Datef()
+   command! Date :call Datef()
+end if
 
 "fortran.vim
 let fortran_free_source=1
