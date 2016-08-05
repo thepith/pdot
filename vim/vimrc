@@ -110,7 +110,7 @@ if !has("compatible")
    endfunction
 
    command! Date :call Datef()
-end if
+endif
 
 "fortran.vim
 let fortran_free_source=1
