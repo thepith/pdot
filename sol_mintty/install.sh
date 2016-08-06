@@ -44,7 +44,7 @@ else
 fi
 
 curdir=$PWD
-#get vundle
+#get mintty colors
 REPOSRC=https://github.com/mavnn/mintty-colors-solarized
 LOCALREPO=~/.sol/colors
 # We do it this way so that we can abstract if from just git later on
@@ -60,7 +60,7 @@ fi
 cd $curdir
 
 curdir=$PWD
-#get vundle
+#get dircolors
 REPOSRC=https://github.com/seebi/dircolors-solarized
 LOCALREPO=~/.sol/dircolors
 # We do it this way so that we can abstract if from just git later on
