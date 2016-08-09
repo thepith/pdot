@@ -1,6 +1,8 @@
 pre=""
 post=""
-if [ ! "$TMUX" = "" ]; then
+if [ -z ${SOLVAR+x} ]; then echo "SOLVAR is not set. Changing to dark."; export SOLVAR="dark"; fi
+
+if [ -z ${TMUX+x} ]; then
    pre='\ePtmux;\e'
    post='\'
 fi
