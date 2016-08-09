@@ -43,24 +43,11 @@ else
    echo "copying $confile"
 fi
 
-curdir=$PWD
-#get vundle
-REPOSRC=https://github.com/mavnn/mintty-colors-solarized
-LOCALREPO=~/.sol/colors
-# We do it this way so that we can abstract if from just git later on
-LOCALREPO_VC_DIR=$LOCALREPO/.git
-
-if [ ! -d $LOCALREPO_VC_DIR ]
-then
-git clone $REPOSRC $LOCALREPO
-else
-cd $LOCALREPO
-git pull $REPOSRC
-fi
-cd $curdir
+mkdir -p ~/.sol
+cp -r colors ~/.sol/
 
 curdir=$PWD
-#get vundle
+#get dircolors
 REPOSRC=https://github.com/seebi/dircolors-solarized
 LOCALREPO=~/.sol/dircolors
 # We do it this way so that we can abstract if from just git later on

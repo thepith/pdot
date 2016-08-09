@@ -345,7 +345,7 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-map <F10> :w<enter>:make<enter><enter>
+map <F10> :w<enter>:make<enter>
 map <F11> :w<enter>:make<enter>:call VimuxRunCommand('make run')<enter>
 
 "navigate tabs
