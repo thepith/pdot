@@ -18,13 +18,22 @@
 set -o nounset                              # Treat unset variables as an error
 set -e                                      # Abort on error
 
-echo "making and installing all Programs (configurations)"
-
 progs=(vim tmux sol)
-for i in "${progs[@]}"; do
-   echo "installing $i"
-   cd $i
-   ./install.sh
-   cd ../
-done
+echo "This will delete all configuration files for the following programs:"
+echo ${progs[@]}
+
+read -e -p "Continure?" -i "" do
+
+case ${do:0:1} in
+    y|Y )
+      for i in "${progs[@]}"; do
+         echo "uninstalling $i"
+         rm -rf ~/.$i*
+      done
+    ;;
+    * )
+        echo "not uninstalling"
+    ;;
+esac
+
 

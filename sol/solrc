@@ -1,7 +1,8 @@
-#SOL.mintty
+#solrc
 defcolor="tsolarizecolor" #defaultcolor
 if [ -z ${SOLVAR+x} ]; then export SOLVAR="$defcolor" ;  fi
-alias soldark='export SOLVAR="dark"; source ~/.sol/colors/sol.sh'
-alias sollight='export SOLVAR="light"; source ~/.sol/colors/sol.sh'
 eval `dircolors ~/.sol/dircolors/dircolors.ansi-$defcolor`
 source ~/.sol/colors/sol.sh
+
+alias soldark='export SOLVAR="dark"; source ~/.sol/colors/sol.sh'
+alias sollight='export SOLVAR="light"; source ~/.sol/colors/sol.sh'
