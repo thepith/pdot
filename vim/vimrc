@@ -26,6 +26,7 @@ if !has("compatible")
    Plugin 'tmhedberg/SimpylFold'
    Plugin 'vim-scripts/indentpython.vim'
    Plugin 'nvie/vim-flake8'
+   Plugin 'tpope/vim-fugitive'
 
    "
    call vundle#end()            " required
@@ -59,6 +60,7 @@ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 autocmd Filetype sh map <F9> :w<enter>:!./% <enter>
 let g:BASH_Executable			= '/bin/bash'
 let g:BASH_OutputGvim                   = "buffer"
+
 
 "awk-support
 let g:Awk_OutputGvim                   = "buffer"
