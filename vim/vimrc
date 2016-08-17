@@ -351,8 +351,8 @@ map <F10> :w<enter>:make<enter>
 map <F11> :w<enter>:make<enter>:call VimuxRunCommand('make run')<enter>
 
 "navigate tabs
-nnoremap <C-Left> :tabprevious<enter>
-nnoremap <C-Right> :tabnext<enter>
+nnoremap <C-h> :tabprevious<enter>
+nnoremap <C-l> :tabnext<enter>
 
 "Vimux
 " Inspect runner pane

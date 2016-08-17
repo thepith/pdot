@@ -1,11 +1,20 @@
-pre=""
-post='\e\'
+pre=''
+post=''
 
 if [ -z ${SOLVAR+x} ]; then echo "SOLVAR is not set. Changing to dark."; export SOLVAR="dark"; fi
 
-if [ "$VTE_VERSION" = "4003" ]; then
-   pre=''
-   post=''
+if [ ! -z ${TERM+x} ]; then
+   if [ "$TERM" = "xterm-256color" ]; then
+      pre=''
+      post=''
+   fi
+fi
+
+if [ ! -z ${VTE_VERSION+x} ]; then
+   if [ "$VTE_VERSION" = "4003" ]; then
+      pre=''
+      post=''
+   fi
 fi
 
 if [ ! -z ${TMUX+x} ]; then
