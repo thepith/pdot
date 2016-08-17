@@ -350,9 +350,9 @@ let &t_te.="\e[0 q"
 map <F10> :w<enter>:make<enter>
 map <F11> :w<enter>:make<enter>:call VimuxRunCommand('make run')<enter>
 
-"navigate tabs
-nnoremap <C-h> :tabprevious<enter>
-nnoremap <C-l> :tabnext<enter>
+""navigate tabs
+"nnoremap <C-H> :tabprevious<enter>
+"nnoremap <C-L> :tabnext<enter>
 
 "Vimux
 " Inspect runner pane
@@ -383,7 +383,8 @@ function! InitializeDirectories()
            echo "Warning: Unable to create backup directory: " .
 directory
            echo "Try: mkdir -p " . directory
-       else  
+       else 
+
            let directory = substitute(directory, " ", "\\\\\\\\ ", "")
            exec "set " . settingname . "=" . directory
        endif
