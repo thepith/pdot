@@ -347,8 +347,14 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-map <F10> :w<enter>:make<enter>
-map <F11> :w<enter>:make<enter>:call VimuxRunCommand('make run')<enter>
+map <F10> :w<enter>:make!<enter>
+map <F11> :w<enter>:make!<enter>:call VimuxRunCommand('make run')<enter>
+
+"custom copy'n'paste
+
+vmap <leader>y :w! /tmp/$USER/.vim/vbuf<CR>
+nmap <leader>y :.w! /tmp/$USER/.vim/vbuf<CR>
+nmap <leader>p :r /tmp/$USER/.vim/vbuf<CR>
 
 ""navigate tabs
 "nnoremap <C-H> :tabprevious<enter>
