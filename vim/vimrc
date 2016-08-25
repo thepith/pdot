@@ -12,7 +12,8 @@ if !has("compatible")
    Plugin 'VundleVim/Vundle.vim'
 
    Plugin 'scrooloose/syntastic'
-   Bundle 'Tex-9'
+   "Bundle 'Tex-9'
+   Plugin 'LaTeX-Box-Team/LaTeX-Box'
    Bundle 'bash-support.vim'
    Bundle 'awk-support.vim'
    Bundle 'surround.vim'
@@ -49,13 +50,12 @@ let g:syntastic_fortran_compiler = "ifort"
 "tex
 let g:tex_flavor='latex'
 let g:tex_comment_nospell= 1
-let g:tex_fold_enabled = 1
+let g:LatexBox_Folding = 1
+let g:LatexBox_fold_envs = 0
+let g:LatexBox_fold_preamble = 1
+let g:LatexBox_fold_automatic = 0
 au BufEnter,BufNew *.tex set spell
 set spelllang=en_us
-let g:tex_nine_config ={
-   \'compiler':   'latexmk -pdf $*',
-   \'viewer':     {'app': 'latexmk -quiet -pv $* &> /dev/null', 'target':'tex'},
-   \}
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 "bash-support
