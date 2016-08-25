@@ -36,6 +36,8 @@ filetype plugin indent on    " required
 filetype plugin on
 set encoding=utf-8
 
+let mapleader = "\<Space>"
+
 "simply Fold
 let g:SimpylFold_docstring_preview=1
 
@@ -357,8 +359,8 @@ nmap <leader>y :.w! /tmp/$USER/.vim/vbuf<CR>
 nmap <leader>p :r /tmp/$USER/.vim/vbuf<CR>
 
 ""navigate tabs
-"nnoremap <C-H> :tabprevious<enter>
-"nnoremap <C-L> :tabnext<enter>
+nmap <leader>h :tabprevious<CR>
+nmap <leader>l :tabnext<CR>
 
 "Vimux
 " Inspect runner pane
