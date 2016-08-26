@@ -18,7 +18,7 @@
 set -o nounset                              # Treat unset variables as an error
 set -e                                      # Abort on error
 
-#configure setup of vimrc
+#configure setup of solrc
 confile=solrc
 rc=${SHELL#*/bin/}rc
 src="source ~/.$confile"
