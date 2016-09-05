@@ -14,14 +14,14 @@
 #        AUTHOR: YOUR NAME (), 
 #  ORGANIZATION: 
 #       CREATED: 28/07/2016 09:09
-#      REVISION: 2016-08-03 10:46
+#      REVISION: 2016-09-05 17:48
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
 
 echo "checking dependencies"
 
-progs=(vim tmux)
+progs=(vim tmux pip)
 for i in "${progs[@]}"; do
    echo -n "Checking $i ..."
    command -v $i >/dev/null 2>&1 || { echo >&2 "I require $i but it's not installed.  Aborting."; exit 1; }
@@ -38,8 +38,17 @@ fi
 
 case ${doconf:0:1} in
     y|Y )
-   confvar=( tauthor tauthorref tcompany tcopyright temail tlicense torganization tdate ttime tyear tsolarizecolor)
-   confdef=( 'YOUR NAME' 'YN' '' '' 'YOUR.NAME@DOMAIN' '' '' '%F' '%H:%M' '' 'dark')
+   confvar=( tauthor tauthorref tcompany tcopyright temail tlicense torganization tdate ttime tyear tsolarizecolor tgitlabname tgitlaburl tgitlabtoken)
+   confdef=( 'YOUR NAME' 'YN' '' '' 'YOUR.NAME@DOMAIN' '' '' '%F' '%H:%M' '' 'dark' 'gitlab-name' 'https://some.whe.re' 'asdf1234')
+   if [[ -e pdot.conf ]]; then
+      source pdot.conf
+      for (( i=0; i<${#confvar[@]}; i++ )) ; do
+         if [ ! -z ${!confvar[$i]+x} ] ; then
+            confdef[$i]=${!confvar[$i]}
+         fi
+      done
+   fi
+
    for (( i=0; i<${#confvar[@]}; i++ )) ; do
       read -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
       confdef[$i]=$ans

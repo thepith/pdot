@@ -28,6 +28,9 @@ if !has("compatible")
    Plugin 'vim-scripts/indentpython.vim'
    Plugin 'nvie/vim-flake8'
    Plugin 'tpope/vim-fugitive'
+   Plugin 'shumphrey/fugitive-gitlab.vim'
+   Plugin 'jaxbot/github-issues.vim'
+   Plugin 'git@git.rwth-aachen.de:pascal.hebbeker/gitlab-issues.git'
 
    "
    call vundle#end()            " required
@@ -41,6 +44,8 @@ let mapleader = "\<Space>"
 
 "simply Fold
 let g:SimpylFold_docstring_preview=1
+
+let g:github_issues_no_omni=1
 
 "syntastic
 let g:syntastic_quiet_messages = {
