@@ -30,7 +30,7 @@ else
 fi
 
 curdir=$PWD
-pip install --upgrade python-gitlab
+pip install --user --upgrade python-gitlab
 
 source ../pdot.conf
 
