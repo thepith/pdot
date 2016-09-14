@@ -18,7 +18,7 @@
 set -o nounset                              # Treat unset variables as an error
 set -e                                      # Abort on error
 
-progs=(vim tmux sol)
+progs=(vim tmux shell sol gitlab)
 echo "This will delete all configuration files for the following programs:"
 echo ${progs[@]}
 

@@ -1,0 +1,53 @@
+#by bash/zsh configuration file. can be found at https://github.com/thepith/pdot
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  SESSION_TYPE=remote/ssh
+# many other tests omitted
+else
+  case $(ps -p $PPID o comm= ) in
+    sshd|*/sshd) SESSION_TYPE=remote/ssh;;
+  esac
+fi
+
+#setup folder where binaries are located
+PATH=".:$HOME/bin:$PATH"
+export PATH
+
+#set up UTF-8 in english
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
+#source solarized colors
+source ~/.solrc
+
+#some aliases
+alias ls="ls --color"
+alias ll="ls -alt"
+#alias less="less -R"
+alias du1="du -h --max-depth=1"
+
+source ~/.shell/git-prompt.sh
+export GIT_PS1_SHOWDIRTYSTATE=1
+
+shell=${SHELL#*/bin/}
+if [ "$shell" = "bash" ] ; then
+#set up bash prompt
+   if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
+      PS1='\[\e]0;\w\a\]\n\[\e[34m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]$(__git_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+   else
+      PS1='\[\e]0;\w\a\]\n\[\e[32m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]$(__git_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+   fi
+   source ~/.shell/git-completion.bash
+fi
+
+if [ "$shell" = "zsh" ] ; then
+   setopt PROMPT_SUBST
+#set up zsh prompt
+   if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
+   PROMPT=$'\n'$'\e[0;34m@%m (%D{%T}) \e[0;33m%~ \e[0;35m\e[0m $(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+   else
+   PROMPT=$'\n'$'\e[0;32m@%m (%D{%T}) \e[0;33m%~ \e[0;35m\e[0m $(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+   fi
+   source ~/.shell/git-completion.zsh
+fi

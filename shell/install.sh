@@ -19,8 +19,17 @@ set -o nounset                              # Treat unset variables as an error
 set -e                                      # Abort on error
 
 #configure setup of solrc
-confile=solrc
+confile=shellrc
 rc=${SHELL#*/bin/}rc
+src="source ~/.$confile"
+
+if grep -xq "source ~/.shellrc" ~/.$rc
+then
+   echo "$confile is already sourced in $rc. Adding nothing to $rc"
+else
+   echo "adding to $rc"
+   echo $src >> ~/.$rc
+fi
 
 if [[ -e ~/.$confile ]]; then
 
@@ -34,26 +43,7 @@ else
    echo "copying $confile"
 fi
 
-mkdir -p ~/.sol
-cp -r colors ~/.sol/
-
-curdir=$PWD
-#get dircolors
-REPOSRC=https://github.com/seebi/dircolors-solarized
-LOCALREPO=~/.sol/dircolors
-# We do it this way so that we can abstract if from just git later on
-LOCALREPO_VC_DIR=$LOCALREPO/.git
-
-if [ ! -d $LOCALREPO_VC_DIR ]
-then
-git clone $REPOSRC $LOCALREPO
-else
-cd $LOCALREPO
-git pull $REPOSRC
-fi
-cd $curdir
-
-source ../pdot.conf
-sed -i "s/tsolarizecolor/$tsolarizecolor/g" ~/.$confile
-
-source ~/.solrc
+mkdir -p ~/.shell
+wget -P ~/.shell/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+wget -P ~/.shell/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+wget -P ~/.shell/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
