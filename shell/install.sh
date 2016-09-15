@@ -44,6 +44,6 @@ else
 fi
 
 mkdir -p ~/.shell
-wget -P ~/.shell/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-wget -P ~/.shell/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-wget -P ~/.shell/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
+wget -nc -P ~/.shell/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+wget -nc -P ~/.shell/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
+wget -O ~/.shell/_git -nc https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh

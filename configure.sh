@@ -14,14 +14,14 @@
 #        AUTHOR: YOUR NAME (), 
 #  ORGANIZATION: 
 #       CREATED: 28/07/2016 09:09
-#      REVISION: 2016-09-05 17:48
+#      REVISION: 2016-09-15 08:42
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
 
 echo "checking dependencies"
 
-progs=(vim tmux pip)
+progs=(vim tmux pip git wget)
 for i in "${progs[@]}"; do
    echo -n "Checking $i ..."
    command -v $i >/dev/null 2>&1 || { echo >&2 "I require $i but it's not installed.  Aborting."; exit 1; }

@@ -40,11 +40,12 @@ if [ "$shell" = "bash" ] ; then
    else
       PS1='\[\e]0;\w\a\]\n\[\e[32m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]$(__git_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
    fi
+   source ~/.shell/git-completion.bash
 fi
 
 if [ "$shell" = "zsh" ] ; then
    setopt PROMPT_SUBST
-   source ~/.shell/git-prompt.sh
+   . ~/.shell/git-prompt.sh
    export GIT_PS1_SHOWDIRTYSTATE=1
 #set up zsh prompt
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
@@ -52,4 +53,8 @@ if [ "$shell" = "zsh" ] ; then
    else
    PROMPT=$'\n'$'\e[0;32m@%m (%D{%T}) \e[0;33m%~ \e[0;35m\e[0m $(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    fi
+   zstyle ':completion:*:*:git:*' script ~/.shell/git-completion.bash
+# `compinit` scans $fpath, so do this before calling it.
+   fpath=(~/.shell $fpath)
+   autoload -Uz compinit && compinit
 fi
