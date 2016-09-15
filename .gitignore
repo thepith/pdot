@@ -1,1 +1,4 @@
 pdot.conf
+*.swp
+backup_old/
+backup_org/
