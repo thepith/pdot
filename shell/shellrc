@@ -38,7 +38,7 @@ if [ "$shell" = "bash" ] ; then
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
       PS1='\[\e]0;\w\a\]\n\[\e[34m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]$(__git_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
    else
-      PS1='\[\e]0;\w\a\]\n\[\e[32m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]$(__git_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+      PS1='\[\e]0;\w\a\]\n\[\e[32m\](\D{%T}) \[\e[33m\]\w\[\e[0m\]$(__git_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
    fi
    source ~/.shell/git-completion.bash
 fi
@@ -51,7 +51,7 @@ if [ "$shell" = "zsh" ] ; then
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
    PROMPT=$'\n'$'\e[0;34m@%m (%D{%T}) \e[0;33m%~ \e[0;35m\e[0m $(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    else
-   PROMPT=$'\n'$'\e[0;32m@%m (%D{%T}) \e[0;33m%~ \e[0;35m\e[0m $(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+   PROMPT=$'\n'$'\e[0;32m(%D{%T}) \e[0;33m%~ \e[0;35m\e[0m $(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    fi
    zstyle ':completion:*:*:git:*' script ~/.shell/git-completion.bash
 # `compinit` scans $fpath, so do this before calling it.
