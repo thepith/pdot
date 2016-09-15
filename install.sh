@@ -14,7 +14,7 @@
 #        AUTHOR: Pascal Hebbeker (PH), pascal.hebbeker@gmail.com
 #  ORGANIZATION: 
 #       CREATED: 2016-09-15 09:39
-#      REVISION: 2016-09-15 14:57
+#      REVISION: 2016-09-15 15:01
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
@@ -259,7 +259,7 @@ check_config() {
       e_error "$CONFFILE does not exist. Please run configure script ($CONFSCRIPT)"
    fi
    if [ "$CONFSCRIPT" -nt "$CONFFILE" ]; then
-      e_error "$CONFFILE is older than configure script ($CONFSCRIPT). Please rerun configure script."
+      e_error "$CONFFILE is older than configure script ($CONFSCRIPT). Please run configure script again."
    fi
    source pdot.conf
    e_success "Configuration stored in $CONFFILE was loaded"
