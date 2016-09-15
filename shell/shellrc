@@ -24,7 +24,7 @@ source ~/.solrc
 #some aliases
 alias ls="ls --color"
 alias ll="ls -alt"
-#alias less="less -R"
+alias less="less -R"
 alias du1="du -h --max-depth=1"
 
 source ~/.shell/git-prompt.sh
