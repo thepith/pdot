@@ -14,7 +14,7 @@
 #        AUTHOR: Pascal Hebbeker (PH), pascal.hebbeker@gmail.com
 #  ORGANIZATION: 
 #       CREATED: 2016-09-15 09:39
-#      REVISION: 2016-09-15 15:01
+#      REVISION: 2016-09-15 16:42
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
@@ -321,7 +321,7 @@ do_dotfiles() {
 
 helpmessage() {
    e_header "Usage"
-   echo "dotfiles [install|update|uninstall]"
+   echo "install.sh [install|update|uninstall]"
    exit 1
 }
 if [ $# -eq 0 ]; then
