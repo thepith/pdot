@@ -28,18 +28,15 @@ alias ll="ls -alt"
 alias less="less -R"
 alias du1="du -h --max-depth=1"
 
-source ~/.shell/git-prompt.sh
-export GIT_PS1_SHOWDIRTYSTATE=1
 
 shell=${SHELL#*/bin/}
 if [ "$shell" = "bash" ] ; then
 #set up bash prompt
    source ~/.shell/git-prompt.sh
-   export GIT_PS1_SHOWDIRTYSTATE=1
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
-      PS1='\[\e]0;\w\a\]\n\[\e[34m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]$(__git_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+      PROMPT_COMMAND='__git_ps1 "\[\e]0;\w\a\]\n\[\e[34m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]" "\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]"'
    else
-      PS1='\[\e]0;\w\a\]\n\[\e[32m\](\D{%T}) \[\e[33m\]\w\[\e[0m\]$(__git_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+      PROMPT_COMMAND='__git_ps1 "\[\e]0;\w\a\]\n\[\e[32m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]" "\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]"'
    fi
    source ~/.shell/git-completion.bash
 fi
@@ -47,7 +44,6 @@ fi
 if [ "$shell" = "zsh" ] ; then
    setopt PROMPT_SUBST
    . ~/.shell/git-prompt.sh
-   export GIT_PS1_SHOWDIRTYSTATE=1
 #set up zsh prompt
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
    PROMPT=$'\n'$'\e[0;34m@%m (%D{%T}) \e[0;33m%~ \e[0;35m\e[0m $(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
