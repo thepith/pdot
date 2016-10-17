@@ -26,11 +26,10 @@ if !has("compatible")
    Plugin 'benmills/vimux'
    Plugin 'tmhedberg/SimpylFold'
    Plugin 'vim-scripts/indentpython.vim'
-   Plugin 'nvie/vim-flake8'
    Plugin 'tpope/vim-fugitive'
    Plugin 'shumphrey/fugitive-gitlab.vim'
    Plugin 'jaxbot/github-issues.vim'
-   Plugin 'git@git.rwth-aachen.de:pascal.hebbeker/gitlab-issues.git'
+   Plugin 'https://git.rwth-aachen.de/pascal.hebbeker/gitlab-issues.git'
 
    "
    call vundle#end()            " required
