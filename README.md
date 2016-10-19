@@ -23,3 +23,8 @@ Install Needed programs with cygwin using apt-cyg
 apt-cyg install vim git wget tmux python-setuptools
 easy_install-2.7 pip
 ```
+
+Link to mintty-terminal:
+```
+C:\cygwin\bin\mintty.exe -e /bin/bash --login
+```
