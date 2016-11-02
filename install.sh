@@ -259,10 +259,10 @@ update_git() {
           echo "Up-to-date"
    elif [ $LOCAL = $BASE ]; then
        echo "Need to pull"
+       ScriptLoc=$(readlink -f "$0")
        git pull
-       ScriptLoc=$(readlink -f "$0 $1")
-       echo $ScriptLoc $mode
-       exit 0
+       exec $ScriptLoc $mode
+       exit 1
    fi
 }
 check_config() {
