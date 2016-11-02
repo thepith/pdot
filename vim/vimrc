@@ -5,14 +5,11 @@ filetype off                  " required
 if !has("compatible")
    set rtp+=~/.vim/bundle/Vundle.vim
    call vundle#begin()
-   " alternatively, pass a path where Vundle should install plugins
-   "call vundle#begin('~/some/path/here')
 
    " let Vundle manage Vundle, required
    Plugin 'VundleVim/Vundle.vim'
 
    Plugin 'scrooloose/syntastic'
-   "Bundle 'Tex-9'
    Plugin 'LaTeX-Box-Team/LaTeX-Box'
    Plugin 'WolfgangMehner/bash-support'
    Plugin 'WolfgangMehner/awk-support'
