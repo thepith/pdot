@@ -14,8 +14,8 @@ if !has("compatible")
    Plugin 'scrooloose/syntastic'
    "Bundle 'Tex-9'
    Plugin 'LaTeX-Box-Team/LaTeX-Box'
-   Bundle 'bash-support.vim'
-   Bundle 'awk-support.vim'
+   Plugin 'WolfgangMehner/bash-support'
+   Plugin 'WolfgangMehner/awk-support'
    Bundle 'surround.vim'
    Bundle 'repeat.vim'
    Bundle 'fortran.vim'
@@ -73,6 +73,11 @@ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 autocmd Filetype sh map <F9> :w<enter>:!./% <enter>
 let g:BASH_Executable			= '/bin/bash'
 let g:BASH_OutputGvim                   = "buffer"
+source $VIMRUNTIME/menu.vim
+set wildmenu
+set cpo-=<
+set wcm=<C-Z>
+map <F4> :emenu <C-Z>
 
 
 "awk-support
@@ -101,8 +106,8 @@ if !has("compatible")
       endif
    endfunction
 
-   autocmd Filetype sh autocmd BufWritePre,FileWritePre *.sh :call Adaptrevdate()
-   autocmd Filetype awk autocmd BufWritePre,FileWritePre *.awk :call Adaptrevdate()
+   "autocmd Filetype sh autocmd BufWritePre,FileWritePre *.sh :call Adaptrevdate()
+   "autocmd Filetype awk autocmd BufWritePre,FileWritePre *.awk :call Adaptrevdate()
 
    function! Adaptcreatedate()
       if getline(16) =~#"^#       CREATED: .*"
