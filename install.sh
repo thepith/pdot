@@ -251,7 +251,19 @@ uninstall() {
 
 update_git() {
    e_header "Updating pdot repository"
-   git pull
+   UPSTREAM=${1:-'@{u}'}
+   LOCAL=$(git rev-parse @{0})
+   REMOTE=$(git rev-parse "$UPSTREAM")
+   BASE=$(git merge-base @{0} "$UPSTREAM")
+   if [ $LOCAL = $REMOTE ]; then
+          echo "Up-to-date"
+   elif [ $LOCAL = $BASE ]; then
+       echo "Need to pull"
+       git pull
+       ScriptLoc=$(readlink -f "$0 $1")
+       echo $ScriptLoc $mode
+       exit 0
+   fi
 }
 check_config() {
    e_header "Checking if configure script was run..."
