@@ -35,6 +35,7 @@ filetype plugin indent on    " required
 
 filetype plugin on
 set encoding=utf-8
+set spelllang=en_us
 
 let mapleader = "\<Space>"
 
@@ -63,7 +64,6 @@ let g:LatexBox_fold_envs = 0
 let g:LatexBox_fold_preamble = 1
 let g:LatexBox_fold_automatic = 0
 au BufEnter,BufNew *.tex set spell
-set spelllang=en_us
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 "bash-support
@@ -80,6 +80,8 @@ map <F4> :emenu <C-Z>
 "awk-support
 let g:Awk_OutputGvim                   = "buffer"
 
+"Markdown
+au FileType markdown set spell
 
 if !has("compatible")
    command! Nline :normal i<enter><Esc>
