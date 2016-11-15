@@ -80,6 +80,9 @@ map <F4> :emenu <C-Z>
 "awk-support
 let g:Awk_OutputGvim                   = "buffer"
 
+"Markdown
+autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
+
 
 if !has("compatible")
    command! Nline :normal i<enter><Esc>
