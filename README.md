@@ -20,7 +20,7 @@ install apt-cyg /bin
 ```
 Install Needed programs with cygwin using apt-cyg
 ```bash
-apt-cyg install vim git wget tmux python-setuptools
+apt-cyg install vim git wget tmux python-setuptools curl make
 easy_install-2.7 pip
 ```
 
