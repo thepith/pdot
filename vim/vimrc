@@ -191,7 +191,6 @@ silent! colorscheme solarized
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* loadview 
 "save view in tmp folder to delete then regulary
-set viewdir=/tmp/$USER/vimviews
 
 
 " These are highly recommended options.
@@ -395,6 +394,7 @@ function! InitializeDirectories()
    let parent = "/tmp/".$USER.""
    let prefix = '.vim/'
    let dir_list = { 'views/': 'viewdir'}
+   let dir_list = { 'undo/': 'undodir'}
 
    for [dirname, settingname] in items(dir_list)
        let directory = parent . '/' . prefix . dirname . "/"
@@ -415,3 +415,7 @@ directory
    endfor
  endfunction
  call InitializeDirectories() 
+
+if has('persistent_undo')      "check if your vim version supports it
+  set undofile
+endif    
