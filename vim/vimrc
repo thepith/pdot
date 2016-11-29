@@ -363,8 +363,8 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-map <F9> :w<enter>:make!<enter>:call VimuxRunCommand('make ')<enter>
-map <F10> :w<enter>:make!<enter>:call VimuxRunCommand('make run')<enter>
+map <F9> :w<enter>:call VimuxRunCommand('make ')<enter>
+map <F10> :w<enter>:call VimuxRunCommand('make run')<enter>
 
 "custom copy'n'paste
 
