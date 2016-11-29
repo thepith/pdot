@@ -67,7 +67,6 @@ au BufEnter,BufNew *.tex set spell
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 "bash-support
-autocmd Filetype sh map <F9> :w<enter>:!./% <enter>
 let g:BASH_Executable			= '/bin/bash'
 let g:BASH_OutputGvim                   = "buffer"
 source $VIMRUNTIME/menu.vim
@@ -364,8 +363,8 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-map <F10> :w<enter>:make!<enter>
-map <F11> :w<enter>:make!<enter>:call VimuxRunCommand('make run')<enter>
+map <F9> :w<enter>:make!<enter>:call VimuxRunCommand('make ')<enter>
+map <F10> :w<enter>:make!<enter>:call VimuxRunCommand('make run')<enter>
 
 "custom copy'n'paste
 
