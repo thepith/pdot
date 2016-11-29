@@ -65,6 +65,8 @@ let g:LatexBox_fold_preamble = 1
 let g:LatexBox_fold_automatic = 0
 au BufEnter,BufNew *.tex set spell
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+au FileType tex map <leader>mm :w<enter>:call VimuxRunCommand('make ')<enter> 
+au FileType tex map <leader>me :LatexErrors<enter>
 
 "bash-support
 let g:BASH_Executable			= '/bin/bash'
