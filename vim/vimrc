@@ -263,6 +263,10 @@ set notimeout ttimeout ttimeoutlen=200
 " Use <F4> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F4>
 
+" wrap lines at breakat
+set wrap
+set linebreak
+
 
 "------------------------------------------------------------
 " Indentation options
