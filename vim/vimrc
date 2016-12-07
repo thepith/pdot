@@ -10,6 +10,7 @@ if !has("compatible")
    Plugin 'VundleVim/Vundle.vim'
 
    Plugin 'scrooloose/syntastic'
+   Plugin 'vim-scripts/LanguageTool'
    Plugin 'LaTeX-Box-Team/LaTeX-Box'
    Plugin 'WolfgangMehner/bash-support'
    Plugin 'WolfgangMehner/awk-support'
@@ -36,6 +37,8 @@ filetype plugin indent on    " required
 filetype plugin on
 set encoding=utf-8
 set spelllang=en_us
+
+let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
 
 let mapleader = "\<Space>"
 
@@ -266,6 +269,8 @@ set pastetoggle=<F4>
 " wrap lines at breakat
 set wrap
 set linebreak
+set list listchars=trail:·,eol:¶,tab:>·,precedes:<,extends:>
+set showbreak=··\ 
 
 
 "------------------------------------------------------------
