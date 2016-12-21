@@ -386,6 +386,8 @@ nmap <leader>p :r /tmp/$USER/.vim/vbuf<CR>
 ""navigate tabs
 nmap <leader>h :tabprevious<CR>
 nmap <leader>l :tabnext<CR>
+nmap <leader>H :tabm -1<CR>
+nmap <leader>L :tabm +1<CR>
 
 "Vimux
 " Inspect runner pane
