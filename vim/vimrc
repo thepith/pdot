@@ -57,7 +57,7 @@ let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = {
    \ "regex": "\\max"}
 let g:syntastic_fortran_compiler = "ifort"
-nnoremap <leader>sc :SyntasticCheck<CR>
+nnoremap <leader>sc :w<enter>:SyntasticCheck<CR>
 
 "tex
 let g:tex_flavor='latex'
