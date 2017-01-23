@@ -50,14 +50,14 @@ fi
 cd $curdir
 }
 cpfile () {
-   cp $name/$dotfile ~/.$dotfile
+   cp $name/${dotfile#.} ~/$dotfile
 }
 
-progs=(pvim ptmux pshell psol pgitlab)
+progs=(pvim ptmux pshell psol pgitlab pvmd)
 
 pvim() {
 name="vim"
-dotfile="vimrc"
+dotfile=".vimrc"
 dotdir="vim"
 
 if [ "$@" = "install" ] ; then
@@ -109,7 +109,7 @@ fi
 
 ptmux() {
 name="tmux"
-dotfile="tmux.conf"
+dotfile=".tmux.conf"
 dotdir="tmux"
 if [ "$@" = "install" ] ; then
    cpfile
@@ -137,11 +137,11 @@ fi
 
 pshell() {
 name="shell"
-dotfile="shellrc"
+dotfile=".shellrc"
 dotdir="shell"
 if [ "$@" = "install" ] ; then
    rc=${SHELL#*/bin/}rc
-   src="source ~/.$dotfile"
+   src="source ~/$dotfile"
    cpfile
    if grep -xq "^source ~/.shellrc" ~/.$rc
    then
@@ -159,7 +159,7 @@ fi
 
 if [ "$@" = "update" ] ; then
    rc=${SHELL#*/bin/}rc
-   src="source ~/.$dotfile"
+   src="source ~/$dotfile"
    cpfile
    if grep -xq "^source ~/.shellrc" ~/.$rc
    then
@@ -178,7 +178,7 @@ fi
 
 psol() {
 name="sol"
-dotfile="solrc"
+dotfile=".solrc"
 dotdir="sol"
 if [ "$@" = "install" ] ; then
    cpfile
@@ -187,7 +187,7 @@ if [ "$@" = "install" ] ; then
    e_arrow2 "clone dircolors"
    gitclone https://github.com/seebi/dircolors-solarized ~/.sol/dircolors
    e_arrow2 "Updating Template Files according to $CONFFILE"
-   sed -i "s/tsolarizecolor/$tsolarizecolor/g" ~/.$dotfile
+   sed -i "s/tsolarizecolor/$tsolarizecolor/g" ~/$dotfile
 fi
 
 if [ "$@" = "update" ] ; then
@@ -197,13 +197,13 @@ if [ "$@" = "update" ] ; then
    e_arrow2 "update dircolors"
    gitclone https://github.com/seebi/dircolors-solarized ~/.sol/dircolors
    e_arrow2 "Updating Template Files according to $CONFFILE"
-   sed -i "s/tsolarizecolor/$tsolarizecolor/g" ~/.$dotfile
+   sed -i "s/tsolarizecolor/$tsolarizecolor/g" ~/$dotfile
 fi
 }
 
 pgitlab() {
 name="gitlab"
-dotfile="python-gitlab.cfg"
+dotfile=".python-gitlab.cfg"
 dotdir=""
 
 if [ "$@" = "install" ] ; then
@@ -211,9 +211,9 @@ if [ "$@" = "install" ] ; then
    e_arrow2 "install python-gitlab"
    pip install --user --upgrade python-gitlab
    e_arrow2 "Updating Template Files according to $CONFFILE"
-   sed -i "s/skelplace/$tgitlabname/g" ~/.$dotfile
-   sed -i "s|skelurl|$tgitlaburl|g" ~/.$dotfile
-   sed -i "s/skeltoken/$tgitlabtoken/g" ~/.$dotfile
+   sed -i "s/skelplace/$tgitlabname/g" ~/$dotfile
+   sed -i "s|skelurl|$tgitlaburl|g" ~/$dotfile
+   sed -i "s/skeltoken/$tgitlabtoken/g" ~/$dotfile
 fi
 
 if [ "$@" = "update" ] ; then
@@ -221,10 +221,35 @@ if [ "$@" = "update" ] ; then
    e_arrow2 "install python-gitlab"
    pip install --user --upgrade python-gitlab
    e_arrow2 "Updating Template Files according to $CONFFILE"
-   sed -i "s/skelplace/$tgitlabname/g" ~/.$dotfile
-   sed -i "s|skelurl|$tgitlaburl|g" ~/.$dotfile
-   sed -i "s/skeltoken/$tgitlabtoken/g" ~/.$dotfile
+   sed -i "s/skelplace/$tgitlabname/g" ~/$dotfile
+   sed -i "s|skelurl|$tgitlaburl|g" ~/$dotfile
+   sed -i "s/skeltoken/$tgitlabtoken/g" ~/$dotfile
 fi
+}
+
+pvmd() {
+name="vmd"
+dotfile=".vmdrc"
+if [[ "$OSTYPE" == "cygwin" ]]; then
+   dotfile="vmd.rc"
+fi
+dotdir="vmd"
+if [ "$@" = "install" ] ; then
+   if [[ "$OSTYPE" == "cygwin" ]]; then
+      cp $dotdir/vmdrc ~/$dotfile
+   else
+      cpfile
+   fi
+fi
+
+if [ "$@" = "update" ] ; then
+   if [[ "$OSTYPE" == "cygwin" ]]; then
+      cp $dotdir/vmdrc ~/$dotfile
+   else
+      cpfile
+   fi
+fi
+
 }
 
 install() {
@@ -284,9 +309,9 @@ backup_dotfiles() {
    e_arrow "Backing up to $BACKUP"
    for i in "${!progs[@]}"; do
       ${progs[$i]} dotfile
-      if [ -e "$HOME/.$dotfile" ] ; then
-         cp $HOME/.$dotfile $BACKUP/
-         e_success "Backed up .$dotfile"
+      if [ -e "$HOME/$dotfile" ] ; then
+         cp $HOME/$dotfile $BACKUP/
+         e_success "Backed up $dotfile"
       fi
    done
    e_success "Backed up everything"
@@ -298,9 +323,9 @@ unbackup_dotfiles() {
    e_arrow "Restoring from $BACKUP"
    for i in "${!progs[@]}"; do
       ${progs[$i]} dotfile
-      if [ -e "$BACKUP/.$dotfile" ] ; then
-         cp $BACKUP/.$dotfile $HOME/
-         e_success "restored original .$dotfile"
+      if [ -e "$BACKUP/$dotfile" ] ; then
+         cp $BACKUP/$dotfile $HOME/
+         e_success "restored original $dotfile"
       fi
    done
    e_success "Restored everything"
@@ -310,8 +335,8 @@ remove_dotfiles() {
    e_header "Removing old dotfiles"
    for i in "${!progs[@]}"; do
       ${progs[$i]} dotfile
-      rm -f ~/.$dotfile
-      e_success "removed ~/.$dotfile"
+      rm -f ~/$dotfile
+      e_success "removed ~/$dotfile"
       if [ ! "$dotdir" = "" ] ; then
 	 rm -rf ~/.$dotdir
          e_success "removed ~/.$dotdir"
