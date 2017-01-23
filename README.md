@@ -10,6 +10,14 @@ Install with
 ```bash
 ./install.sh install
 ```
+update a current version of pdot with
+```bash
+./install.sh update
+```
+To completly uninstall pdot and restore any previous files (no guarantee):
+```bash
+./install.sh uninstall
+```
 
 ## Usefull commands
 ### Cygwin
