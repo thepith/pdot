@@ -137,8 +137,9 @@ proc prepare_render { {size "small"} {xin 10} {yin 14} } {
 
   save_state $rendername.render
   set file [open $rendername.render a]
-  set tachname [glob -directory $env(VMDDIR) -tails *tachyon*]
-  set tach "$env(VMDDIR)$tachname"
+  upvar env(VMDDIR) vmddir
+  set tachname [glob -directory $vmddir -tails *tachyon*]
+  set tach "$vmddir/$tachname"
   puts "creating .render file"
   puts $file "display shadows on"
   puts $file "display ambientocclusion on"
