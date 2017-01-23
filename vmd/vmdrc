@@ -123,7 +123,7 @@ proc prepare_render { {size "small"} {xin 10} {yin 14} } {
   if { $do eq "n" } {
 	puts "x-Size in px?"
 	set xpx [gets stdin]
-	puts "x-Size in px?"
+	puts "y-Size in px?"
 	set ypx [gets stdin]
 	puts "Name (without $simname- and .render)"
 	set name [gets stdin]
@@ -144,13 +144,13 @@ proc prepare_render { {size "small"} {xin 10} {yin 14} } {
   puts $file "display shadows on"
   puts $file "display ambientocclusion on"
   puts $file "display rendermode GLSL"
-  //puts $file "light 2 on"
-  //puts $file "light 3 on"
+  #puts $file "light 2 on"
+  #puts $file "light 3 on"
   puts $file "axes location [axes location]"
   puts $file "display projection [display get projection]"
 
   puts $file "render Tachyon $rendername.dat"
-  puts $file "exec \$tach 48 $rendername.dat -res $xpx $ypx -format BMP -o $rendername.bmp"
+  puts $file "exec \"$tach\" 48 $rendername.dat -res $xpx $ypx -format BMP -o $rendername.bmp"
   puts $file "exit"
   close $file
 }
