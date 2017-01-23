@@ -276,6 +276,7 @@ uninstall() {
 
 update_git() {
    e_header "Updating pdot repository"
+   git fetch
    UPSTREAM=${1:-'@{u}'}
    LOCAL=$(git rev-parse @{0})
    REMOTE=$(git rev-parse "$UPSTREAM")
