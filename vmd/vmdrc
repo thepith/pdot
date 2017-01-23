@@ -1,0 +1,166 @@
+############################################################################
+#cr                                                                       
+#cr            (C) Copyright 1995-2007 The Board of Trustees of the            
+#cr                        University of Illinois                         
+#cr                         All Rights Reserved                           
+#cr                                                                       
+############################################################################
+
+############################################################################
+# RCS INFORMATION:
+#
+#       $RCSfile: .vmdrc,v $
+#       $Author: johns $        $Locker:  $                $State: Exp $
+#       $Revision: 1.9 $      $Date: 2007/01/12 20:12:44 $
+#
+############################################################################
+# DESCRIPTION:
+#
+# VMD startup script.  The commands here are executed as soon as VMD starts up
+############################################################################
+
+# turn on lights 0 and 1
+light 0 on
+light 1 on
+light 2 off
+light 3 off
+
+# position the stage and axes
+axes location lowerleft
+stage location off
+
+# position and turn on menus
+
+menu main      on
+#menu display  on
+#menu graphics on
+#menu color    on
+#menu labels   on
+#menu render   on
+#menu files    on
+
+# start the scene a-rockin'
+# rock y by 1
+
+# User's default values for newly loaded molecules/reps, etc
+#  mol default color {colorID 5}
+#  mol default style {NewCartoon 0.300000 6.000000 4.100000 0}
+#  mol default selection {name CA}
+#  mol default material {Transparent}
+
+display resize 1414 1000
+
+proc rm_reps { { id } } {
+   set index [mol list $id]
+   set max [lindex $index {12}]
+   puts $max
+   for {set i 0} {$i < $max} {incr i} {
+	mol delrep 0 $id
+   }
+}
+
+proc highlight_complex { {cut 6.25} } {
+   rm_reps [molinfo top]
+   mol selection all
+   mol representation VDW 0.5   12.0
+   mol addrep top          
+   mol representation Bonds  0.30  12.0
+   mol addrep top          
+   mol representation VDW 1.0   12.0
+   set seltext "none"
+   foreach i [lsort -unique [[atomselect top all] get name]] { append seltext " or ((not (name $i)) and (within $cut of name $i))"}
+   mol selection $seltext 
+   mol addrep top
+   mol selection all
+}
+
+proc highlight_aggregate { {cut 6.25} } {
+   rm_reps [molinfo top]
+   mol selection all
+   mol representation VDW 0.5   12.0
+   mol addrep top          
+   mol representation Bonds  0.30  12.0
+   mol addrep top          
+   mol representation VDW 1.0   12.0
+   set seltext "none"
+   foreach i [[atomselect top all] list] { append seltext " or ((not ((index [expr "1+$i"] or index [expr "max($i-1,0)"] ) or index $i)) and (within $cut of index $i))"}
+   mol selection $seltext 
+   mol addrep top
+   mol selection all
+}
+
+global xsize
+global ysize
+array set xsize [list small 2.82 medium 7.07 large 14.14]
+array set ysize [list small 2 medium 5 large 10]
+global xpx
+global ypx
+proc prepare_render { {size "small"} {xin 10} {yin 14} } {
+  global xsize
+  global ysize
+  if { $size eq "user" } {
+	set xcm $xin
+	set ycm $yin
+  } else {
+       set xcm $xsize($size)
+       set ycm $ysize($size)
+  }
+  global xpx
+  global ypx
+  set xpx [expr "int(0.5+$xcm * 236)"]
+  set ypx [expr "int(0.5+$ycm * 236)"]
+  set simname [file rootname [molinfo top get name]]
+  set rendername "$simname-$size"
+  set do "n"
+  while {$do ne "y"} {	
+  puts "Using size: $xcm cm x $ycm cm  ($xpx x $ypx @ 600 DPI)"
+  puts "Using name: $rendername.render"
+  puts "Ok? (y/n/c)"
+  set do [gets stdin]
+  if { $do eq "c" } {
+  return
+   }
+  if { $do eq "n" } {
+	puts "x-Size in px?"
+	set xpx [gets stdin]
+	puts "x-Size in px?"
+	set ypx [gets stdin]
+	puts "Name (without $simname- and .render)"
+	set name [gets stdin]
+	set rendername "$simname-$name"
+	set xcm [expr "($xpx/236.0)"]
+	set ycm [expr "($ypx/236.0)"]
+     }
+  }
+  puts "Using size: $xcm cm x $ycm cm  ($xpx x $ypx @ 600 DPI)"
+  puts "Using name: $rendername.render"
+
+  save_state $rendername.render
+  set file [open $rendername.render a]
+  set tachname [glob -directory $env(VMDDIR) -tails *tachyon*]
+  set tach "$env(VMDDIR)$tachname"
+  puts "creating .render file"
+  puts $file "display shadows on"
+  puts $file "display ambientocclusion on"
+  puts $file "display rendermode GLSL"
+  //puts $file "light 2 on"
+  //puts $file "light 3 on"
+  puts $file "axes location [axes location]"
+  puts $file "display projection [display get projection]"
+
+  puts $file "render Tachyon $rendername.dat"
+  puts $file "exec \$tach 48 $rendername.dat -res $xpx $ypx -format BMP -o $rendername.bmp"
+  puts $file "exit"
+  close $file
+}
+
+mol default material AOShiny
+axes location off
+display projection Orthographic
+
+
+
+after idle {
+   menu tkcon on
+   menu tkcon move 0 22
+} 
