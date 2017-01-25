@@ -278,7 +278,7 @@ set nolist  " list disables linebreak
 hi NonText ctermbg=7
 
 "show trailing whitespace
-highlight ExtraWhitespace ctermbg=223 guibg=223
+highlight ExtraWhitespace ctermbg=223 guibg=9
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
