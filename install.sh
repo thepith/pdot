@@ -80,7 +80,7 @@ if [ "$@" = "install" ] ; then
    sed -i "s/^\(SetFormat( 'DATE', *'\).*\('\)/\1$tdate\2/" $tfile
    sed -i "s/^\(SetFormat( 'TIME', *'\).*\('\)/\1$ttime\2/" $tfile
    sed -i "s/^\(SetFormat( 'YEAR', *'\).*\('\)/\1$tyear\2/" $tfile
-   rm /tmp/$USER/.vim/views/*
+   rm -f /tmp/$USER/.vim/views/*
 fi
 
 if [ "$@" = "update" ] ; then
@@ -105,7 +105,7 @@ if [ "$@" = "update" ] ; then
    sed -i "s/^\(SetFormat( 'DATE', *'\).*\('\)/\1$tdate\2/" $tfile
    sed -i "s/^\(SetFormat( 'TIME', *'\).*\('\)/\1$ttime\2/" $tfile
    sed -i "s/^\(SetFormat( 'YEAR', *'\).*\('\)/\1$tyear\2/" $tfile
-   rm /tmp/$USER/.vim/views/*
+   rm -f /tmp/$USER/.vim/views/*
 fi
 }
 
