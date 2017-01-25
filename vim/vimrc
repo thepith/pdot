@@ -273,7 +273,7 @@ syntax on
 " wrap lines at breakat
 set wrap
 set linebreak
-set showbreak=···\ 
+set showbreak=··\ 
 set nolist  " list disables linebreak
 hi NonText ctermbg=7
 
@@ -427,15 +427,15 @@ function! InitializeDirectories()
            echo "Warning: Unable to create backup directory: " .
 directory
            echo "Try: mkdir -p " . directory
-       else 
+       else
 
            let directory = substitute(directory, " ", "\\\\\\\\ ", "")
            exec "set " . settingname . "=" . directory
        endif
    endfor
  endfunction
- call InitializeDirectories() 
+ call InitializeDirectories()
 
 if has('persistent_undo')      "check if your vim version supports it
   set undofile
-endif    
+endif
