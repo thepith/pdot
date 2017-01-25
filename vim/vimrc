@@ -252,9 +252,9 @@ set visualbell
 " this line is also included, vim will neither flash nor beep. If visualbell
 " is unset, this does nothing.
 set t_vb=
-" 
+"
 " Set the command window height to 2 lines, to avoid many cases of having to
-" "press <Enter> to continue"
+" press <Enter> to continue"
 set cmdheight=2
 
 " Display line numbers on the left
@@ -266,12 +266,24 @@ set notimeout ttimeout ttimeoutlen=200
 " Use <F4> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F4>
 
+"syntax
+filetype indent off
+syntax on
+
 " wrap lines at breakat
 set wrap
 set linebreak
-set list listchars=trail:·,eol:¶,tab:>·,precedes:<,extends:>
-set showbreak=··\ 
+set showbreak=···\ 
+set nolist  " list disables linebreak
+hi NonText ctermbg=7
 
+"show trailing whitespace
+highlight ExtraWhitespace ctermbg=223 guibg=223
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
 
 "------------------------------------------------------------
 " Indentation options
@@ -321,10 +333,6 @@ set clipboard=unnamed
 
 "gnuplot
 au BufRead,BufNewFile *.gpl,*.gpi set filetype=gnuplot
-
-"syntax
-filetype indent off
-syntax on
 
 " increment selected numbers
 set nf=octal,hex,alpha
