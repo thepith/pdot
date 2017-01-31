@@ -68,7 +68,7 @@ let g:LatexBox_fold_preamble = 1
 let g:LatexBox_fold_automatic = 0
 au BufEnter,BufNew *.tex set spell
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
-au FileType tex map <leader>mm :w<enter>:call VimuxRunCommand('make ')<enter> 
+au FileType tex map <leader>mm :w<enter>:call VimuxRunCommand('make ')<enter>
 au FileType tex map <leader>me :LatexErrors<enter>
 
 "bash-support
@@ -162,7 +162,7 @@ function! Gotofprocedure()
    let proc=system('grep -l "^ *' . prestring . ' *' . procname . '[ (]" ' . dir . '/*.F90')
    let nproc=system('echo "' . proc . '" | wc -w ')
    "echo nproc
-   
+
    if nproc == 1
       "only one: open in preview
       let file=proc
@@ -193,7 +193,7 @@ silent! colorscheme solarized
 
 " save and restore folds when a file is closed and re-opened
 autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* loadview 
+autocmd BufWinEnter *.* loadview
 "save view in tmp folder to delete then regulary
 
 
@@ -215,7 +215,7 @@ set wildmenu
 " Show partial commands in the last line of the screen
 set showcmd
 
-" Highlight searches 
+" Highlight searches
 set hlsearch
 
 " Use case insensitive search, except when using capital letters
@@ -273,7 +273,7 @@ syntax on
 " wrap lines at breakat
 set wrap
 set linebreak
-set showbreak=··\ 
+set showbreak=··\
 set nolist  " list disables linebreak
 hi NonText ctermbg=7
 

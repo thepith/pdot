@@ -1,18 +1,18 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: configure.sh
-# 
-#         USAGE: ./configure.sh 
-# 
-#   DESCRIPTION: 
-# 
+#
+#         USAGE: ./configure.sh
+#
+#   DESCRIPTION:
+#
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
-#        AUTHOR: YOUR NAME (), 
-#  ORGANIZATION: 
+#        AUTHOR: YOUR NAME (),
+#  ORGANIZATION:
 #       CREATED: 28/07/2016 09:09
 #      REVISION: 2016-09-15 08:42
 #===============================================================================
@@ -54,7 +54,7 @@ case ${doconf:0:1} in
       confdef[$i]=$ans
    done
    for (( i=0; i<${#confvar[@]}; i++ )) ; do
-      echo "${confvar[$i]}=\"${confdef[$i]}\"" 
+      echo "${confvar[$i]}=\"${confdef[$i]}\""
 
    done > pdot.conf
     ;;

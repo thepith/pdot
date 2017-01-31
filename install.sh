@@ -1,18 +1,18 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: install.sh
-# 
-#         USAGE: ./install.sh 
-# 
-#   DESCRIPTION: 
-# 
+#
+#         USAGE: ./install.sh
+#
+#   DESCRIPTION:
+#
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
 #        AUTHOR: Pascal Hebbeker (PH), pascal.hebbeker@gmail.com
-#  ORGANIZATION: 
+#  ORGANIZATION:
 #       CREATED: 2016-09-15 09:39
 #      REVISION: 2016-11-02 13:55
 #===============================================================================
@@ -26,7 +26,7 @@ e_error()    { echo -e " \e[31mx\e[0m $@"; exit 1 ; }
 e_warn()    { echo -e " \e[31m!\e[0m $@"; }
 e_arrow()    { echo -e " \e[33m>\e[0m $@"; }
 e_arrow2()    { echo -e " \e[33m->\e[0m $@"; }
-                                          
+
 DOTHOME="$(dirname "$(cd "$(dirname "$0")" && pwd -P)")"
 BACKDIR="$PWD/backup"
 CONFFILE="pdot.conf"
