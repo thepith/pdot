@@ -13,6 +13,9 @@ fi
 PATH=".:$HOME/bin:$PATH"
 export PATH
 
+#disable CTRL-S
+stty -ixon
+
 #set up UTF-8 in english
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
