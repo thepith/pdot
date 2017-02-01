@@ -273,7 +273,7 @@ syntax on
 " wrap lines at breakat
 set wrap
 set linebreak
-set showbreak=··\
+set showbreak=··\ 
 set nolist  " list disables linebreak
 hi NonText ctermbg=7
 
