@@ -4,7 +4,7 @@ Download and configure with
 ```bash
 git clone https://github.com/thepith/pdot.git
 cd pdot
-./configure
+./configure.sh
 ```
 Install with
 ```bash
