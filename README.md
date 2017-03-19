@@ -36,4 +36,4 @@ Link to mintty-terminal:
 ```
 C:\cygwin\bin\mintty.exe -e /bin/bash --login
 ```
-Set the termin type to `xterm-256color` (right click on the terminal > Options... > Terminal > Type)
+Set the terminal type to `xterm-256color` (right click on the terminal > Options... > Terminal > Type)
