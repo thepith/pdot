@@ -2,7 +2,7 @@
 
 Download and configure with
 ```bash
-git clone https://github.com/thepith/pdot.git
+git clone git@github.com:thepith/pdot.git
 cd pdot
 ./configure.sh
 ```
