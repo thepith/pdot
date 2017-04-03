@@ -16,7 +16,6 @@ if !has("compatible")
    Plugin 'WolfgangMehner/awk-support'
    Bundle 'surround.vim'
    Bundle 'repeat.vim'
-   Bundle 'fortran.vim'
    Plugin 'altercation/vim-colors-solarized'
    Plugin 'scrooloose/nerdcommenter'
    Bundle 'gnuplot.vim'
