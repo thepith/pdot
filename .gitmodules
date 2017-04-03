@@ -1,0 +1,3 @@
+[submodule "VimPascalHelp"]
+	path = VimPascalHelp
+	url = git@github.com:thepith/VimPascalHelp.git
