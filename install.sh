@@ -91,6 +91,8 @@ if [ "$@" = "update" ] ; then
    vim +"set viewoptions=" +PluginClean! +qall
    e_arrow2 "Installing new Plugins"
    vim +"set viewoptions=" +PluginInstall +qall
+   e_arrow2 "Updating Plugins"
+   vim +"set viewoptions=" +PluginUpdate +qall
    e_arrow2 "Updating Template Files according to $CONFFILE"
    tfile="$HOME/.vim/templates/personal.template"
    mkdir -p ~/.vim/templates
