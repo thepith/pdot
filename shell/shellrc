@@ -41,7 +41,6 @@ if [ "$shell" = "bash" ] ; then
    else
       PROMPT_COMMAND='__git_ps1 "\[\e]0;\w\a\]\n\[\e[32m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]" "\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]"'
    fi
-   source ~/.shell/git-completion.bash
 fi
 
 if [ "$shell" = "zsh" ] ; then
@@ -55,6 +54,5 @@ if [ "$shell" = "zsh" ] ; then
    fi
    zstyle ':completion:*:*:git:*' script ~/.shell/git-completion.bash
 # `compinit` scans $fpath, so do this before calling it.
-   fpath=(~/.shell $fpath)
    autoload -Uz compinit && compinit
 fi

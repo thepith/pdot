@@ -157,8 +157,6 @@ if [ "$@" = "install" ] ; then
    mkdir -p ~/.$dotdir
    e_arrow2 "downloading git-prompt/completion"
    wget  -N -P ~/.$name/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-   wget  -N -P ~/.$name/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-   wget  -N -O ~/.$name/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 fi
 
 if [ "$@" = "update" ] ; then
@@ -174,9 +172,8 @@ if [ "$@" = "update" ] ; then
    fi
    mkdir -p ~/.$dotdir
    e_arrow2 "downloading git-prompt/completion"
+   rm -f ~/.$name/*
    wget -N -P ~/.$name/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
-   wget -N -P ~/.$name/ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
-   wget -N -O ~/.$name/_git https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 fi
 }
 
