@@ -21,7 +21,7 @@ if !has("compatible")
    Bundle 'gnuplot.vim'
    Bundle 'christoomey/vim-tmux-navigator'
    Plugin 'benmills/vimux'
-   Plugin 'tmhedberg/SimpylFold'
+   Plugin 'Konfekt/FastFold'
    Plugin 'vim-scripts/indentpython.vim'
    Plugin 'tpope/vim-fugitive'
    Plugin 'tpope/vim-unimpaired'
@@ -92,6 +92,14 @@ let mapleader="\<Space>"
    silent! colorscheme solarized
 "gnuplot
    au BufRead,BufNewFile *.gpl,*.gpi set filetype=gnuplot
+"fast fold
+   set nofoldenable
+   let fortran_fold=1
+   let g:cpp_fold_enabled=1
+   let g:fortran_fold_enabled=1
+   let g:fastfold_fold_command_suffixes = []
+   let g:fastfold_fold_movement_commands = []
+   let g:fastfold_savehook = 0
 "Vimux
    " Inspect runner pane
    map <F5> :w<enter>:VimuxRunCommand "./".expand('%') <enter>
@@ -104,8 +112,6 @@ let mapleader="\<Space>"
    " run make
    map <F9> :w<enter>:call VimuxRunCommand('make ')<enter>
    let g:VimuxOrientation = "h"
-"simply Fold
-   let g:SimpylFold_docstring_preview=1
 "python
    au BufNewFile,BufRead *.py
        \ set tabstop=4 |
@@ -170,6 +176,18 @@ let mapleader="\<Space>"
           execute 'normal! '.c.'|'.a."\<C-a>"
         endif
         normal `<
+      endfunction
+      function DoFold()
+         echom "fold"
+         if &foldenable
+            set nofoldenable
+	 else
+	    set foldenable
+            let &foldmethod=g:wantedfoldmethod
+            echo g:wantedfoldmethod
+            set foldlevel=0
+            set foldnestmax=2
+         endif
       endfunction
    endif
 
@@ -268,6 +286,8 @@ let mapleader="\<Space>"
    nmap <leader>l :tabnext<CR>
    nmap <leader>H :tabm -1<CR>
    nmap <leader>L :tabm +1<CR>
+   command! Fold :call DoFold()
+   noremap <leader>ff :Fold<CR>
 
 
 "File type specific settings
@@ -280,6 +300,12 @@ let mapleader="\<Space>"
    if !has("compatible")
       au FileType fortran map <leader>fs :call Gotofprocedure() <CR>
    endif
+   au FileType fortran let g:wantedfoldmethod="syntax"
+" python
+   au FileType python let g:wantedfoldmethod="indent"
+" cpp
+   au FileType cpp let g:wantedfoldmethod="syntax"
+
 
 " Initialize Directories
 
