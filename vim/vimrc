@@ -53,19 +53,19 @@ let mapleader="\<Space>"
       let g:syntastic_fortran_compiler_options = "-Wall -O0"
    endif
    "command to run syntastic
-   nnoremap <leader>sc :w<enter>:SyntasticCheck<CR>
+   nnoremap <leader>sc :w<CR>:SyntasticCheck<CR>
 " LatexBox
    let g:LatexBox_Folding = 1
    let g:LatexBox_fold_envs = 0
    let g:LatexBox_fold_preamble = 1
    let g:LatexBox_fold_automatic = 0
-   au FileType tex map <leader>tm :w<eter>:Latexmk<enter>
-   au FileType tex map <leader>te :LatexErrors<enter>
+   au FileType tex map <leader>tm :w<CR>:Latexmk<CR>
+   au FileType tex map <leader>te :LatexErrors<CR>
    let g:tex_flavor='latex'
    let g:tex_comment_nospell= 1
 " LanguageTool
    let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
-   nnoremap <leader>gm :w<enter>:LanguageToolCheck<enter>
+   nnoremap <leader>gm :w<CR>:LanguageToolCheck<CR>
    nnoremap <leader>gc :LanguageToolClear
 "bash-support
    let g:BASH_Executable			= '/bin/bash'
@@ -102,15 +102,15 @@ let mapleader="\<Space>"
    let g:fastfold_savehook = 0
 "Vimux
    " Inspect runner pane
-   map <F5> :w<enter>:VimuxRunCommand "./".expand('%') <enter>
+   map <F5> :w<CR>:VimuxRunCommand "./".expand('%') <CR>
    " Run last command executed by VimuxRunCommand
-   map <F6> :w<enter>:VimuxRunLastCommand<enter>
+   map <F6> :w<CR>:VimuxRunLastCommand<CR>
    " Prompt for a command to run
-   map <F7> :w<enter>:VimuxPromptCommand<enter>
+   map <F7> :w<CR>:VimuxPromptCommand<CR>
    " Interrupt any command running in the runner pane
-   map <F8> :VimuxInterruptRunner<enter>
+   map <F8> :VimuxInterruptRunner<CR>
    " run make
-   map <F9> :w<enter>:call VimuxRunCommand('make ')<enter>
+   map <F9> :w<CR>:call VimuxRunCommand('make ')<CR>
    let g:VimuxOrientation = "h"
 "python
    au BufNewFile,BufRead *.py
@@ -209,7 +209,7 @@ let mapleader="\<Space>"
    set confirm " Instead of failing a command because of unsaved changes, instead raise a dialogue asking if you wish to save changed files.
    set visualbell " Use visual bell instead of beeping when doing something wrong
    set t_vb= " And reset the terminal code for the visual bell. If visualbell is set, and this line is also included, vim will neither flash nor beep. If visualbell is unset, this does nothing.
-   set cmdheight=2 " Set the command window height to 2 lines, to avoid many cases of having to press <Enter> to continue
+   set cmdheight=2 " Set the command window height to 2 lines, to avoid many cases of having to press <CR> to continue
    set number " Display line numbers on the left
    set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never time out on mappings
    "todo: are these needed?
@@ -249,6 +249,8 @@ let mapleader="\<Space>"
    let &t_SI.="\e[5 q"
    let &t_EI.="\e[1 q"
    let &t_te.="\e[0 q"
+   " show textwidth
+   set colorcolumn=+1
 
 " use vim Menu
    source $VIMRUNTIME/menu.vim
@@ -262,21 +264,21 @@ let mapleader="\<Space>"
    " which is the default
    map Y y$
    " turn of highlight until the next search
-   nmap <leader>nn :nohl<enter>
+   nmap <leader>nn :nohl<CR>
    nmap <CR> o<Esc>k
    if !has("compatible")
       command! Date :call Datef()
       vnoremap <C-a> :call Incr()<CR>
    endif
    " do not use arrow keys!
-   noremap <Up>    :echo "Stop using arrow keys, stupid" <enter>
-   noremap <Down>  :echo "Stop using arrow keys, stupid" <enter>
-   noremap <Left>  :echo "Stop using arrow keys, stupid" <enter>
-   noremap <Right> :echo "Stop using arrow keys, stupid" <enter>
-   inoremap <Up>    <Esc>:echo "Stop using arrow keys, stupid" <enter> i
-   inoremap <Down>  <Esc>:echo "Stop using arrow keys, stupid" <enter> i
-   inoremap <Left>  <Esc>:echo "Stop using arrow keys, stupid" <enter> i
-   inoremap <Right> <Esc>:echo "Stop using arrow keys, stupid" <enter> i
+   noremap <Up>    :echo "Stop using arrow keys, stupid" <CR>
+   noremap <Down>  :echo "Stop using arrow keys, stupid" <CR>
+   noremap <Left>  :echo "Stop using arrow keys, stupid" <CR>
+   noremap <Right> :echo "Stop using arrow keys, stupid" <CR>
+   inoremap <Up>    <Esc>:echo "Stop using arrow keys, stupid" <CR> i
+   inoremap <Down>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
+   inoremap <Left>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
+   inoremap <Right> <Esc>:echo "Stop using arrow keys, stupid" <CR> i
    "custom copy'n'paste
    vmap <leader>y :w! /tmp/$USER/.vim/vbuf<CR>
    nmap <leader>y :.w! /tmp/$USER/.vim/vbuf<CR>
@@ -305,6 +307,11 @@ let mapleader="\<Space>"
    au FileType python let g:wantedfoldmethod="indent"
 " cpp
    au FileType cpp let g:wantedfoldmethod="syntax"
+   au FileType cpp set textwidth=80
+   " Indentation settings for using 2 spaces instead of tabs.
+   au FileType cpp set shiftwidth=2
+   au FileType cpp set softtabstop=2
+   au FileType cpp set expandtab
 
 
 " Initialize Directories
