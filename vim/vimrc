@@ -59,8 +59,6 @@ let mapleader="\<Space>"
    let g:LatexBox_fold_envs = 0
    let g:LatexBox_fold_preamble = 1
    let g:LatexBox_fold_automatic = 0
-   au FileType tex map <leader>tm :w<CR>:Latexmk<CR>
-   au FileType tex map <leader>te :LatexErrors<CR>
    let g:tex_flavor='latex'
    let g:tex_comment_nospell= 1
 " LanguageTool
@@ -183,8 +181,8 @@ let mapleader="\<Space>"
             set nofoldenable
 	 else
 	    set foldenable
-            let &foldmethod=g:wantedfoldmethod
-            echo g:wantedfoldmethod
+            let &foldmethod=b:wantedfoldmethod
+            echo b:wantedfoldmethod
             set foldlevel=0
             set foldnestmax=2
          endif
@@ -294,24 +292,27 @@ let mapleader="\<Space>"
 
 "File type specific settings
 "tex
-   au Filetype tex set spell
+   au Filetype tex setlocal spell
+   au FileType tex nmap <buffer> <leader>tm :w<CR>:Latexmk<CR>
+   au FileType tex nmap <buffer> <leader>te :LatexErrors<CR>
 "Markdown
-   autocmd BufNewFile,BufFilePre,BufRead *.md set filetype=markdown
-   au FileType markdown set spell
+   autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
+   au FileType markdown setlocal spell
 "Fortran
    if !has("compatible")
-      au FileType fortran map <leader>fs :call Gotofprocedure() <CR>
+      au FileType fortran nmap <buffer> <leader>fs :call Gotofprocedure() <CR>
    endif
-   au FileType fortran let g:wantedfoldmethod="syntax"
+   au FileType fortran let b:wantedfoldmethod="syntax"
+   au FileType fortran setlocal textwidth=132
 " python
-   au FileType python let g:wantedfoldmethod="indent"
+   au FileType python let b:wantedfoldmethod="indent"
 " cpp
-   au FileType cpp let g:wantedfoldmethod="syntax"
-   au FileType cpp set textwidth=80
+   au FileType cpp let b:wantedfoldmethod="syntax"
+   au FileType cpp setlocal textwidth=80
    " Indentation settings for using 2 spaces instead of tabs.
-   au FileType cpp set shiftwidth=2
-   au FileType cpp set softtabstop=2
-   au FileType cpp set expandtab
+   au FileType cpp setlocal shiftwidth=2
+   au FileType cpp setlocal softtabstop=2
+   au FileType cpp setlocal expandtab
 
 
 " Initialize Directories
