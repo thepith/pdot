@@ -26,6 +26,9 @@ if !has("compatible")
    Plugin 'tpope/vim-unimpaired'
    "Plugin 'jaxbot/github-issues.vim'
    "Plugin 'https://git.rwth-aachen.de/pascal.hebbeker/gitlab-issues.git'
+    Plugin 'SirVer/ultisnips'
+    Plugin 'honza/vim-snippets'
+    Plugin 'lervag/vimtex'
    "
    call vundle#end()
 endif
@@ -53,15 +56,20 @@ let mapleader="\<Space>"
    endif
    "command to run syntastic
    nnoremap <leader>sc :w<CR>:SyntasticCheck<CR>
-"" LatexBox
-   "let g:LatexBox_Folding = 1
-   "let g:LatexBox_fold_envs = 0
-   "let g:LatexBox_fold_preamble = 1
-   "let g:LatexBox_fold_automatic = 0
+"" VimTex
+   let g:vimtex_compiler_latexmk = {'callback' : 0}
+   let g:vimtex_view_enabled = 0
 " LanguageTool
    let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
    nnoremap <leader>gm :w<CR>:LanguageToolCheck<CR>
    nnoremap <leader>gc :LanguageToolClear
+" snippets
+    let g:UltiSnipsExpandTrigger="<c-n>"
+    let g:UltiSnipsListSnippets="<c-s>"
+    let g:UltiSnipsJumpForwardTrigger="<c-l>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-h>"
+    " If you want :UltiSnipsEdit to split your window.
+    let g:UltiSnipsEditSplit="vertical"
 "bash-support
    let g:BASH_Executable			= '/bin/bash'
    let g:BASH_OutputGvim                   = "buffer"
@@ -291,8 +299,8 @@ let mapleader="\<Space>"
    let g:tex_flavor='latex'
    let g:tex_comment_nospell= 1
    au Filetype tex setlocal spell
-   au FileType tex nmap <buffer> <leader>tm :w<CR>:Latexmk<CR>
-   au FileType tex nmap <buffer> <leader>te :LatexErrors<CR>
+   au FileType tex nmap <buffer> <leader>tm :w<CR>:VimtexCompile<CR>
+   au FileType tex nmap <buffer> <leader>te :VimtexErrors<CR>
    au FileType tex setlocal textwidth=80
 "Markdown
    autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
