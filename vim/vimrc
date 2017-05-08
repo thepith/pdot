@@ -34,7 +34,6 @@ filetype plugin indent on
 filetype plugin on
 
 let mapleader="\<Space>"
-let maplocalleader="\<Space>"
 
 "Plugins
 " Syntastic
@@ -64,6 +63,9 @@ let maplocalleader="\<Space>"
    autocmd FileType tex let b:vimtex_main = 'main.tex'
    let g:tex_flavor='latex'
    let g:tex_comment_nospell= 1
+   let g:vimtex_view_enabled = 0
+   let g:vimtex_compiler_latexmk = {'callback' : 0}
+   autocmd FileType tex let maplocalleader="\<Space>"
 " LanguageTool
    let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
    nnoremap <leader>gm :w<CR>:LanguageToolCheck<CR>
