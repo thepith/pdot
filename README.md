@@ -29,7 +29,7 @@ install apt-cyg /bin
 Install Needed programs with cygwin using apt-cyg
 ```bash
 apt-cyg install git vim git wget tmux python-setuptools curl make
-easy_install-2.7 pip
+easy_install-3.4 pip
 ```
 
 Link to mintty-terminal:
