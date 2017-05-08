@@ -10,7 +10,7 @@ if !has("compatible")
 
    Plugin 'thepith/VimPascalHelp'
    Plugin 'scrooloose/syntastic'
-   Plugin 'LaTeX-Box-Team/LaTeX-Box'
+   Plugin 'lervag/vimtex'
    Plugin 'vim-scripts/LanguageTool'
    Plugin 'WolfgangMehner/bash-support'
    Plugin 'WolfgangMehner/awk-support'
@@ -34,6 +34,7 @@ filetype plugin indent on
 filetype plugin on
 
 let mapleader="\<Space>"
+let maplocalleader="\<Space>"
 
 "Plugins
 " Syntastic
@@ -54,11 +55,13 @@ let mapleader="\<Space>"
    endif
    "command to run syntastic
    nnoremap <leader>sc :w<CR>:SyntasticCheck<CR>
-" LatexBox
-   let g:LatexBox_Folding = 1
-   let g:LatexBox_fold_envs = 0
-   let g:LatexBox_fold_preamble = 1
-   let g:LatexBox_fold_automatic = 0
+"" LatexBox
+   "let g:LatexBox_Folding = 1
+   "let g:LatexBox_fold_envs = 0
+   "let g:LatexBox_fold_preamble = 1
+   "let g:LatexBox_fold_automatic = 0
+" vimtex
+   autocmd FileType tex let b:vimtex_main = 'main.tex'
    let g:tex_flavor='latex'
    let g:tex_comment_nospell= 1
 " LanguageTool
@@ -216,7 +219,6 @@ let mapleader="\<Space>"
    "autocmd BufNewFile,BufRead * setlocal formatoptions-=tc
    "
    set wrap "wrap lines at breakat
-   set linebreak "wrap at word
    "show line with break
    set showbreak=··\ 
    set nolist  " list disables linebreak
@@ -295,6 +297,7 @@ let mapleader="\<Space>"
    au Filetype tex setlocal spell
    au FileType tex nmap <buffer> <leader>tm :w<CR>:Latexmk<CR>
    au FileType tex nmap <buffer> <leader>te :LatexErrors<CR>
+   au FileType tex setlocal textwidth=80
 "Markdown
    autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
    au FileType markdown setlocal spell
