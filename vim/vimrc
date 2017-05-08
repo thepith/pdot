@@ -10,7 +10,6 @@ if !has("compatible")
 
    Plugin 'thepith/VimPascalHelp'
    Plugin 'scrooloose/syntastic'
-   Plugin 'lervag/vimtex'
    Plugin 'vim-scripts/LanguageTool'
    Plugin 'WolfgangMehner/bash-support'
    Plugin 'WolfgangMehner/awk-support'
@@ -59,13 +58,6 @@ let mapleader="\<Space>"
    "let g:LatexBox_fold_envs = 0
    "let g:LatexBox_fold_preamble = 1
    "let g:LatexBox_fold_automatic = 0
-" vimtex
-   autocmd FileType tex let b:vimtex_main = 'main.tex'
-   let g:tex_flavor='latex'
-   let g:tex_comment_nospell= 1
-   let g:vimtex_view_enabled = 0
-   let g:vimtex_compiler_latexmk = {'callback' : 0}
-   autocmd FileType tex let maplocalleader="\<Space>"
 " LanguageTool
    let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
    nnoremap <leader>gm :w<CR>:LanguageToolCheck<CR>
@@ -296,6 +288,8 @@ let mapleader="\<Space>"
 
 "File type specific settings
 "tex
+   let g:tex_flavor='latex'
+   let g:tex_comment_nospell= 1
    au Filetype tex setlocal spell
    au FileType tex nmap <buffer> <leader>tm :w<CR>:Latexmk<CR>
    au FileType tex nmap <buffer> <leader>te :LatexErrors<CR>
