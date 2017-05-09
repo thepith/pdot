@@ -64,10 +64,10 @@ let mapleader="\<Space>"
    nnoremap <leader>gm :w<CR>:LanguageToolCheck<CR>
    nnoremap <leader>gc :LanguageToolClear
 " snippets
-    let g:UltiSnipsExpandTrigger="<c-p>"
-    let g:UltiSnipsListSnippets="<c-s>"
-    let g:UltiSnipsJumpForwardTrigger="<c-m>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-n>"
+    let g:UltiSnipsExpandTrigger="<c-s><tab>"
+    let g:UltiSnipsListSnippets="<c-s>s"
+    let g:UltiSnipsJumpForwardTrigger="<c-s>l"
+    let g:UltiSnipsJumpBackwardTrigger="<c-s>h"
     " If you want :UltiSnipsEdit to split your window.
     let g:UltiSnipsEditSplit="vertical"
 "bash-support
