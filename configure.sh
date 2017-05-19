@@ -38,8 +38,8 @@ fi
 
 case ${doconf:0:1} in
     y|Y )
-   confvar=( tauthor tauthorref tcompany tcopyright temail tlicense torganization tdate ttime tyear tsolarizecolor tgitlabname tgitlaburl tgitlabtoken)
-   confdef=( 'YOUR NAME' 'YN' '' '' 'YOUR.NAME@DOMAIN' '' '' '%F' '%H:%M' '' 'dark' 'gitlab-name' 'https://some.whe.re' 'asdf1234')
+   confvar=( tsolarizecolor tgitlabname tgitlaburl tgitlabtoken)
+   confdef=( 'dark' 'gitlab-name' 'https://some.whe.re' 'asdf1234')
    if [[ -e pdot.conf ]]; then
       source pdot.conf
       for (( i=0; i<${#confvar[@]}; i++ )) ; do

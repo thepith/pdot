@@ -66,20 +66,6 @@ if [ "$@" = "install" ] ; then
    gitclone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
    e_arrow2 "Installing Plugins"
    vim +"set viewoptions=" +PluginInstall +qall
-   e_arrow2 "Updating Template Files according to $CONFFILE"
-   mkdir -p ~/.vim/templates/
-   tfile="$HOME/.vim/templates/personal.template"
-   cp ~/.vim/bundle/bash-support/bash-support/rc/personal.templates $tfile
-   sed -i "s/^\(SetMacro( 'AUTHOR', *'\).*\('\)/\1$tauthor\2/" $tfile
-   sed -i "s/^\(SetMacro( 'AUTHORREF', *'\).*\('\)/\1$tauthorref\2/" $tfile
-   sed -i "s/^\(SetMacro( 'COMPANY', *'\).*\('\)/\1$tcompany\2/" $tfile
-   sed -i "s/^\(SetMacro( 'COPYRIGHT', *'\).*\('\)/\1$tcopyright\2/" $tfile
-   sed -i "s/^\(SetMacro( 'EMAIL', *'\).*\('\)/\1$temail\2/" $tfile
-   sed -i "s/^\(SetMacro( 'LICENSE', *'\).*\('\)/\1$tlicense\2/" $tfile
-   sed -i "s/^\(SetMacro( 'ORGANIZATION', *'\).*\('\)/\1$torganization\2/" $tfile
-   sed -i "s/^\(SetFormat( 'DATE', *'\).*\('\)/\1$tdate\2/" $tfile
-   sed -i "s/^\(SetFormat( 'TIME', *'\).*\('\)/\1$ttime\2/" $tfile
-   sed -i "s/^\(SetFormat( 'YEAR', *'\).*\('\)/\1$tyear\2/" $tfile
    rm -f /tmp/$USER/.vim/views/*
 fi
 
@@ -91,20 +77,6 @@ if [ "$@" = "update" ] ; then
    vim +"set viewoptions=" +PluginClean! +qall
    e_arrow2 "Installing/Updating new Plugins"
    vim +"set viewoptions=" +PluginInstall! +qall
-   e_arrow2 "Updating Template Files according to $CONFFILE"
-   tfile="$HOME/.vim/templates/personal.template"
-   mkdir -p ~/.vim/templates
-   cp -u -p ~/.vim/bundle/bash-support/bash-support/rc/personal.templates $tfile
-   sed -i "s/^\(SetMacro( 'AUTHOR', *'\).*\('\)/\1$tauthor\2/" $tfile
-   sed -i "s/^\(SetMacro( 'AUTHORREF', *'\).*\('\)/\1$tauthorref\2/" $tfile
-   sed -i "s/^\(SetMacro( 'COMPANY', *'\).*\('\)/\1$tcompany\2/" $tfile
-   sed -i "s/^\(SetMacro( 'COPYRIGHT', *'\).*\('\)/\1$tcopyright\2/" $tfile
-   sed -i "s/^\(SetMacro( 'EMAIL', *'\).*\('\)/\1$temail\2/" $tfile
-   sed -i "s/^\(SetMacro( 'LICENSE', *'\).*\('\)/\1$tlicense\2/" $tfile
-   sed -i "s/^\(SetMacro( 'ORGANIZATION', *'\).*\('\)/\1$torganization\2/" $tfile
-   sed -i "s/^\(SetFormat( 'DATE', *'\).*\('\)/\1$tdate\2/" $tfile
-   sed -i "s/^\(SetFormat( 'TIME', *'\).*\('\)/\1$ttime\2/" $tfile
-   sed -i "s/^\(SetFormat( 'YEAR', *'\).*\('\)/\1$tyear\2/" $tfile
    rm -f /tmp/$USER/.vim/views/*
 fi
 }
