@@ -8,27 +8,32 @@ if !has("compatible")
    " let Vundle manage Vundle, required
    Plugin 'VundleVim/Vundle.vim'
 
-   Plugin 'thepith/VimPascalHelp'
-   Plugin 'scrooloose/syntastic'
-   Plugin 'vim-scripts/LanguageTool'
-   Plugin 'WolfgangMehner/bash-support'
-   Plugin 'WolfgangMehner/awk-support'
-   Bundle 'surround.vim'
-   Bundle 'repeat.vim'
+   " Appearance
    Plugin 'altercation/vim-colors-solarized'
-   Plugin 'scrooloose/nerdcommenter'
-   Bundle 'gnuplot.vim'
-   Bundle 'christoomey/vim-tmux-navigator'
-   Plugin 'benmills/vimux'
+
+   "usability
    Plugin 'Konfekt/FastFold'
-   Plugin 'vim-scripts/indentpython.vim'
+   Bundle 'christoomey/vim-tmux-navigator'
    Plugin 'tpope/vim-fugitive'
    Plugin 'tpope/vim-unimpaired'
-   "Plugin 'jaxbot/github-issues.vim'
-   "Plugin 'https://git.rwth-aachen.de/pascal.hebbeker/gitlab-issues.git'
-    Plugin 'SirVer/ultisnips'
-    Plugin 'honza/vim-snippets'
-    Plugin 'lervag/vimtex'
+   Plugin 'tpope/vim-dispatch'
+   Plugin 'tpope/vim-surround'
+   Plugin 'tpope/vim-repeat'
+   Plugin 'tpope/vim-sensible'
+   Plugin 'tpope/vim-commentary'
+
+   "Misc
+   Plugin 'thepith/VimPascalHelp'
+
+   "Languages
+   Bundle 'gnuplot.vim'
+   Plugin 'vim-scripts/indentpython.vim'
+
+   "Tools
+   Plugin 'honza/vim-snippets'
+   Plugin 'SirVer/ultisnips'
+   Plugin 'scrooloose/syntastic'
+   Plugin 'vim-scripts/LanguageTool'
    "
    call vundle#end()
 endif
@@ -37,289 +42,268 @@ filetype plugin on
 
 let mapleader="\<Space>"
 
-"Plugins
-" Syntastic
-   let g:syntastic_always_populate_loc_list = 1
-   let g:syntastic_auto_loc_list = 1 " Don't auto open/close location list
-   let g:syntastic_check_on_open = 0 "Never run syntastic automatically
-   let g:syntastic_check_on_wq = 0 "Never run syntastic automatically
-   let g:syntastic_mode_map={"mode" : "passive"}
-   let g:syntastic_enable_signs=1
-   let g:syntastic_quiet_messages = {
-      \ "regex": "\\max"}
-   if executable("ifort")
-      let g:syntastic_fortran_compiler = "ifort"
-      let g:syntastic_fortran_compiler_options = "-warn -O0"
-   else
-      let g:syntastic_fortran_compiler = "gfortran"
-      let g:syntastic_fortran_compiler_options = "-Wall -O0"
-   endif
-   "command to run syntastic
-   nnoremap <leader>sc :w<CR>:SyntasticCheck<CR>
-"" VimTex
-   let g:vimtex_compiler_latexmk = {'callback' : 0}
-   let g:vimtex_view_enabled = 0
-" LanguageTool
-   let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
-   nnoremap <leader>gm :w<CR>:LanguageToolCheck<CR>
-   nnoremap <leader>gc :LanguageToolClear
-" snippets
-    let g:UltiSnipsExpandTrigger="<c-s><tab>"
-    let g:UltiSnipsListSnippets="<c-s>s"
-    let g:UltiSnipsJumpForwardTrigger="<c-s>l"
-    let g:UltiSnipsJumpBackwardTrigger="<c-s>h"
-    " If you want :UltiSnipsEdit to split your window.
-    let g:UltiSnipsEditSplit="vertical"
-"bash-support
-   let g:BASH_Executable			= '/bin/bash'
-   let g:BASH_OutputGvim                   = "buffer"
-"awk-support
-   let g:Awk_OutputGvim                   = "buffer"
-"surround
-   let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
-"fortran.vim
-   let fortran_free_source=1
-   let fortran_do_enddo=1
-   let fortran_have_tabs=1
-"solarized
-   syntax enable
-   set t_Co=256 " use 256 colors
+" Plugins
+" solarized
+syntax enable
+set t_Co=256 " use 256 colors
+set background=light
+let solenv=$SOLVAR
+if solenv == "light"
    set background=light
-   let solenv=$SOLVAR
-   if solenv == "light"
-   set background=light
-   endif
-   if solenv == "dark"
+endif
+if solenv == "dark"
    set background=dark
-   endif
-   silent! colorscheme solarized
+endif
+silent! colorscheme solarized
+
+" Dispatch
+" Inspect runner pane
+map <F5> :w<CR>:Dispatch ./% <CR>
+" Run last command executed by VimuxRunCommand
+map <F6> :w<CR>:Dispatch<CR>
+"" Prompt for a command to run
+map <F7> :w<CR>:FocusDispatch 
+"" run make
+map <F9> :w<CR>:Make<Cr>
+
+" Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
+let g:syntastic_check_on_open = 0 "Never run syntastic automatically
+let g:syntastic_check_on_wq = 0 "Never run syntastic automatically
+let g:syntastic_mode_map={"mode" : "passive"}
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_messages = {
+         \ "regex": "\\max"}
+if executable("ifort")
+   let g:syntastic_fortran_compiler = "ifort"
+   let g:syntastic_fortran_compiler_options = "-warn -O0"
+else
+   let g:syntastic_fortran_compiler = "gfortran"
+   let g:syntastic_fortran_compiler_options = "-Wall -O0"
+endif
+let g:syntastic_tex_chktex_nowarn=24
+"command to run syntastic
+nnoremap <leader>sc :w<CR>:SyntasticCheck<CR>
+
+" commentary
+map <leader>c <Plug>Commentary
+map <leader>cc :.Commentary<CR>
+
+" LanguageTool
+let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
+nnoremap <leader>gm :w<CR>:LanguageToolCheck<CR>
+nnoremap <leader>gc :LanguageToolClear
+
+" snippets
+let g:UltiSnipsExpandTrigger="<c-s><tab>"
+let g:UltiSnipsListSnippets="<c-s>s"
+let g:UltiSnipsJumpForwardTrigger="<c-s>l"
+let g:UltiSnipsJumpBackwardTrigger="<c-s>h"
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+"surround
+let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+"fortran.vim
+let fortran_free_source=1
+let fortran_do_enddo=1
+let fortran_have_tabs=1
 "gnuplot
-   au BufRead,BufNewFile *.gpl,*.gpi set filetype=gnuplot
+au BufRead,BufNewFile *.gpl,*.gpi set filetype=gnuplot
 "fast fold
-   set nofoldenable
-   let fortran_fold=1
-   let g:cpp_fold_enabled=1
-   let g:fortran_fold_enabled=1
-   let g:fastfold_fold_command_suffixes = []
-   let g:fastfold_fold_movement_commands = []
-   let g:fastfold_savehook = 0
-"Vimux
-   " Inspect runner pane
-   map <F5> :w<CR>:VimuxRunCommand "./".expand('%') <CR>
-   " Run last command executed by VimuxRunCommand
-   map <F6> :w<CR>:VimuxRunLastCommand<CR>
-   " Prompt for a command to run
-   map <F7> :w<CR>:VimuxPromptCommand<CR>
-   " Interrupt any command running in the runner pane
-   map <F8> :VimuxInterruptRunner<CR>
-   " run make
-   map <F9> :w<CR>:call VimuxRunCommand('make ')<CR>
-   let g:VimuxOrientation = "h"
+set nofoldenable
+let fortran_fold=1
+let g:cpp_fold_enabled=1
+let g:fortran_fold_enabled=1
+let g:fastfold_fold_command_suffixes = []
+let g:fastfold_fold_movement_commands = []
+let g:fastfold_savehook = 0
 "python
-   au BufNewFile,BufRead *.py
-       \ set tabstop=4 |
-       \ set softtabstop=4 |
-       \ set shiftwidth=4 |
-       \ set textwidth=79 |
-       \ set expandtab |
-       \ set autoindent |
-       \ set fileformat=unix |
-   let python_highlight_all=1
+au BufNewFile,BufRead *.py
+         \ set tabstop=4 |
+         \ set softtabstop=4 |
+         \ set shiftwidth=4 |
+         \ set textwidth=79 |
+         \ set expandtab |
+         \ set autoindent |
+         \ set fileformat=unix |
+let python_highlight_all=1
 "
 "
 "Own functions
-   if !has("compatible")
-      "functions to automatically change date in bash/awk files
-      function! Datef()
-         Nline
-         normal k
-         r !date +"\%F \%R"
-         normal k
-         normal 3J
-      endfunction
-
-      function! Gotofprocedure()
-         let pos = getpos(".")
-      " goto beginning of word and yank it
-         normal heb
-         normal "pyiw
-         let procname = @p
-      " get type of procedure
-         normal b
-         normal "pyiw
-         let typename = @p
-         if typename ==? "call"
-            let prestring = "subroutine"
-         else
-            let prestring = "function"
-         endif
-         let dir=expand('%:p:h')
-         "echo dir
-      " how many occurences of this poricedure exist?
-         let proc=system('grep -l "^ *' . prestring . ' *' . procname . '[ (]" ' . dir . '/*.F90')
-         let nproc=system('echo "' . proc . '" | wc -w ')
-         "echo nproc
-
-         if nproc == 1
-            "only one: open in preview
-            let file=proc
-            execute ':ped! +/^\ *' . prestring . '\ *' . procname . '[\ (] ' . file
-         else
-            "only more: give information
-            echo 'Found more than one occurence of the ' . prestring . ' in the files:'
-            echo system('grep -l "^ *' . prestring . ' ' . procname . '[ (]" ' . dir . '/*.F90 | uniq -c ')
-         endif
-         call setpos('.', pos)
-      endfunction
-      set nf=octal,hex,alpha
-      function! Incr()
-        let a = line('.') - line("'<")
-        let c = virtcol("'<")
-        if a > 0
-          execute 'normal! '.c.'|'.a."\<C-a>"
-        endif
-        normal `<
-      endfunction
-      function DoFold()
-         echom "fold"
-         if &foldenable
-            set nofoldenable
-	 else
-	    set foldenable
-            let &foldmethod=b:wantedfoldmethod
-            echo b:wantedfoldmethod
-            set foldlevel=0
-            set foldnestmax=2
-         endif
-      endfunction
-   endif
+if !has("compatible")
+   set nf=octal,hex,alpha
+   function! Incr()
+      let a = line('.') - line("'<")
+      let c = virtcol("'<")
+      if a > 0
+         execute 'normal! '.c.'|'.a."\<C-a>"
+      endif
+      normal `<
+   endfunction
+   function! DoFold()
+      echom "fold"
+      if &foldenable
+         set nofoldenable
+      else
+         set foldenable
+         let &foldmethod=b:wantedfoldmethod
+         echo b:wantedfoldmethod
+         set foldlevel=0
+         set foldnestmax=2
+      endif
+   endfunction
+   function! GenerateCtags()
+      let ctagdir = substitute(system('git rev-parse --git-dir 2> /dev/null || echo -n "."'), '[[:cntrl:]]', '', 'g')
+      let ctagwdir = substitute(system('git rev-parse --show-toplevel 2> /dev/null || echo -n "."'), '[[:cntrl:]]', '', 'g')
+      echom ctagwdir
+      echom ctagdir
+      execute '!ctags -R --tag-relative -f"'.ctagdir.'/tags" '.ctagwdir
+      e!
+   endfunction
+   command! MakeCtags :call GenerateCtags()
+endif
 
 "
 " General Settings
-   set encoding=utf-8
-   set spelllang=en_us
-   set hidden
-   set wildmenu " Better command-line completion
-   set showcmd " Show partial commands in the last line of the screen
-   set hlsearch " Highlight searches
-   set ignorecase " Use case insensitive search
-   set smartcase " When using capital letters do not use ignorecase
-   set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks and start of insert action
-   set smartindent " When opening a new line and no filetype-specific indenting is enabled, keep the same indent as the line you're currently on. Useful for READMEs, etc.
-   set nostartofline " Stop certain movements from always going to the first character of a line.
-   set ruler " Display the cursor position on the last line of the screen or in the status line of a window
-   set laststatus=2 " Always display the status line, even if only one window is displayed
-   set confirm " Instead of failing a command because of unsaved changes, instead raise a dialogue asking if you wish to save changed files.
-   set visualbell " Use visual bell instead of beeping when doing something wrong
-   set t_vb= " And reset the terminal code for the visual bell. If visualbell is set, and this line is also included, vim will neither flash nor beep. If visualbell is unset, this does nothing.
-   set cmdheight=2 " Set the command window height to 2 lines, to avoid many cases of having to press <CR> to continue
-   set number " Display line numbers on the left
-   set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never time out on mappings
-   "todo: are these needed?
-   "set formatoptions-=t
-   "set formatoptions-=c
-   "autocmd BufNewFile,BufRead * setlocal formatoptions-=tc
-   "
-   set wrap "wrap lines at breakat
-   "show line with break
-   set showbreak=··\ 
-   set nolist  " list disables linebreak
-   "color break as the linenumbers
-   hi NonText ctermbg=7
-   "show ExtraWhitespace as light red
-   highlight ExtraWhitespace ctermbg=223
-   "Highlight ExtraWhitespace
-   match ExtraWhitespace /\s\+$/
-   autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-   autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-   autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-   autocmd BufWinLeave * call clearmatches()
-   " Indentation settings for using 3 spaces instead of tabs.
-   set shiftwidth=3
-   set softtabstop=3
-   set expandtab
-   "Show bad spelling aas underlined
-   hi clear SpellBad
-   hi SpellBad cterm=underline
-   "use system clipboad
-   set clipboard=unnamed
-   " easy split
-   set splitbelow
-   set splitright
-   " Switch between block and vertical cursor
-   let &t_ti.="\e[1 q"
-   let &t_SI.="\e[5 q"
-   let &t_EI.="\e[1 q"
-   let &t_te.="\e[0 q"
-   " show textwidth
-   set colorcolumn=+1
+set encoding=utf-8
+set spelllang=en_us
+set hidden
+set wildmenu " Better command-line completion
+set showcmd " Show partial commands in the last line of the screen
+set hlsearch " Highlight searches
+set ignorecase " Use case insensitive search
+set smartcase " When using capital letters do not use ignorecase
+set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks and start of insert action
+set smartindent " When opening a new line and no filetype-specific indenting is enabled, keep the same indent as the line you're currently on. Useful for READMEs, etc.
+set nostartofline " Stop certain movements from always going to the first character of a line.
+set ruler " Display the cursor position on the last line of the screen or in the status line of a window
+" Status Line {
+set laststatus=2                             " always show statusbar
+set statusline=
+set statusline+=\<%n\>\                     " buffer number
+set statusline+=%f\                          " filename
+set statusline+=%h%m%r%w                     " status flags
+set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
+set statusline+=%=                           " right align remainder
+set statusline+=%-14(%l,%c%V%)               " line, character
+"}
+set confirm " Instead of failing a command because of unsaved changes, instead raise a dialogue asking if you wish to save changed files.
+set visualbell " Use visual bell instead of beeping when doing something wrong
+set t_vb= " And reset the terminal code for the visual bell. If visualbell is set, and this line is also included, vim will neither flash nor beep. If visualbell is unset, this does nothing.
+set cmdheight=2 " Set the command window height to 2 lines, to avoid many cases of having to press <CR> to continue
+set number " Display line numbers on the left
+set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never time out on mappings
+"todo: are these needed?
+"set formatoptions-=t
+"set formatoptions-=c
+"autocmd BufNewFile,BufRead * setlocal formatoptions-=tc
+"
+set wrap "wrap lines at breakat
+"show line with break
+set showbreak=··\ 
+set nolist  " list disables linebreak
+"color break as the linenumbers
+hi NonText ctermbg=7
+"show ExtraWhitespace as light red
+highlight ExtraWhitespace ctermbg=223
+"Highlight ExtraWhitespace
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+" Indentation settings for using 3 spaces instead of tabs.
+set shiftwidth=3
+set softtabstop=3
+set expandtab
+"Show bad spelling as underlined
+hi clear SpellBad
+hi SpellBad cterm=underline
+"use system clipboad
+set clipboard=unnamed
+" easy split
+set splitbelow
+set splitright
+" Switch between block and vertical cursor
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+" show textwidth
+set colorcolumn=+1
 
 " use vim Menu
-   source $VIMRUNTIME/menu.vim
-   set cpo-=<
-   set wcm=<C-Z>
-   map <F4> :emenu <C-Z>
+source $VIMRUNTIME/menu.vim
+set cpo-=<
+set wcm=<C-Z>
 
 " Map Keys
-   set pastetoggle=<F4> " Use <F4> to toggle between 'paste' and 'nopaste'
-   " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
-   " which is the default
-   map Y y$
-   " turn of highlight until the next search
-   nmap <leader>nn :nohl<CR>
-   nmap <CR> o<Esc>k
-   if !has("compatible")
-      command! Date :call Datef()
-      vnoremap <C-a> :call Incr()<CR>
-   endif
-   " do not use arrow keys!
-   noremap <Up>    :echo "Stop using arrow keys, stupid" <CR>
-   noremap <Down>  :echo "Stop using arrow keys, stupid" <CR>
-   noremap <Left>  :echo "Stop using arrow keys, stupid" <CR>
-   noremap <Right> :echo "Stop using arrow keys, stupid" <CR>
-   inoremap <Up>    <Esc>:echo "Stop using arrow keys, stupid" <CR> i
-   inoremap <Down>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
-   inoremap <Left>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
-   inoremap <Right> <Esc>:echo "Stop using arrow keys, stupid" <CR> i
-   "custom copy'n'paste
-   vmap <leader>y :w! /tmp/$USER/.vim/vbuf<CR>
-   nmap <leader>y :.w! /tmp/$USER/.vim/vbuf<CR>
-   nmap <leader>p :r /tmp/$USER/.vim/vbuf<CR>
-   ""navigate tabs
-   nmap <leader>h :tabprevious<CR>
-   nmap <leader>l :tabnext<CR>
-   nmap <leader>H :tabm -1<CR>
-   nmap <leader>L :tabm +1<CR>
-   command! Fold :call DoFold()
-   noremap <leader>ff :Fold<CR>
-
+nmap <F4> :emenu <C-Z>
+set pastetoggle=<F4> " Use <F4> to toggle between 'paste' and 'nopaste'
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default
+map Y y$
+" turn of highlight until the next search
+nmap <leader>nn :nohl<CR>
+" use to naviage buffers easily
+nnoremap <leader>b :ls<CR>:b<Space>
+" enter works in normal mode
+nmap <CR> o<Esc>k
+if !has("compatible")
+   vnoremap <C-a> :call Incr()<CR>
+endif
+" do not use arrow keys!
+noremap <Up>    :echo "Stop using arrow keys, stupid" <CR>
+noremap <Down>  :echo "Stop using arrow keys, stupid" <CR>
+noremap <Left>  :echo "Stop using arrow keys, stupid" <CR>
+noremap <Right> :echo "Stop using arrow keys, stupid" <CR>
+inoremap <Up>    <Esc>:echo "Stop using arrow keys, stupid" <CR> i
+inoremap <Down>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
+inoremap <Left>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
+inoremap <Right> <Esc>:echo "Stop using arrow keys, stupid" <CR> i
+" custom copy'n'paste
+vmap <leader>y :w! /tmp/$USER/.vim/vbuf<CR>
+nmap <leader>y :.w! /tmp/$USER/.vim/vbuf<CR>
+nmap <leader>p :r /tmp/$USER/.vim/vbuf<CR>
+" navigate tabs
+nmap <leader>h :tabprevious<CR>
+nmap <leader>l :tabnext<CR>
+nmap <leader>H :tabm -1<CR>
+nmap <leader>L :tabm +1<CR>
+" navigate buffers
+nmap <leader>j :bprevious<CR>
+nmap <leader>k :bnext<CR>
+" fold
+command! Fold :call DoFold()
+noremap <leader>ff :Fold<CR>
+"legacy
+" move to tag
+nmap <leader>fs <C-]>
 
 "File type specific settings
 "tex
-   let g:tex_flavor='latex'
-   let g:tex_comment_nospell= 1
-   au Filetype tex setlocal spell
-   au FileType tex nmap <buffer> <leader>tm :w<CR>:VimtexCompile<CR>
-   au FileType tex nmap <buffer> <leader>te :VimtexErrors<CR>
-   au FileType tex setlocal textwidth=80
+compiler tex
+set makeprg=pdflatex\ -interaction=nonstopmode\ %
+let g:tex_flavor='pdflatex'
+let g:tex_comment_nospell= 1
+au Filetype tex setlocal spell
+au FileType tex setlocal linebreak
 "Markdown
-   autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
-   au FileType markdown setlocal spell
+autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
+au FileType markdown setlocal spell
 "Fortran
-   if !has("compatible")
-      au FileType fortran nmap <buffer> <leader>fs :call Gotofprocedure() <CR>
-   endif
-   au FileType fortran let b:wantedfoldmethod="syntax"
-   au FileType fortran setlocal textwidth=132
+au FileType fortran let b:wantedfoldmethod="syntax"
+au FileType fortran setlocal textwidth=132
 " python
-   au FileType python let b:wantedfoldmethod="indent"
+au FileType python let b:wantedfoldmethod="indent"
 " cpp
-   au FileType cpp let b:wantedfoldmethod="syntax"
-   au FileType cpp setlocal textwidth=80
-   " Indentation settings for using 2 spaces instead of tabs.
-   au FileType cpp setlocal shiftwidth=2
-   au FileType cpp setlocal softtabstop=2
-   au FileType cpp setlocal expandtab
+au FileType cpp let b:wantedfoldmethod="syntax"
+au FileType cpp setlocal textwidth=80
+au FileType cpp setlocal shiftwidth=2 " Indentation settings for using 2 spaces instead of tabs.
+au FileType cpp setlocal softtabstop=2 " Indentation settings for using 2 spaces instead of tabs.
+au FileType cpp setlocal expandtab
 
 
 " Initialize Directories
@@ -340,10 +324,9 @@ if has('persistent_undo')      "check if your vim version supports it
          endif
          if !isdirectory(directory)
             echo "Warning: Unable to create backup directory: " .
-   directory
+            directory
             echo "Try: mkdir -p " . directory
          else
-
             let directory = substitute(directory, " ", "\\\\\\\\ ", "")
             exec "set " . settingname . "=" . directory
          endif
