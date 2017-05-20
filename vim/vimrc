@@ -283,13 +283,6 @@ noremap <leader>ff :Fold<CR>
 nmap <leader>fs <C-]>
 
 "File type specific settings
-"tex
-au FileType tex compiler tex
-au Filetype tex setlocal makeprg=pdflatex\ -interaction=nonstopmode\ %
-au FileType tex let g:tex_flavor='pdflatex'
-au FileType tex let g:tex_comment_nospell= 1
-au Filetype tex setlocal spell
-au FileType tex setlocal linebreak
 "Markdown
 autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
 au FileType markdown setlocal spell
