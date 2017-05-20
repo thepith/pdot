@@ -283,10 +283,10 @@ nmap <leader>fs <C-]>
 
 "File type specific settings
 "tex
-compiler tex
-set makeprg=pdflatex\ -interaction=nonstopmode\ %
-let g:tex_flavor='pdflatex'
-let g:tex_comment_nospell= 1
+au FileType tex compiler tex
+au Filetype tex setlocal makeprg=pdflatex\ -interaction=nonstopmode\ %
+au FileType tex let g:tex_flavor='pdflatex'
+au FileType tex let g:tex_comment_nospell= 1
 au Filetype tex setlocal spell
 au FileType tex setlocal linebreak
 "Markdown
