@@ -169,6 +169,7 @@ endif
 set encoding=utf-8
 set spelllang=en_us
 set hidden
+set wildmode=longest:full,full
 set wildmenu " Better command-line completion
 set showcmd " Show partial commands in the last line of the screen
 set hlsearch " Highlight searches
