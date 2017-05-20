@@ -87,7 +87,9 @@ let g:syntastic_tex_chktex_nowarn=24
 nnoremap <leader>sc :w<CR>:SyntasticCheck<CR>
 
 " commentary
+"  for legacy reasons
 map <leader>cc :Commentary<CR>
+map <leader>cu :Commentary<CR>
 
 " LanguageTool
 let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
