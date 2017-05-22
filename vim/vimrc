@@ -87,9 +87,7 @@ let g:syntastic_tex_chktex_nowarn=24
 nnoremap <leader>sc :w<CR>:SyntasticCheck<CR>
 
 " commentary
-"  for legacy reasons
 map <leader>cc :Commentary<CR>
-map <leader>cu :Commentary<CR>
 
 " LanguageTool
 let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
@@ -98,6 +96,7 @@ nnoremap <leader>gc :LanguageToolClear
 
 " snippets
 let g:UltiSnipsExpandTrigger="<c-s><tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsListSnippets="<c-s>s"
 let g:UltiSnipsJumpForwardTrigger="<c-s>l"
 let g:UltiSnipsJumpBackwardTrigger="<c-s>h"
@@ -120,16 +119,6 @@ let g:fortran_fold_enabled=1
 let g:fastfold_fold_command_suffixes = []
 let g:fastfold_fold_movement_commands = []
 let g:fastfold_savehook = 0
-"python
-au BufNewFile,BufRead *.py
-         \ set tabstop=4 |
-         \ set softtabstop=4 |
-         \ set shiftwidth=4 |
-         \ set textwidth=79 |
-         \ set expandtab |
-         \ set autoindent |
-         \ set fileformat=unix |
-let python_highlight_all=1
 "
 "
 "Own functions
@@ -166,7 +155,6 @@ if !has("compatible")
    command! MakeCtags :call GenerateCtags()
 endif
 
-"
 " General Settings
 set encoding=utf-8
 set spelllang=en_us
@@ -291,7 +279,17 @@ au FileType markdown setlocal spell
 "Fortran
 au FileType fortran let b:wantedfoldmethod="syntax"
 au FileType fortran setlocal textwidth=132
-" python
+"python
+au Filetype python
+         \ setlocal tabstop=4 |
+         \ setlocal softtabstop=4 |
+         \ setlocal shiftwidth=4 |
+         \ setlocal textwidth=79 |
+         \ setlocal expandtab |
+         \ setlocal autoindent |
+         \ setlocal fileformat=unix
+
+let python_highlight_all=1
 au FileType python let b:wantedfoldmethod="indent"
 " cpp
 au FileType cpp let b:wantedfoldmethod="syntax"
@@ -299,6 +297,8 @@ au FileType cpp setlocal textwidth=80
 au FileType cpp setlocal shiftwidth=2 " Indentation settings for using 2 spaces instead of tabs.
 au FileType cpp setlocal softtabstop=2 " Indentation settings for using 2 spaces instead of tabs.
 au FileType cpp setlocal expandtab
+" gnuplot
+au FileType gnuplot setlocal commentstring =#\ %s*
 
 
 " Initialize Directories
