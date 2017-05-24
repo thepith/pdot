@@ -112,7 +112,9 @@ let fortran_have_tabs=1
 "gnuplot
 au BufRead,BufNewFile *.gpl,*.gpi set filetype=gnuplot
 "fast fold
-set nofoldenable
+if !has("compatible")
+   set nofoldenable
+endif
 let fortran_fold=1
 let g:cpp_fold_enabled=1
 let g:fortran_fold_enabled=1
