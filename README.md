@@ -25,11 +25,12 @@ Install apy-cyg with cygwin (install `lynx` using the cygwin installer):
 ```bash
 lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
 install apt-cyg /bin
+rm apt-cyg
 ```
 Install Needed programs with cygwin using apt-cyg
 ```bash
 apt-cyg install git vim git wget tmux python-setuptools curl make
-easy_install-3.4 pip
+easy_install-3.6 pip
 ```
 
 Link to mintty-terminal:
