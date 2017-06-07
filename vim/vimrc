@@ -265,8 +265,8 @@ nmap <leader>l :tabnext<CR>
 nmap <leader>H :tabm -1<CR>
 nmap <leader>L :tabm +1<CR>
 " navigate buffers
-nmap <leader>j :bprevious<CR>
-nmap <leader>k :bnext<CR>
+nmap <leader>k :bprevious<CR>
+nmap <leader>j :bnext<CR>
 " fold
 command! Fold :call DoFold()
 noremap <leader>ff :Fold<CR>
