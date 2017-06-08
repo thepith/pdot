@@ -77,7 +77,7 @@ let g:syntastic_quiet_messages = {
          \ "regex": "\\max"}
 if executable("ifort")
    let g:syntastic_fortran_compiler = "ifort"
-   let g:syntastic_fortran_compiler_options = "-warn -O0"
+   let g:syntastic_fortran_compiler_options = "-y -warn -nogen-interfaces"
 else
    let g:syntastic_fortran_compiler = "gfortran"
    let g:syntastic_fortran_compiler_options = "-Wall -O0"
