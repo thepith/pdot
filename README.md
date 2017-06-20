@@ -29,7 +29,7 @@ rm apt-cyg
 ```
 Install Needed programs with cygwin using apt-cyg
 ```bash
-apt-cyg install git vim git wget tmux python-setuptools curl make
+apt-cyg install git vim git wget tmux python-setuptools curl make bc
 easy_install-3.6 pip
 ```
 
