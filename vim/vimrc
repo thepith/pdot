@@ -156,7 +156,7 @@ if !has("compatible")
       let ctagwdir = substitute(system('git rev-parse --show-toplevel 2> /dev/null || echo -n "."'), '[[:cntrl:]]', '', 'g')
       echom ctagwdir
       echom ctagdir
-      execute '!ctags -R --tag-relative -f"'.ctagdir.'/tags" '.ctagwdir
+      execute '!ctags -R --tag-relative=yes -f"'.ctagdir.'/tags" '.ctagwdir
       e!
    endfunction
    command! MakeCtags :call GenerateCtags()
@@ -280,6 +280,8 @@ noremap <leader>ff :find<Space>
 "legacy
 " move to tag
 nmap <leader>fs <C-]>
+" unmap ex mode
+nnoremap Q <nop>
 
 "File type specific settings
 "Markdown
