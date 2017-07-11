@@ -21,7 +21,7 @@ set -o nounset                              # Treat unset variables as an error
 
 echo "checking dependencies"
 
-progs=(vim tmux pip git wget bc)
+progs=(vim tmux pip git wget)
 for i in "${progs[@]}"; do
    echo -n "Checking $i ..."
    command -v $i >/dev/null 2>&1 || { echo >&2 "I require $i but it's not installed.  Aborting."; exit 1; }
