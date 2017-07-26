@@ -35,6 +35,7 @@ if !has("compatible")
    Plugin 'SirVer/ultisnips'
    Plugin 'scrooloose/syntastic'
    Plugin 'vim-scripts/LanguageTool'
+   Plugin 'godlygeek/tabular'
    "
    call vundle#end()
 endif
@@ -126,7 +127,11 @@ let g:fortran_fold_enabled=1
 let g:fastfold_fold_command_suffixes = []
 let g:fastfold_fold_movement_commands = []
 let g:fastfold_savehook = 0
-"
+
+"tabular
+" Start interactive Tabularize
+xmap <leader>t :Tabularize /
+
 "
 "Own functions
 if !has("compatible")
