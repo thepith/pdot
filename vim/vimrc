@@ -35,7 +35,7 @@ if !has("compatible")
    Plugin 'SirVer/ultisnips'
    Plugin 'scrooloose/syntastic'
    Plugin 'vim-scripts/LanguageTool'
-   Plugin 'godlygeek/tabular'
+   Plugin 'junegunn/vim-easy-align'
    "
    call vundle#end()
 endif
@@ -64,9 +64,12 @@ map <F5> :w<CR>:Dispatch ./% <CR>
 " Run last command executed by VimuxRunCommand
 map <F6> :w<CR>:Dispatch<CR>
 "" Prompt for a command to run
-map <F7> :w<CR>:FocusDispatch 
+map <F7> :w<CR>:FocusDispatch
 "" run make
-map <F9> :w<CR>:Make<Cr>
+let target = ""
+map <F8> :let target = ""<left>
+"" run make
+map <F9> :w<CR>:exe 'Make '.target<Cr>
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -128,9 +131,21 @@ let g:fastfold_fold_command_suffixes = []
 let g:fastfold_fold_movement_commands = []
 let g:fastfold_savehook = 0
 
-"tabular
-" Start interactive Tabularize
-xmap <leader>t :Tabularize /
+"easy-align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap <leader>a <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap <leader>a <Plug>(EasyAlign)
+
+" Start to regex
+xmap <leader>t :EasyAlign //<left>
+
+
+let g:easy_align_delimiters = {
+         \  '!': { 'pattern': '!\+', 'delimiter_align': 'l',
+         \         'ignore_groups': ['!Comment']  },
+         \ }
 
 "
 "Own functions
