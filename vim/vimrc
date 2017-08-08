@@ -31,8 +31,10 @@ if !has("compatible")
    Plugin 'vim-scripts/indentpython.vim'
 
    "Tools
-   Plugin 'honza/vim-snippets'
-   Plugin 'SirVer/ultisnips'
+   Plugin 'thepith/vim-snippets'
+   Plugin 'MarcWeber/vim-addon-mw-utils'
+   Plugin 'tomtom/tlib_vim'
+   Plugin 'garbas/vim-snipmate'
    Plugin 'scrooloose/syntastic'
    Plugin 'vim-scripts/LanguageTool'
    Plugin 'junegunn/vim-easy-align'
@@ -60,16 +62,16 @@ silent! colorscheme solarized
 
 " Dispatch
 " Inspect runner pane
-map <F5> :w<CR>:Dispatch ./% <CR>
+map <F5> :update<CR>:Dispatch ./% <CR>
 " Run last command executed by VimuxRunCommand
-map <F6> :w<CR>:Dispatch<CR>
+map <F6> :update<CR>:Dispatch<CR>
 "" Prompt for a command to run
-map <F7> :w<CR>:FocusDispatch
+map <F7> :update<CR>:FocusDispatch
 "" run make
 let target = ""
 map <F8> :let target = ""<left>
 "" run make
-map <F9> :w<CR>:exe 'Make '.target<Cr>
+map <F9> :update<CR>:exe 'Make '.target<Cr>
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -90,7 +92,7 @@ else
 endif
 let g:syntastic_tex_chktex_nowarn=24
 "command to run syntastic
-nnoremap <leader>sc :w<CR>:SyntasticCheck<CR>
+nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
 
 " commentary
 map <leader>cc :Commentary<CR>
@@ -100,18 +102,12 @@ nnoremap <Leader>q :Bdelete<CR>
 
 " LanguageTool
 let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
-nnoremap <leader>gm :w<CR>:LanguageToolCheck<CR>
+nnoremap <leader>gm :update<CR>:LanguageToolCheck<CR>
 nnoremap <leader>gc :LanguageToolClear
 
 " snippets
-let g:UltiSnipsExpandTrigger="<c-s><tab>"
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-s>s"
-let g:UltiSnipsJumpForwardTrigger="<c-s>l"
-let g:UltiSnipsJumpBackwardTrigger="<c-s>h"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories = ['~/.vim/UltiSnips', 'UltiSnips']
+let g:snipMate = {}
+let g:snipMate.snippet_version = 1
 "surround
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 "fortran.vim
