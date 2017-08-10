@@ -64,17 +64,17 @@ rm -rf ~/.$dotdir/bundle
 
 if [ "$@" = "install" ] ; then
    cpfile
-   vim +"set viewoptions=" +PlugUpgrade +PlugUpdate! +qall
+   vim +PlugUpgrade +PlugUpdate! +qall
 fi
 
 if [ "$@" = "update" ] ; then
    cpfile
    e_arrow2 "Updating vim-plug"
-   vim +"set viewoptions=" +PlugUpgrade +qall
+   vim +PlugUpgrade +qall
    e_arrow2 "Removing unused Plugins"
-   vim +"set viewoptions=" +PlugClean! +qall
+   vim +PlugClean! +qall
    e_arrow2 "Installing/Updating new Plugins"
-   vim +"set viewoptions=" +PlugUpdate! +qall
+   vim +PlugUpdate! +qall
 fi
 }
 
