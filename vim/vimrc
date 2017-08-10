@@ -1,54 +1,58 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+" clear previous variable settings
+filetype on
+filetype plugin indent on
+syntax on
 
-" set the runtime path to include Vundle and initialize
+if empty(glob("~/.vim/autoload/plug.vim"))
+    " Download the actual plugin manager
+    silent execute '!mkdir -p ~/.vim/autoload/'
+    silent execute '!wget -P ~/.vim/autoload https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+endif
+
+
 if !has("compatible")
-   set rtp+=~/.vim/bundle/Vundle.vim
-   call vundle#begin()
-   " let Vundle manage Vundle, required
-   Plugin 'VundleVim/Vundle.vim'
-
+   call plug#begin('~/.vim/plugged')
    " Appearance
-   Plugin 'altercation/vim-colors-solarized'
+   Plug 'altercation/vim-colors-solarized'
 
    "usability
-   Plugin 'Konfekt/FastFold'
-   Bundle 'christoomey/vim-tmux-navigator'
-   Plugin 'tpope/vim-fugitive'
-   Plugin 'tpope/vim-unimpaired'
-   Plugin 'tpope/vim-dispatch'
-   Plugin 'tpope/vim-surround'
-   Plugin 'tpope/vim-repeat'
-   Plugin 'tpope/vim-sensible'
-   Plugin 'tpope/vim-commentary'
-   Plugin 'moll/vim-bbye'
-
-   "Misc
-   Plugin 'thepith/VimPascalHelp'
+   Plug 'Konfekt/FastFold'
+   Plug 'christoomey/vim-tmux-navigator'
+   Plug 'tpope/vim-fugitive'
+   Plug 'tpope/vim-unimpaired'
+   Plug 'tpope/vim-dispatch'
+   Plug 'tpope/vim-surround'
+   Plug 'tpope/vim-repeat'
+   Plug 'tpope/vim-sensible'
+   Plug 'tpope/vim-commentary'
+   Plug 'moll/vim-bbye'
 
    "Languages
-   Bundle 'gnuplot.vim'
-   Plugin 'vim-scripts/indentpython.vim'
+   Plug 'vim-scripts/gnuplot.vim'
+   Plug 'vim-scripts/indentpython.vim'
 
    "Tools
-   Plugin 'thepith/vim-snippets'
-   Plugin 'MarcWeber/vim-addon-mw-utils'
-   Plugin 'tomtom/tlib_vim'
-   Plugin 'garbas/vim-snipmate'
-   Plugin 'scrooloose/syntastic'
-   Plugin 'vim-scripts/LanguageTool'
-   Plugin 'junegunn/vim-easy-align'
+   Plug 'MarcWeber/vim-addon-mw-utils'
+   Plug 'tomtom/tlib_vim'
+   Plug 'garbas/vim-snipmate'
+   Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
+   Plug 'vim-scripts/LanguageTool'
+   Plug 'junegunn/vim-easy-align'
    "
-   call vundle#end()
-endif
-filetype plugin indent on
-filetype plugin on
+   " Own plugins I want to edit
+   let g:plug_url_format = 'git@github.com:%s.git'
+   Plug 'thepith/vim-snippets'
+   Plug 'thepith/VimPascalHelp'
 
+   unlet g:plug_url_format
+
+   call plug#end()
+endif
 let mapleader="\<Space>"
 
 " Plugins
 " solarized
-syntax enable
 set t_Co=256 " use 256 colors
 set background=light
 let solenv=$SOLVAR

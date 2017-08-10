@@ -34,7 +34,6 @@ CONFSCRIPT="configure.sh"
 
 gitclone() {
 curdir=$PWD
-#get vundle
 REPOSRC=$1
 LOCALREPO=$2
 # We do it this way so that we can abstract if from just git later on
@@ -59,25 +58,23 @@ pvim() {
 name="vim"
 dotfile=".vimrc"
 dotdir="vim"
+#backwards compatible
+rm -rf /tmp/$USER/.vim/views/*
+rm -rf ~/.$dotdir/bundle
 
 if [ "$@" = "install" ] ; then
    cpfile
-   e_arrow2 "Cloning Vundle"
-   gitclone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-   e_arrow2 "Installing Plugins"
-   vim +"set viewoptions=" +PluginInstall +qall
-   rm -f /tmp/$USER/.vim/views/*
+   vim +"set viewoptions=" +PlugUpgrade +PlugUpdate! +qall
 fi
 
 if [ "$@" = "update" ] ; then
    cpfile
-   e_arrow2 "Updating Vundle"
-   gitclone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+   e_arrow2 "Updating vim-plug"
+   vim +"set viewoptions=" +PlugUpgrade +qall
    e_arrow2 "Removing unused Plugins"
-   vim +"set viewoptions=" +PluginClean! +qall
+   vim +"set viewoptions=" +PlugClean! +qall
    e_arrow2 "Installing/Updating new Plugins"
-   vim +"set viewoptions=" +PluginInstall! +qall
-   rm -f /tmp/$USER/.vim/views/*
+   vim +"set viewoptions=" +PlugUpdate! +qall
 fi
 }
 
