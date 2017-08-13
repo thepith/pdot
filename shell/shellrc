@@ -23,7 +23,7 @@ export LANGUAGE=en_US.UTF-8
 export LESSCHARSET=utf-8
 
 #source solarized colors
-source ~/.solrc
+source $HOME/.solrc
 
 #some aliases
 alias ls="ls --color=auto"
@@ -41,7 +41,7 @@ fi
 shell=${SHELL#*/bin/}
 if [ "$shell" = "bash" ] ; then
 #set up bash prompt
-   source ~/.shell/git-prompt.sh
+   source $HOME/.shell/git-prompt.sh
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
       PROMPT_COMMAND='__git_ps1 "\n\[\e[34m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]'" $vimprompt"'" "\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]"'
    else
