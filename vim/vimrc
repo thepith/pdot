@@ -296,6 +296,8 @@ nmap <leader>L :tabm +1<CR>
 " navigate buffers
 nmap <leader>k :bprevious<CR>
 nmap <leader>j :bnext<CR>
+" change current dir of the window
+nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
 " fold
 command! Fold :call DoFold()
 noremap <leader>fo :Fold<CR>
