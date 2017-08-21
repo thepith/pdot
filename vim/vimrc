@@ -39,13 +39,10 @@ if !has("compatible")
    Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
    Plug 'vim-scripts/LanguageTool'
    Plug 'junegunn/vim-easy-align'
-   "
-   " Own plugins I want to edit
-   let g:plug_url_format = 'git@github.com:%s.git'
+
+   " Own plugins
    Plug 'thepith/vim-snippets'
    Plug 'thepith/VimPascalHelp'
-
-   unlet g:plug_url_format
 
    call plug#end()
 endif
