@@ -266,7 +266,9 @@ map Y y$
 " turn of highlight until the next search
 nmap <leader>nn :nohl<CR>
 " use to naviage buffers easily
-nnoremap <leader>b :ls<CR>:b<Space>
+nnoremap <leader>b :ls<CR>:buffer<Space>
+" use to naviage buffers easily
+nnoremap <leader>o :buffer#<CR>
 " enter works in normal mode
 nmap <CR> o<Esc>k
 if !has("compatible")
@@ -304,6 +306,9 @@ noremap <leader>ff :find<Space>
 nmap <leader>fs <C-]>
 " unmap ex mode
 nnoremap Q <nop>
+" Quickly open/reload vim
+nnoremap <leader>ev :split $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 
 "File type specific settings
 "Markdown
