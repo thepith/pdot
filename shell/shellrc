@@ -28,7 +28,7 @@ source $HOME/.solrc
 #some aliases
 alias ls="ls --color=auto"
 alias ll="ls -alt"
-alias less="less -R"
+alias less="less -qR"
 alias grep="grep --color"
 alias du1="du -h --max-depth=1"
 
