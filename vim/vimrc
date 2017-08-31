@@ -50,8 +50,8 @@ let mapleader="\<Space>"
 
 " Plugins
 " solarized
-set t_Co=256 " use 256 colors > needed?
 set background=light
+let g:solarized_visibility="high"
 let solenv=$SOLVAR
 if solenv == "light"
    set background=light
@@ -216,12 +216,6 @@ if version >= 700
 endif
 "}
 
-" change the colors of the tabline
-hi TabLine ctermbg=14 ctermfg=0
-hi TabLineFill ctermbg=15
-hi TabLineSel ctermfg=6 ctermbg=0
-set cursorline
-
 set confirm " Instead of failing a command because of unsaved changes, instead raise a dialogue asking if you wish to save changed files.
 set visualbell " Use visual bell instead of beeping when doing something wrong
 set t_vb= " And reset the terminal code for the visual bell. If visualbell is set, and this line is also included, vim will neither flash nor beep. If visualbell is unset, this does nothing.
@@ -235,12 +229,11 @@ set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never
 "
 set wrap "wrap lines at breakat
 "show line with break
-set showbreak=··\ 
+let &showbreak = '↳'
 set nolist  " list disables linebreak
 "color break as the linenumbers
-hi NonText ctermbg=7
 "show ExtraWhitespace as light red
-highlight ExtraWhitespace ctermbg=223
+highlight ExtraWhitespace ctermbg=9
 "Highlight ExtraWhitespace
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
