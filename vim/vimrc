@@ -44,6 +44,11 @@ if !has("compatible")
    Plug 'thepith/vim-snippets'
    Plug 'thepith/VimPascalHelp'
 
+   Plug 'wikitopian/hardmode'
+
+   "Undo
+   Plug 'sjl/gundo.vim', {'on': ['GundoToggle']}
+
    call plug#end()
 endif
 let mapleader="\<Space>"
@@ -91,7 +96,6 @@ else
    let g:syntastic_fortran_compiler = "gfortran"
    let g:syntastic_fortran_compiler_options = "-Wall -O0"
 endif
-let g:syntastic_tex_chktex_nowarn=24
 "command to run syntastic
 nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
 
@@ -137,6 +141,9 @@ nmap <leader>a <Plug>(EasyAlign)
 
 " Start to regex
 xmap <leader>t :EasyAlign //<left>
+
+"Gundo.vim
+nnoremap <leader>u :GundoToggle<CR>
 
 
 let g:easy_align_delimiters = {
