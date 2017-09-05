@@ -236,7 +236,7 @@ set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never
 "
 set wrap "wrap lines at breakat
 "show line with break
-let &showbreak = '↳'
+let &showbreak = '►'
 set nolist  " list disables linebreak
 "color break as the linenumbers
 "show ExtraWhitespace as light red
