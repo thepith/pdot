@@ -1,4 +1,3 @@
-set nocompatible
 " clear previous variable settings
 filetype on
 filetype plugin indent on
@@ -17,7 +16,6 @@ if !has("compatible")
    Plug 'altercation/vim-colors-solarized'
 
    "usability
-   Plug 'Konfekt/FastFold'
    Plug 'christoomey/vim-tmux-navigator'
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-unimpaired'
@@ -44,8 +42,6 @@ if !has("compatible")
    Plug 'thepith/vim-snippets'
    Plug 'thepith/VimPascalHelp'
 
-   Plug 'wikitopian/hardmode'
-
    "Undo
    Plug 'sjl/gundo.vim', {'on': ['GundoToggle']}
 
@@ -68,22 +64,22 @@ silent! colorscheme solarized
 
 " Dispatch
 " Inspect runner pane
-map <F5> :update<CR>:Dispatch ./% <CR>
+nnoremap <F5> :update<CR>:Dispatch ./% <CR>
 " Run last command executed by VimuxRunCommand
-map <F6> :update<CR>:Dispatch<CR>
+nnoremap <F6> :update<CR>:Dispatch<CR>
 "" Prompt for a command to run
-map <F7> :update<CR>:FocusDispatch
+nnoremap <F7> :update<CR>:FocusDispatch
 "" run make
 let target = ""
-map <F8> :let target = ""<left>
+nnoremap <F8> :let target = ""<left>
 "" run make
-map <F9> :update<CR>:exe 'Make '.target<Cr>
+nnoremap <F9> :update<CR>:exe 'Make '.target<Cr>
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
-let g:syntastic_check_on_open = 0 "Never run syntastic automatically
-let g:syntastic_check_on_wq = 0 "Never run syntastic automatically
+let g:syntastic_check_on_open = 0 " Never run syntastic automatically
+let g:syntastic_check_on_wq = 0   " Never run syntastic automatically
 let g:syntastic_mode_map={"mode" : "passive"}
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_messages = {
@@ -113,48 +109,50 @@ nnoremap <leader>gc :LanguageToolClear
 " snippets
 let g:snipMate = {}
 let g:snipMate.snippet_version = 1
+
 "surround
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+
 "fortran.vim
 let fortran_free_source=1
 let fortran_do_enddo=1
 let fortran_have_tabs=1
-"gnuplot
-au BufRead,BufNewFile *.gpl,*.gpi set filetype=gnuplot
+
 "fast fold
 if !has("compatible")
    set nofoldenable
 endif
+set foldmethod=manual
+set foldlevel=0
+set foldnestmax=2
 let fortran_fold=1
-let g:cpp_fold_enabled=1
-let g:fortran_fold_enabled=1
-let g:fastfold_fold_command_suffixes = []
-let g:fastfold_fold_movement_commands = []
-let g:fastfold_savehook = 0
+" let g:cpp_fold_enabled=1
+" let g:fortran_fold_enabled=1
+" let g:fastfold_fold_command_suffixes = []
+" let g:fastfold_fold_movement_commands = []
+" let g:fastfold_savehook = 0
+nnoremap <leader>fo :let &foldmethod=b:wantedfoldmethod<CR>
 
 "easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap <leader>a <Plug>(EasyAlign)
-
+xnoremap <leader>a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap <leader>a <Plug>(EasyAlign)
-
+nnoremap <leader>a <Plug>(EasyAlign)
 " Start to regex
-xmap <leader>t :EasyAlign //<left>
-
-"Gundo.vim
-nnoremap <leader>u :GundoToggle<CR>
-
-
+xnoremap <leader>t :EasyAlign //<left>
 let g:easy_align_delimiters = {
          \  '!': { 'pattern': '!\+', 'delimiter_align': 'l',
          \         'ignore_groups': ['!Comment']  },
          \ }
 
+"Gundo.vim
+nnoremap <leader>u :GundoToggle<CR>
+
+
 "
 "Own functions
 if !has("compatible")
-   set nf=octal,hex,alpha
+   set nrformats=octal,hex,alpha
    function! Incr()
       let a = line('.') - line("'<")
       let c = virtcol("'<")
@@ -163,18 +161,7 @@ if !has("compatible")
       endif
       normal `<
    endfunction
-   function! DoFold()
-      echom "fold"
-      if &foldenable
-         set nofoldenable
-      else
-         set foldenable
-         let &foldmethod=b:wantedfoldmethod
-         echo b:wantedfoldmethod
-         set foldlevel=0
-         set foldnestmax=2
-      endif
-   endfunction
+   vnoremap <C-a> :call Incr()<CR>
    function! GenerateCtags()
       let ctagdir = substitute(system('git rev-parse --git-dir 2> /dev/null || echo -n "."'), '[[:cntrl:]]', '', 'g')
       let ctagwdir = substitute(system('git rev-parse --show-toplevel 2> /dev/null || echo -n "."'), '[[:cntrl:]]', '', 'g')
@@ -213,13 +200,13 @@ set statusline+=%f\                          " filename
 set statusline+=%h%m%r%w                     " status flags
 set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
 set statusline+=%=                           " right align remainder
-set statusline+=%5(%l%),%-9(%c%V%)\               " line, character
+set statusline+=%5(%l%),%-9(%c%V%)\          " line, character
 
 " now set it up to change the status line based on mode
 if version >= 700
-   hi StatusLine ctermfg=6 ctermbg=0
-   au InsertEnter * hi StatusLine ctermfg=3 ctermbg=0
-   au InsertLeave * hi StatusLine ctermfg=6 ctermbg=0
+   highlight StatusLine ctermfg=6 ctermbg=0
+   autocmd InsertEnter * highlight StatusLine ctermfg=3 ctermbg=0
+   autocmd InsertLeave * highlight StatusLine ctermfg=6 ctermbg=0
 endif
 "}
 
@@ -229,16 +216,10 @@ set t_vb= " And reset the terminal code for the visual bell. If visualbell is se
 set cmdheight=2 " Set the command window height to 2 lines, to avoid many cases of having to press <CR> to continue
 set number " Display line numbers on the left
 set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never time out on mappings
-"todo: are these needed?
-"set formatoptions-=t
-"set formatoptions-=c
-"autocmd BufNewFile,BufRead * setlocal formatoptions-=tc
-"
 set wrap "wrap lines at breakat
 "show line with break
 let &showbreak = '►'
 set nolist  " list disables linebreak
-"color break as the linenumbers
 "show ExtraWhitespace as light red
 highlight ExtraWhitespace ctermbg=9
 "Highlight ExtraWhitespace
@@ -252,46 +233,28 @@ set shiftwidth=3
 set softtabstop=3
 set expandtab
 "Show bad spelling as underlined
-hi clear SpellBad
-hi SpellBad cterm=underline
+highlight clear SpellBad
+highlight SpellBad cterm=underline
 "use system clipboad
 set clipboard=unnamed
 " easy split
 set splitbelow
 set splitright
-" Switch between block and vertical cursor
-" if exists('$TMUX')
-"     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[6 q\<Esc>\\"
-"     let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-" else
-"     let &t_SI = "\e[6 q"
-"     let &t_EI = "\e[2 q"
-" endif
 " show textwidth
 set colorcolumn=+1
 
-" use vim Menu
-source $VIMRUNTIME/menu.vim
-set cpo-=<
-set wcm=<C-Z>
-
-" Map Keys
-nmap <F4> :emenu <C-Z>
 set pastetoggle=<F4> " Use <F4> to toggle between 'paste' and 'nopaste'
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
 map Y y$
 " turn of highlight until the next search
-nmap <leader>nn :nohl<CR>
+nnoremap <leader>nn :nohlsearch<CR>
 " use to naviage buffers easily
-nnoremap <leader>b :ls<CR>:buffer<Space>
+nnoremap <leader>b :buffers<CR>:buffer<Space>
 " use to naviage buffers easily
 nnoremap <leader>o :buffer#<CR>
 " enter works in normal mode
-nmap <CR> o<Esc>k
-if !has("compatible")
-   vnoremap <C-a> :call Incr()<CR>
-endif
+nnoremap <CR> o<Esc>k
 " do not use arrow keys!
 noremap <Up>    :echo "Stop using arrow keys, stupid" <CR>
 noremap <Down>  :echo "Stop using arrow keys, stupid" <CR>
@@ -302,26 +265,22 @@ inoremap <Down>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
 inoremap <Left>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
 inoremap <Right> <Esc>:echo "Stop using arrow keys, stupid" <CR> i
 " custom copy'n'paste
-vmap <leader>y :w! /tmp/$USER/.vim/vbuf<CR>
-nmap <leader>y :.w! /tmp/$USER/.vim/vbuf<CR>
-nmap <leader>p :r /tmp/$USER/.vim/vbuf<CR>
+vnoremap <leader>y :w! /tmp/$USER/.vim/vbuf<CR>
+nnoremap <leader>y :.w! /tmp/$USER/.vim/vbuf<CR>
+nnoremap <leader>p :r /tmp/$USER/.vim/vbuf<CR>
 " navigate tabs
-nmap <leader>h :tabprevious<CR>
-nmap <leader>l :tabnext<CR>
-nmap <leader>H :tabm -1<CR>
-nmap <leader>L :tabm +1<CR>
+nnoremap <leader>h :tabprevious<CR>
+nnoremap <leader>l :tabnext<CR>
+nnoremap <leader>H :tabm -1<CR>
+nnoremap <leader>L :tabm +1<CR>
 " navigate buffers
-nmap <leader>k :bprevious<CR>
-nmap <leader>j :bnext<CR>
+nnoremap <leader>k :bprevious<CR>
+nnoremap <leader>j :bnext<CR>
 " change current dir of the window
 nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
 " fold
-command! Fold :call DoFold()
-noremap <leader>fo :Fold<CR>
 noremap <leader>ff :find<Space>
 "legacy
-" move to tag
-nmap <leader>fs <C-]>
 " unmap ex mode
 nnoremap Q <nop>
 " Quickly open/reload vim
@@ -331,12 +290,12 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 "File type specific settings
 "Markdown
 autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
-au FileType markdown setlocal spell
+autocmd FileType markdown setlocal spell
 "Fortran
-au FileType fortran let b:wantedfoldmethod="syntax"
-au FileType fortran setlocal textwidth=132
+autocmd FileType fortran let b:wantedfoldmethod="syntax"
+autocmd FileType fortran setlocal textwidth=132
 "python
-au Filetype python
+autocmd Filetype python
          \ setlocal tabstop=4 |
          \ setlocal softtabstop=4 |
          \ setlocal shiftwidth=4 |
@@ -346,22 +305,21 @@ au Filetype python
          \ setlocal fileformat=unix
 
 let python_highlight_all=1
-au FileType python let b:wantedfoldmethod="indent"
+autocmd FileType python let b:wantedfoldmethod="indent"
 " cpp
-au FileType cpp let b:wantedfoldmethod="syntax"
-au FileType cpp setlocal textwidth=80
-au FileType cpp setlocal shiftwidth=2 " Indentation settings for using 2 spaces instead of tabs.
-au FileType cpp setlocal softtabstop=2 " Indentation settings for using 2 spaces instead of tabs.
-au FileType cpp setlocal expandtab
+autocmd FileType cpp let b:wantedfoldmethod="syntax"
+autocmd FileType cpp setlocal textwidth=80
+autocmd FileType cpp setlocal shiftwidth=2 " Indentation settings for using 2 spaces instead of tabs.
+autocmd FileType cpp setlocal softtabstop=2 " Indentation settings for using 2 spaces instead of tabs.
+autocmd FileType cpp setlocal expandtab
 " gnuplot
-au FileType gnuplot setlocal commentstring =#\ %s*
+autocmd BufRead,BufNewFile *.gpl,*.gpi,*.plt set filetype=gnuplot
+autocmd FileType gnuplot setlocal commentstring =#\ %s
 
 
 " Initialize Directories
-
 if has('persistent_undo')      "check if your vim version supports it
    function! InitializeDirectories()
-      let separator = "."
       let parent = "/tmp/".$USER.""
       let prefix = '.vim/'
       let dir_list = { 'undo/': 'undodir'}
@@ -374,8 +332,7 @@ if has('persistent_undo')      "check if your vim version supports it
             endif
          endif
          if !isdirectory(directory)
-            echo "Warning: Unable to create backup directory: " .
-            directory
+            echo "Warning: Unable to create backup directory: " . directory
             echo "Try: mkdir -p " . directory
          else
             let directory = substitute(directory, " ", "\\\\\\\\ ", "")
