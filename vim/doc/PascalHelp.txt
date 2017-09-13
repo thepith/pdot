@@ -75,8 +75,10 @@ From pdot~
    * <leader>{l,h} move to the next/previous tab
    * <leader>{L,H} move to the tab to the next/previous position
    * <leader>{j,k} move to the next/previous buffer
-   * <leader>b move to a selected buffer
+   * <leader>b list buffers and move to a selected buffer
+   * <leader>o move to the previous
    * <leader>cd to change the cwd of the current window to the file directory
+   * <leader>cb list buffers in the current dir and move to selected buffer
    * <CTRL>{l,h} move to the next/previous split
      (seamlessly between vim and tmux splits)
    * <leader>ff to enable folding (python, fortran cpp). To update the folding
