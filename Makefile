@@ -7,6 +7,8 @@ vmdrc = $(shell [[ "$$OSTYPE" == "cygwin" ]] && echo "vmd.rc" || echo ".vmdrc")
 
 .SUFFIXES:
 
+all: update
+
 install: $(installlist)
 
 update: git | install
