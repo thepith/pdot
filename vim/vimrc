@@ -81,8 +81,7 @@ let g:syntastic_check_on_open = 0 " Never run syntastic automatically
 let g:syntastic_check_on_wq = 0   " Never run syntastic automatically
 let g:syntastic_mode_map={"mode" : "passive"}
 let g:syntastic_enable_signs=1
-let g:syntastic_quiet_messages = {
-         \ "regex": "\\max"}
+let g:syntastic_quiet_messages = { "regex": "\\max"}
 if executable("ifort")
    let g:syntastic_fortran_compiler = "ifort"
    let g:syntastic_fortran_compiler_options = "-no-save-temps
@@ -111,26 +110,6 @@ let g:snipMate.snippet_version = 1
 
 "surround
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
-
-"fortran.vim
-let fortran_free_source=1
-let fortran_do_enddo=1
-let fortran_have_tabs=1
-
-"fast fold
-if !has("compatible")
-   set nofoldenable
-endif
-set foldmethod=manual
-set foldlevel=0
-set foldnestmax=2
-let fortran_fold=1
-" let g:cpp_fold_enabled=1
-" let g:fortran_fold_enabled=1
-" let g:fastfold_fold_command_suffixes = []
-" let g:fastfold_fold_movement_commands = []
-" let g:fastfold_savehook = 0
-nnoremap <leader>fo :let &foldmethod=b:wantedfoldmethod<CR>
 
 "easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
@@ -242,6 +221,7 @@ set splitright
 " show textwidth
 set colorcolumn=+1
 
+"mappings
 set pastetoggle=<F4> " Use <F4> to toggle between 'paste' and 'nopaste'
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
@@ -279,20 +259,30 @@ nnoremap <leader>k :bprevious<CR>
 nnoremap <leader>j :bnext<CR>
 " change current dir of the window
 nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
-" fold
-noremap <leader>ff :find<Space>
-"legacy
 " unmap ex mode
 nnoremap Q <nop>
 " Quickly open/reload vim
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
+"folding
+if !has("compatible")
+   set nofoldenable
+endif
+set foldmethod=manual
+set foldlevel=0
+set foldnestmax=2
+let fortran_fold=1
+nnoremap <leader>fo :let &foldmethod=b:wantedfoldmethod<CR>
+
 "File type specific settings
 "Markdown
 autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
 autocmd FileType markdown setlocal spell
 "Fortran
+let fortran_free_source=1
+let fortran_do_enddo=1
+let fortran_have_tabs=1
 autocmd FileType fortran let b:wantedfoldmethod="syntax"
 autocmd FileType fortran setlocal textwidth=132
 "python
@@ -316,7 +306,6 @@ autocmd FileType cpp setlocal expandtab
 " gnuplot
 autocmd BufRead,BufNewFile *.gpl,*.gpi,*.plt set filetype=gnuplot
 autocmd FileType gnuplot setlocal commentstring =#\ %s
-
 
 " Initialize Directories
 if has('persistent_undo')      "check if your vim version supports it
