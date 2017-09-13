@@ -252,6 +252,8 @@ nnoremap <leader>nn :nohlsearch<CR>
 nnoremap <leader>b :buffers<CR>:buffer<Space>
 " use to naviage buffers easily
 nnoremap <leader>o :buffer#<CR>
+" use to naviage buffers easily
+nnoremap <leader>cb :filter /^[^\/]*$/ buffers<CR>
 " enter works in normal mode
 nnoremap <CR> o<Esc>k
 " do not use arrow keys!
