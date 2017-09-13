@@ -40,7 +40,6 @@ if !has("compatible")
 
    " Own plugins
    Plug 'thepith/vim-snippets'
-   Plug 'thepith/VimPascalHelp'
 
    "Undo
    Plug 'sjl/gundo.vim', {'on': ['GundoToggle']}

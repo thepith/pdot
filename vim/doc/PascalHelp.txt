@@ -1,0 +1,202 @@
+vim:set et sw=3 ts=8 filetype=help:
+*PascalHelp.txt*        For Vim version 7.4  Last change: 2017 April 03
+*pascalhelp*
+
+Pascal's cheat sheet of Vim stuff he always forgets.
+
+==============================================================================
+CONTENTS
+
+        0. General........................................|pascalhelp-general|
+        1. Normal Mode....................................|pascalhelp-normal|
+        2. Visual Mode....................................|pascalhelp-visual|
+        3. Insert Mode....................................|pascalhelp-insert|
+        4. Plugins........................................|pascalhelp-plugins|
+        5. Settings for certain Filetypes.................|pascalhelp-filetypes|
+        6. Notes..........................................|pascalhelp-notes|
+
+==============================================================================
+0. General                                               *pascalhelp-general*
+
+This help file describes some general Vim commands as well as the changes
+introduced by using |pdot|.
+
+'pdot'                                                   *pdot*
+
+pdot is the repository in which the personal configuration of some UNIX
+programs is stored. It can be found under
+https://github.com/thepith/pdot
+
+Some general settings~
+   * the |encoding| is utf8
+   * the |spelllang| is en_us
+   * |ignorecase| and |smartcase| is activated. To make a case sensitive
+     search for lowercase characters add "\C" to your search string (see
+     |/ignorecase|
+   * trailing whitespaces are highlighted
+   * the |solarized| colorsheme is used according to the environment variable
+     $SOLVAR
+   * |syntastic| is enabled, but can only be called manually, see normal
+     mappings for a convenient mapping
+   * *.gpl* and *.gpi* files are mapped as gnuplot files
+
+General key mappings~
+   * The leader is defined as <space>
+   * use <CTRL>[ as an substitute for <ESC>
+
+==============================================================================
+1. Normal Mode                                           *pascalhelp-normal*
+
+General Vim~
+   * use |c|{motion} to change the text
+   * use |:x| so save and close the current file
+   * use <CTRL-D> to move half a page down
+   * use <CTRL-U> to move half a page up
+   * |:reg| list registers
+   * |J| to join the current line with the next one
+   * use |:set| 'scrollbind' to bind the scrolling position of a split. This
+     allow you to scroll synchronously two splits (set in both)
+
+From pdot~
+   * <leader>sc (syntax check) to save the file run |SyntasticCheck|
+   * <leader>gm (grammar make) to save the file run |LanguageToolCheck|
+   * <leader>gc (grammar clear) to run |LanguageToolClear|
+   * <F5> to run |Dispatch| with the current filename as argument
+   * <F6> to run |Dispatch| without arguments, usefull after setting the
+     argument with <F7>
+   * <F7> to run |FocusDispatch| to define default argument for |Dispatch|
+   * <F9> to run |Make|
+   * <F4> to use the vim menu
+   * Y to yank the rest of the line
+   * <CR> to add a empty line
+   * the arrow keys are disabled
+   * <leader>y to current line to a temporary file
+   * <leader>p paste content of the temporary file
+   * <leader>{l,h} move to the next/previous tab
+   * <leader>{L,H} move to the tab to the next/previous position
+   * <leader>{j,k} move to the next/previous buffer
+   * <leader>b move to a selected buffer
+   * <leader>cd to change the cwd of the current window to the file directory
+   * <CTRL>{l,h} move to the next/previous split
+     (seamlessly between vim and tmux splits)
+   * <leader>ff to enable folding (python, fortran cpp). To update the folding
+     use |zuz| (from |FastFold|)
+   * Use |zm| to close all folds (|zr| to open) for one level
+   * use |zc| and |zo| to close and open folds
+   * use :MakeCtags to call 'ctags' so that you can use the tags for the
+     current project
+   * Use |CTRL-]| to jump to the definition of a tag
+   * Use |CTRL-o| to jump back
+   * Use |CTRL-o| to jump to the previous view
+   * Use |CTRL-i| to jump to the newer position in the jump list
+
+
+From plugins~
+   * use |:Gwrite| to add the current file to the staging area
+   * use |:Gdiff| [revision] to compare the current file to a revision
+   * use |:Gstatus| to bring up the git-status (use g? for more help, q to
+     close the status)
+   * use |:Gcommit| to call git commit
+   * |[l| to call |:lprevious|
+   * |]l| to call |:lnext| (for more see |unimpaired|)
+   * |cos| to toggle |spell|
+   * |cob| to toggle 'background'
+   * gcc toggles commenting of the current line (see |commentary|)
+
+==============================================================================
+2. Visual Mode                                           *pascalhelp-visual*
+
+General Vim~
+   * |J| to join the selected lines
+   * to append to all selected lines make a vertical selection with <CTRL>v
+     and the use $A{text} to append {text} to all lines
+
+From pdot~
+   * <C-a> to increment the selecter number/letter incremental
+   * <leader>y to copy the selected text to a temporary file
+
+From plugins~
+   * <leader>cc toggles commenting of the current line
+     (see |NERDComFunctionalitySummary|)
+   * <leader>t to tabularize a selection (see |tabular|)
+
+==============================================================================
+3. Insert Mode                                           *pascalhelp-insert*
+
+General Vim~
+   * <CTRL-n> Complete the current word
+   * <CTRL-x><CTRL-l> Complete the current line
+
+From pdot~
+   * use <F4> to toggle |paste|
+   * <F5> to run |Dispatch| with the current filename as argument
+   * <F6> to run |Dispatch| without arguments, usefull after setting the
+     argument with <F7>
+   * <F7> to run |FocusDispatch| to define default argument for |Dispatch|
+   * <F8> to set the default target for |Make| (called with <F9>)
+   * <F9> to run |Make|
+   * the arrow keys are disabled
+   * use <tab> to use a |snippet|
+   * use <tab> to navigate forwards in a |snippet|
+   * use <S-tab> to navigate backwards in a |snippet|
+   * use <CTRL-R><tab> to list the current |snipptes|
+
+==============================================================================
+4. Plugins                                               *pascalhelp-plugins*
+
+   * |vim-plug|
+   * |vim-colors-solarized|
+   * |FastFold|
+   * |tmux-navigator|
+      * use <F5> to run |VimuxRunCommand| with the current filename as argument
+      * use <F6> to run |VimuxRunLastCommand|
+      * use <F7> to run |VimuxPromptCommand|
+      * use <F8> to run |VimuxInterruptRunner|
+      * use <F9> to run |VimuxRunCommand| with make as an argument
+   * |fugitive|
+      * use |:Gwrite| to add the current file to the staging area
+      * use |:Gdiff| [revision] to compare the current file to a revision
+      * use |:Gstatus| to bring up the git-status (use g? for more help, q to
+        close the status)
+      * use |:Gcommit| to call git commit
+   * |unimpaired|
+      * |[l| to call |:lprevious|
+      * |]l| to call |:lnext| (for more see |unimpaired|)
+      * |cos| to toggle |spell|
+      * |cob| to toggle 'background'
+   * |Dispatch|
+   * |surround|
+   * |repeat|
+   * |sensible|
+   * |commentary|
+   * |PascalHelp|
+   * |gnuplot.vim|
+   * |indentpython.vim|
+   * |syntastic|
+      * <leader>sc (syntax check) to save the file run |SyntasticCheck|
+   * |LanguageTool|
+      * <leader>gm (grammar make) to save the file run |LanguageToolCheck|
+      * <leader>gc (grammar clear) to run |LanguageToolClear|
+   * |snipmate|
+   * vim-snippets (own version)
+
+==============================================================================
+5. Settings for certain Filetypes Mode                   *pascalhelp-filetypes*
+
+gnuplot~
+   * .gpl and .gpi files are mapped as gnuplot files
+tex/latex~
+   * enable spelling by default
+   * define a sensible compiler
+Markdown~
+   * all .md files are set to be markdown files
+
+==============================================================================
+6. Notes                                                 *pascalhelp-notes*
+
+   * your undo histroy will be saved so that you can undo a file even after
+     closing and opening the file
+   * to use |LanguageTool| you have to install in manually. The path is given
+     by |g:languagetool_jar|
+   * in the help files use <CTRL>-] to follow links and <CTRL>-o to go back.
+     Sometimes you might need to use <CTRL>-o multiple times.
