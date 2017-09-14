@@ -47,6 +47,7 @@ python-gitlab.cfg: python-gitlab.skel pdot.conf
 	@source pdot.conf; sed "s/skeltoken/$$tgitlabtoken/g"  $< >> $@
 
 pdot.conf: configure.sh
+	@echo -e "!!!!!\nERROR: pdot.conf is outdated. Run ./configure.sh!\n!!!!!" && exit 1
 
 $(home)/.%: %
 	@$(ln) $(PWD)/$< $@ && echo "linking $@" || { echo "please backup the existing $(@) (or run make backup)" && exit 1; }
