@@ -21,10 +21,10 @@ ins-vim: dot-vim
 	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
 ins-tmux: dot-tmux
 ins-shell: dot-shell
-	rc=$${SHELL#*/bin/}rc ;\
+	@rc=$${SHELL#*/bin/}rc ;\
 	if grep -xq "^source ~/.shellrc" ~/.$$rc ; then \
         sed -i '/^source ~\/.shellrc/d' ~/.$$rc; fi
-	rc=$${SHELL#*/bin/}rc ;\
+	@rc=$${SHELL#*/bin/}rc ;\
 	if grep -xq "^source ~/.shell/shellrc" ~/.$$rc ; then \
 	echo "shell already sources" ; else \
 	echo 'source ~/.shell/shellrc' >> ~/.$$rc; fi
