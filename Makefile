@@ -11,10 +11,11 @@ all: update
 
 install: $(installlist)
 
-update: git | install
+update: git
 
 git:
 	git pull
+	make install
 
 ins-vim: dot-vim
 	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
