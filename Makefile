@@ -14,7 +14,8 @@ install: $(installlist)
 update: git
 
 git:
-	+git pull --rebase && $(MAKE) install
+	git pull --ff-only
+	+$(MAKE) install
 
 ins-vim: dot-vim
 	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
