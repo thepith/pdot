@@ -15,7 +15,7 @@ update: git
 
 git:
 	git pull
-	make install
+	+make install
 
 ins-vim: dot-vim
 	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
