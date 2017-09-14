@@ -37,6 +37,7 @@ if !has('compatible')
    Plug 'tomtom/tlib_vim'
    Plug 'garbas/vim-snipmate'
    Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
+   Plug 'w0rp/ale'
    Plug 'vim-scripts/LanguageTool'
    Plug 'junegunn/vim-easy-align'
 
@@ -93,7 +94,15 @@ else
    let g:syntastic_fortran_compiler_options = '-Wall -O0'
 endif
 "command to run syntastic
-nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
+" nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
+
+" ale
+let g:ale_lint_on_text_changed='never'
+let g:ale_lint_on_insert_leave=0
+let g:ale_lint_on_enter=0
+let g:ale_lint_on_save=0
+let g:airline#extensions#ale#enabled=0
+nnoremap <leader>sc :update<CR>:<Plug>(ale_lint)
 
 " commentary
 map <leader>cc :Commentary<CR>
