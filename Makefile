@@ -17,7 +17,7 @@ git:
 	git pull
 
 ins-vim: dot-vim
-	vim +PlugUpgrade +PlugClean +PlugUpdate! +qall
+	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
 ins-tmux: dot-tmux
 ins-shell: dot-shell
 	rc=$${SHELL#*/bin/}rc ;\

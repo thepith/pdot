@@ -36,8 +36,11 @@ if !has('compatible')
    Plug 'MarcWeber/vim-addon-mw-utils'
    Plug 'tomtom/tlib_vim'
    Plug 'garbas/vim-snipmate'
-   Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
-   Plug 'w0rp/ale'
+   if v:version >= 800
+      Plug 'w0rp/ale', {'on': ['<Plug>(ale_lint)', 'ALEInfo']}
+   else
+      Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
+   endif
    Plug 'vim-scripts/LanguageTool'
    Plug 'junegunn/vim-easy-align'
 
@@ -77,32 +80,36 @@ nnoremap <F8> :let g:target = ""<left>
 "" run make
 nnoremap <F9> :update<CR>:exe 'Make '.target<Cr>
 
-" Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
-let g:syntastic_check_on_open = 0 " Never run syntastic automatically
-let g:syntastic_check_on_wq = 0   " Never run syntastic automatically
-let g:syntastic_mode_map={'mode' : 'Passive'}
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_messages = { 'regex': '\max'}
-if executable('ifort')
-   let g:syntastic_fortran_compiler = 'ifort'
-   let g:syntastic_fortran_compiler_options = '-no-save-temps
-            \ -y -warn -nogen-interfaces'
-else
-   let g:syntastic_fortran_compiler = 'gfortran'
-   let g:syntastic_fortran_compiler_options = '-Wall -O0'
-endif
-"command to run syntastic
-" nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
 
-" ale
-let g:ale_lint_on_text_changed='never'
-let g:ale_lint_on_insert_leave=0
-let g:ale_lint_on_enter=0
-let g:ale_lint_on_save=0
-let g:airline#extensions#ale#enabled=0
-nnoremap <leader>sc :update<CR>:<Plug>(ale_lint)
+if v:version >= 800
+   " ale
+   let g:ale_lint_on_text_changed='never'
+   let g:ale_lint_on_insert_leave=0
+   let g:ale_lint_on_enter=0
+   let g:ale_lint_on_save=0
+   let g:airline#extensions#ale#enabled=0
+   nnoremap <leader>sc :update<CR>:<Plug>(ale_lint)<CR>
+else
+   " Syntastic
+   let g:syntastic_always_populate_loc_list = 1
+   let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
+   let g:syntastic_check_on_open = 0 " Never run syntastic automatically
+   let g:syntastic_check_on_wq = 0   " Never run syntastic automatically
+   let g:syntastic_mode_map={'mode' : 'Passive'}
+   let g:syntastic_enable_signs=1
+   let g:syntastic_quiet_messages = { 'regex': '\max'}
+   let g:syntastic_vim_checkers = ['vint']
+   if executable('ifort')
+      let g:syntastic_fortran_compiler = 'ifort'
+      let g:syntastic_fortran_compiler_options = '-no-save-temps
+               \ -y -warn -nogen-interfaces'
+   else
+      let g:syntastic_fortran_compiler = 'gfortran'
+      let g:syntastic_fortran_compiler_options = '-Wall -O0'
+   endif
+   "command to run syntastic
+   nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
+endif
 
 " commentary
 map <leader>cc :Commentary<CR>
