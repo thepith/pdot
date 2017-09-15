@@ -131,9 +131,9 @@ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 "easy-align
 " Start interactive EasyAlign in visual mode (e.g. vipga)
-xnoremap <leader>a <Plug>(EasyAlign)
+xmap <leader>a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nnoremap <leader>a <Plug>(EasyAlign)
+nmap <leader>a <Plug>(EasyAlign)
 " Start to regex
 xnoremap <leader>t :EasyAlign //<left>
 let g:easy_align_delimiters = {
