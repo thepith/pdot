@@ -217,7 +217,7 @@ set number " Display line numbers on the left
 set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never time out on mappings
 set wrap "wrap lines at breakat
 "show line with break
-let &showbreak = '►'
+let &showbreak = ' ►'
 set nolist  " list disables linebreak
 "show ExtraWhitespace as light red
 highlight ExtraWhitespace ctermbg=9
