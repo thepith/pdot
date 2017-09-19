@@ -255,8 +255,6 @@ nnoremap <leader>b :buffers<CR>:buffer<Space>
 nnoremap <leader>o :buffer#<CR>
 " use to naviage buffers easily
 nnoremap <leader>cb :filter /^[^\/]*$/ buffers<CR>:buffer<Space>
-" enter works in normal mode
-nnoremap <CR> o<Esc>k
 " do not use arrow keys!
 noremap <Up>    :echo "Stop using arrow keys, stupid" <CR>
 noremap <Down>  :echo "Stop using arrow keys, stupid" <CR>
