@@ -12,7 +12,7 @@ endif
 
 " Set this option to change the gfortran options for warnings for Fortran.
 if !exists('g:ale_fortran_gfortran_options')
-    let g:ale_fortran_gfortran_options = '-Wall -O0'
+    let g:ale_fortran_gfortran_options = '-O0 -Wall'
 endif
 
 function! ale_linters#fortran#gfortran#Handle(buffer, lines) abort

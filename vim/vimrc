@@ -37,7 +37,7 @@ if !has('compatible')
    Plug 'tomtom/tlib_vim'
    Plug 'garbas/vim-snipmate'
    if v:version >= 800
-      Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo']}
+      Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
    else
       Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
    endif
@@ -89,7 +89,8 @@ if v:version >= 800
    " let g:ale_lint_on_save=0
    let g:airline#extensions#ale#enabled=0
    let g:ale_linters = {'fortran': ['gfortran']}
-   nnoremap <leader>sc :update<CR>:ALELint<CR>
+   let g:ale_enabled = 0
+   nnoremap <leader>sc :update<CR>:ALEToggle<CR>
 else
    " Syntastic
    let g:syntastic_always_populate_loc_list = 1
