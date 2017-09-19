@@ -5,4 +5,5 @@ backup-old/
 backup-org/
 vim/autoload/*
 vim/plugged/*
+vim/.netrwhist
 backupdir/
