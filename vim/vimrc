@@ -213,7 +213,6 @@ set confirm " Instead of failing a command because of unsaved changes, instead r
 set visualbell " Use visual bell instead of beeping when doing something wrong
 set t_vb= " And reset the terminal code for the visual bell. If visualbell is set, and this line is also included, vim will neither flash nor beep. If visualbell is unset, this does nothing.
 set cmdheight=2 " Set the command window height to 2 lines, to avoid many cases of having to press <CR> to continue
-set number " Display line numbers on the left
 set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never time out on mappings
 set wrap "wrap lines at breakat
 "show line with break
