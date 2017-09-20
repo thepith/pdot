@@ -37,4 +37,4 @@ C:\cygwin\bin\mintty.exe -e /bin/bash --login
 ```
 Set the terminal type to `xterm-256color` (right click on the terminal > Options... > Terminal > Type)
 
-Use (MikTex)[https://miktex.org/howto/install-miktex] instead of (texlive)[https://www.tug.org/texlive/]. This will spare you some nerves. How to add a local `TEXMF` location is described in the (manual)[http://docs.miktex.org/manual/localadditions.html] (please avoid spaces in the `TEXMF` path).
+Use [MikTex](https://miktex.org/howto/install-miktex) instead of [texlive](https://www.tug.org/texlive/). This will spare you some nerves. How to add a local `TEXMF` location is described in the [manual](http://docs.miktex.org/manual/localadditions.html) (please avoid spaces in the `TEXMF` path).
