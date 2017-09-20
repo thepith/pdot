@@ -97,7 +97,6 @@ else
    let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
    let g:syntastic_check_on_open = 0 " Never run syntastic automatically
    let g:syntastic_check_on_wq = 0   " Never run syntastic automatically
-   let g:syntastic_mode_map={'mode' : 'Passive'}
    let g:syntastic_enable_signs=1
    let g:syntastic_quiet_messages = { 'regex': '\max'}
    let g:syntastic_vim_checkers = ['vint']
@@ -109,6 +108,7 @@ else
       let g:syntastic_fortran_compiler = 'gfortran'
       let g:syntastic_fortran_compiler_options = '-Wall -O0'
    endif
+   let g:syntastic_mode_map={'mode' : 'passive'}
    "command to run syntastic
    nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
 endif
