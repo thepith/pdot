@@ -23,7 +23,7 @@ export LANGUAGE=en_US.UTF-8
 export LESSCHARSET=utf-8
 
 #source solarized colors
-source $HOME/.solrc
+source $HOME/.sol/solrc
 
 #some aliases
 alias ls="ls --color=auto"

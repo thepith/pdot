@@ -30,37 +30,22 @@ done
 
 #creating pdot.conf where user parameters are stored
 
+confvar=( tsolarizecolor tgitlabname tgitlaburl tgitlabtoken)
+confdef=( 'dark' 'gitlab-name' 'https://some.whe.re' 'asdf1234')
 if [[ -e pdot.conf ]]; then
-   read -e -p "pdot.conf exists. Overwrite? " -i "n" doconf
-else
-   doconf="y"
+   source pdot.conf
+   for (( i=0; i<${#confvar[@]}; i++ )) ; do
+      if [ ! -z ${!confvar[$i]+x} ] ; then
+         confdef[$i]=${!confvar[$i]}
+      fi
+   done
 fi
 
-case ${doconf:0:1} in
-    y|Y )
-   confvar=( tsolarizecolor tgitlabname tgitlaburl tgitlabtoken)
-   confdef=( 'dark' 'gitlab-name' 'https://some.whe.re' 'asdf1234')
-   if [[ -e pdot.conf ]]; then
-      source pdot.conf
-      for (( i=0; i<${#confvar[@]}; i++ )) ; do
-         if [ ! -z ${!confvar[$i]+x} ] ; then
-            confdef[$i]=${!confvar[$i]}
-         fi
-      done
-   fi
+for (( i=0; i<${#confvar[@]}; i++ )) ; do
+   read -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
+   confdef[$i]=$ans
+done
+for (( i=0; i<${#confvar[@]}; i++ )) ; do
+   echo "${confvar[$i]}=\"${confdef[$i]}\""
 
-   for (( i=0; i<${#confvar[@]}; i++ )) ; do
-      read -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
-      confdef[$i]=$ans
-   done
-   for (( i=0; i<${#confvar[@]}; i++ )) ; do
-      echo "${confvar[$i]}=\"${confdef[$i]}\""
-
-   done > pdot.conf
-    ;;
-    * )
-        echo "not changing pdot.conf"
-    ;;
-esac
-
-
+done > pdot.conf

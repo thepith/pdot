@@ -1,5 +1,6 @@
 #solrc
-defcolor="tsolarizecolor" #defaultcolor
+source ~/.pdot.conf
+defcolor="$tsolarizecolor" #defaultcolor
 if [ -z ${SOLVAR+x} ]; then export SOLVAR="$defcolor" ;  fi
 eval `dircolors ~/.sol/dircolors/dircolors.ansi-$defcolor`
 source ~/.sol/colors/sol.sh

@@ -1,4 +1,9 @@
 pdot.conf
+python-gitlab.cfg
 *.swp
 backup-old/
 backup-org/
+vim/autoload/*
+vim/plugged/*
+vim/.netrwhist
+backupdir/
