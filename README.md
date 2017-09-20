@@ -1,4 +1,6 @@
 # pdot
+Version 1.0.0
+
 
 Download and configure with
 ```bash
