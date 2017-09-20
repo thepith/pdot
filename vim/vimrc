@@ -288,12 +288,12 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 "folding
 if !has('compatible')
    set nofoldenable
+   set foldmethod=manual
+   set foldlevel=0
+   set foldnestmax=2
+   let g:fortran_fold=1
+   nnoremap <leader>fo :let &foldmethod=b:wantedfoldmethod<CR>
 endif
-set foldmethod=manual
-set foldlevel=0
-set foldnestmax=2
-let g:fortran_fold=1
-nnoremap <leader>fo :let &foldmethod=b:wantedfoldmethod<CR>
 
 "File type specific settings
 "Markdown
