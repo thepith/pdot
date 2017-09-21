@@ -189,7 +189,7 @@ endif
 set nostartofline " Stop certain movements from always going to the first character of a line.
 set ruler " Display the cursor position on the last line of the screen or in the status line of a window
 
-" Status Line {
+" Status Line
 set laststatus=2                             " always show statusbar
 set statusline=
 set statusline+=\<%n\>\                     " buffer number
@@ -212,7 +212,7 @@ endif
 set confirm " Instead of failing a command because of unsaved changes, instead raise a dialogue asking if you wish to save changed files.
 set visualbell " Use visual bell instead of beeping when doing something wrong
 set t_vb= " And reset the terminal code for the visual bell. If visualbell is set, and this line is also included, vim will neither flash nor beep. If visualbell is unset, this does nothing.
-set cmdheight=2 " Set the command window height to 2 lines, to avoid many cases of having to press <CR> to continue
+set shortmess=a " shorter messages
 set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never time out on mappings
 set wrap "wrap lines at breakat
 "show line with break
@@ -326,6 +326,8 @@ autocmd FileType cpp setlocal expandtab
 " gnuplot
 autocmd BufRead,BufNewFile *.gpl,*.gpi,*.plt set filetype=gnuplot
 autocmd FileType gnuplot setlocal commentstring =#\ %s
+" tex
+let g:tex_flavor = "latex"
 
 " Initialize Directories
 if has('persistent_undo')      "check if your vim version supports it
