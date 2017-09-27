@@ -296,17 +296,27 @@ if !has('compatible')
 endif
 
 "File type specific settings
+augroup filetypedetect
+   autocmd BufNewFile,BufFilePre,BufRead *.asy setlocal filetype=asy
+   autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
+   autocmd BufNewFile,BufFilePre,BufRead *.gpl,*.gpi,*.plt setlocal filetype=gnuplot
+augroup end
 "Markdown
-autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
-autocmd FileType markdown setlocal spell
+augroup filetypemarkdown
+   autocmd FileType markdown setlocal spell
+augroup end
 "Fortran
 let g:fortran_free_source=1
 let g:fortran_do_enddo=1
 let g:fortran_have_tabs=1
-autocmd FileType fortran let b:wantedfoldmethod="syntax"
-autocmd FileType fortran setlocal textwidth=132
+augroup filetypefortran
+   autocmd FileType fortran let b:wantedfoldmethod="syntax"
+   autocmd FileType fortran setlocal textwidth=132
+augroup end
 "python
-autocmd Filetype python
+let g:python_highlight_all=1
+augroup filetypepython
+   autocmd Filetype python
          \ setlocal tabstop=4 |
          \ setlocal softtabstop=4 |
          \ setlocal shiftwidth=4 |
@@ -314,20 +324,29 @@ autocmd Filetype python
          \ setlocal expandtab |
          \ setlocal autoindent |
          \ setlocal fileformat=unix
-
-let g:python_highlight_all=1
-autocmd FileType python let b:wantedfoldmethod="indent"
+   autocmd FileType python let b:wantedfoldmethod="indent"
+augroup end
 " cpp
-autocmd FileType cpp let b:wantedfoldmethod="syntax"
-autocmd FileType cpp setlocal textwidth=80
-autocmd FileType cpp setlocal shiftwidth=2 " Indentation settings for using 2 spaces instead of tabs.
-autocmd FileType cpp setlocal softtabstop=2 " Indentation settings for using 2 spaces instead of tabs.
-autocmd FileType cpp setlocal expandtab
+augroup filetypecpp
+   autocmd FileType cpp let b:wantedfoldmethod="syntax"
+   autocmd FileType cpp setlocal textwidth=80
+   autocmd FileType cpp setlocal shiftwidth=2 " Indentation settings for using 2 spaces instead of tabs.
+   autocmd FileType cpp setlocal softtabstop=2 " Indentation settings for using 2 spaces instead of tabs.
+   autocmd FileType cpp setlocal expandtab
+augroup end
 " gnuplot
-autocmd BufRead,BufNewFile *.gpl,*.gpi,*.plt set filetype=gnuplot
-autocmd FileType gnuplot setlocal commentstring =#\ %s
+augroup filetypegnuplot
+   autocmd FileType gnuplot setlocal commentstring =#\ %s
+augroup end
 " tex
-let g:tex_flavor = "latex"
+let g:tex_flavor = 'latex'
+" asy
+augroup filetypeasy
+   autocmd FileType asy let b:wantedfoldmethod="syntax"
+   autocmd FileType asy setlocal shiftwidth=2 " Indentation settings for using 2 spaces instead of tabs.
+   autocmd FileType asy setlocal softtabstop=2 " Indentation settings for using 2 spaces instead of tabs.
+   autocmd FileType asy setlocal expandtab
+augroup end
 
 " Initialize Directories
 if has('persistent_undo')      "check if your vim version supports it
