@@ -27,6 +27,7 @@ if !has('compatible')
    Plug 'tpope/vim-sensible'
    Plug 'tpope/vim-commentary'
    Plug 'moll/vim-bbye'
+   Plug 'vim-voom/VOoM'
 
    "Languages
    Plug 'vim-scripts/gnuplot.vim'

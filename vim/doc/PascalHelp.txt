@@ -104,6 +104,7 @@ From plugins~
    * |cos| to toggle |spell|
    * |cob| to toggle 'background'
    * gcc toggles commenting of the current line (see |commentary|)
+   * use |:Voom| to open an index. For LaTeX files call `:Voom latex`
 
 ==============================================================================
 2. Visual Mode                                           *pascalhelp-visual*
