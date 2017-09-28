@@ -42,7 +42,6 @@ if !has('compatible')
    else
       Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
    endif
-   Plug 'vim-scripts/LanguageTool'
    Plug 'junegunn/vim-easy-align'
 
    " Own plugins
@@ -119,11 +118,6 @@ map <leader>cc :Commentary<CR>
 
 " vim-bbye
 nnoremap <Leader>q :Bdelete<CR>
-
-" LanguageTool
-let g:languagetool_jar='$HOME/.languagetools/languagetool-commandline.jar'
-nnoremap <leader>gm :update<CR>:LanguageToolCheck<CR>
-nnoremap <leader>gc :LanguageToolClear
 
 " snippets
 let g:snipMate = {}
