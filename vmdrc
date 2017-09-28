@@ -159,8 +159,6 @@ mol default material AOShiny
 axes location off
 display projection Orthographic
 
-
-
 after idle {
    menu tkcon on
    menu tkcon move 0 22
