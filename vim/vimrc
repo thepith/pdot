@@ -27,10 +27,12 @@ if !has('compatible')
    Plug 'tpope/vim-sensible'
    Plug 'tpope/vim-commentary'
    Plug 'moll/vim-bbye'
-   Plug 'vim-voom/VOoM'
+   Plug 'vim-voom/VOoM', {'for': ['markdown', 'tex'] }
 
    "Languages
+   if v:version < 800
    Plug 'vim-scripts/gnuplot.vim'
+   endif
    Plug 'vim-scripts/indentpython.vim'
 
    "Tools
@@ -140,7 +142,6 @@ let g:easy_align_delimiters = {
 
 "Gundo.vim
 nnoremap <leader>u :GundoToggle<CR>
-
 
 "
 "Own functions
