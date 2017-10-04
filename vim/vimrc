@@ -330,10 +330,6 @@ augroup filetypecpp
    autocmd FileType cpp setlocal softtabstop=2 " Indentation settings for using 2 spaces instead of tabs.
    autocmd FileType cpp setlocal expandtab
 augroup end
-" gnuplot
-augroup filetypegnuplot
-   autocmd FileType gnuplot setlocal commentstring =#\ %s
-augroup end
 " tex
 let g:tex_flavor = 'latex'
 " asy
