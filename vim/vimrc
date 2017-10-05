@@ -3,7 +3,7 @@ scriptencoding utf-8
 " clear previous variable settings
 filetype on
 filetype plugin indent on
-syntax on
+syntax enable
 
 if empty(glob('~/.vim/autoload/plug.vim'))
     " Download the actual plugin manager
@@ -24,7 +24,6 @@ if !has('compatible')
    Plug 'tpope/vim-dispatch'
    Plug 'tpope/vim-surround'
    Plug 'tpope/vim-repeat'
-   Plug 'tpope/vim-sensible'
    Plug 'tpope/vim-commentary'
    Plug 'moll/vim-bbye'
    Plug 'vim-voom/VOoM', {'for': ['markdown', 'tex'] }
@@ -146,7 +145,7 @@ nnoremap <leader>u :GundoToggle<CR>
 "
 "Own functions
 if !has('compatible')
-   set nrformats=octal,hex,alpha
+   set nrformats=hex,alpha
    function! Incr()
       let l:a = line('.') - line("'<")
       let l:c = virtcol("'<")
@@ -168,17 +167,28 @@ if !has('compatible')
 endif
 
 " General Settings
+set scrolloff=5 " keep 5 lines to border of window
+set sidescrolloff=5 " keep 5 characters to border of window
+set display+=lastline
 set spelllang=en_us
 set hidden
+set formatoptions+=j " Delete comment character when joining commented lines
+setglobal tags=./tags;,tags
 set path+=** "fuzzy search
 set wildmode=longest:full,full
 set wildmenu " Better command-line completion
+set complete-=i " do not scan inclued files
 set showcmd " Show partial commands in the last line of the screen
 set hlsearch " Highlight searches
 set ignorecase " Use case insensitive search
+set incsearch " show realtime search results
 set smartcase " When using capital letters do not use ignorecase
 set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks and start of insert action
+set autoindent " automatically keep indentation
 set smartindent " When opening a new line and no filetype-specific indenting is enabled, keep the same indent as the line you're currently on. Useful for READMEs, etc.
+set history=1000 " keep long history
+set tabpagemax=50 " allow for many tabs
+set viminfo^=!
 if exists('+breakindent')
    set breakindent "indent wrapped lines
 endif
@@ -228,6 +238,7 @@ augroup end
 set shiftwidth=3
 set softtabstop=3
 set expandtab
+set smarttab
 "Show bad spelling as underlined
 highlight clear SpellBad
 highlight SpellBad cterm=underline
@@ -244,6 +255,9 @@ set pastetoggle=<F4> " Use <F4> to toggle between 'paste' and 'nopaste'
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
 map Y y$
+" make c-u and c-w undoable:
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
 " turn of highlight until the next search
 nnoremap <leader>nn :nohlsearch<CR>
 " use to naviage buffers easily
