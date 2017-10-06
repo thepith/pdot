@@ -1,9 +1,9 @@
 #solrc
-source ~/.pdot.conf
+source $HOME/.pdot.conf
 defcolor="$tsolarizecolor" #defaultcolor
 if [ -z ${SOLVAR+x} ]; then export SOLVAR="$defcolor" ;  fi
-eval `dircolors ~/.sol/dircolors/dircolors.ansi-$defcolor`
-source ~/.sol/colors/sol.sh
+eval `dircolors $HOME/.sol/dircolors/dircolors.ansi-$defcolor`
+source $HOME/.sol/colors/sol.sh
 
-alias soldark='export SOLVAR="dark"; source ~/.sol/colors/sol.sh'
-alias sollight='export SOLVAR="light"; source ~/.sol/colors/sol.sh'
+alias soldark='export SOLVAR="dark"; source $HOME/.sol/colors/sol.sh'
+alias sollight='export SOLVAR="light"; source $HOME/.sol/colors/sol.sh'

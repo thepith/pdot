@@ -23,7 +23,7 @@ export LANGUAGE=en_US.UTF-8
 export LESSCHARSET=utf-8
 
 #source solarized colors
-source $HOME/.sol/solrc
+source "$HOME/.sol/solrc"
 
 #some aliases
 alias ls="ls --color=auto"
@@ -41,7 +41,7 @@ fi
 shell=${SHELL#*/bin/}
 if [ "$shell" = "bash" ] ; then
 #set up bash prompt
-   source $HOME/.shell/git-prompt.sh
+   source "$HOME/.shell/git-prompt.sh"
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
       PROMPT_COMMAND='__git_ps1 "\n\[\e[34m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]'" $vimprompt"'" "\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]"'
    else
@@ -51,14 +51,14 @@ fi
 
 if [ "$shell" = "zsh" ] ; then
    setopt PROMPT_SUBST
-   . ~/.shell/git-prompt.sh
+   . $HOME/.shell/git-prompt.sh
 #set up zsh prompt
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
    PROMPT=$'\n'$'\e[0;34m@%m (%D{%H:%M:%S}) \e[0;33m%~ \e[0;35m\e[0m$vimprompt$(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    else
    PROMPT=$'\n'$'\e[0;32m@%m (%D{%H:%M:%S}) \e[0;33m%~ \e[0;35m\e[0m$vimprompt$(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    fi
-   zstyle ':completion:*:*:git:*' script ~/.shell/git-completion.bash
+   zstyle ':completion:*:*:git:*' script $HOME/.shell/git-completion.bash
 # `compinit` scans $fpath, so do this before calling it.
    autoload -Uz compinit && compinit
 fi
