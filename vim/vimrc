@@ -220,7 +220,7 @@ augroup extraWhitespaceHighlight
    autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
    autocmd InsertLeave * match ExtraWhitespace /\s\+$/
    autocmd BufWinLeave * call clearmatches()
-augroup end
+augroup END
 
 " Indentation settings for using 3 spaces instead of tabs.
 set shiftwidth=3
