@@ -1,6 +1,5 @@
 set encoding=utf-8
 scriptencoding utf-8
-set nocompatible
 " clear previous variable settings
 
 if empty(glob('$HOME/.vim/autoload/plug.vim'))
@@ -293,13 +292,6 @@ if !has('compatible')
    nnoremap <leader>fo :let &foldmethod=b:wantedfoldmethod<CR>
 endif
 
-"File type specific settings
-augroup filetypedetections
-   autocmd!
-   autocmd BufNewFile,BufFilePre,BufRead *.asy setlocal filetype=asy
-   autocmd BufNewFile,BufFilePre,BufRead *.md setlocal filetype=markdown
-   autocmd BufNewFile,BufFilePre,BufRead *.gpl,*.gpi,*.plt setlocal filetype=gnuplot
-augroup end
 " tex
 let g:tex_flavor = 'latex'
 
