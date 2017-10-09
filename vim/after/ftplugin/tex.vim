@@ -80,8 +80,8 @@ if !filereadable("Makefile")
       let w:TexMainFile = expand("%")
    endif
    let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile.' | tr "\r" "\n"'
-   set errorformat+=%f:%l:\ %m
 endif
+set errorformat+=%f:%l:\ %m
 
 function! SetTexMain(InTexMainFile)
    let w:TexMainFile = a:InTexMainFile
