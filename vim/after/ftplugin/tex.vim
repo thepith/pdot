@@ -72,14 +72,15 @@ set linebreak
 let g:tex_comment_nospell= 1
 
 "comilation
-compiler tex
 let b:tex_flavor = 'pdflatex'
+compiler tex
 if !filereadable("Makefile")
    " Find the main TeX file
    if !exists("w:TexMainFile")
       let w:TexMainFile = expand("%")
    endif
-   let &makeprg='pdflatex\ -interaction=nonstopmode\ '.w:TexMainFile
+   let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile.' | tr "\r" "\n"'
+   set errorformat+=%f:%l:\ %m
 endif
 
 function! SetTexMain(InTexMainFile)
