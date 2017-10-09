@@ -315,6 +315,6 @@ if has('persistent_undo')      "check if your vim version supports it
       echo 'Warning: Unable to create tmp directory: /tmp/$USER/.vim/undo'
       echo 'Try: mkdir -p '
    endif
-   set undodir='/tmp/'.$USER.'/.vim/undo/'
+   set undodir=/tmp/$USER/.vim/undo/
    set undofile
 endif
