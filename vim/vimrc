@@ -17,7 +17,9 @@ if !has('compatible')
    Plug 'christoomey/vim-tmux-navigator'
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-unimpaired'
-   Plug 'tpope/vim-dispatch'
+   "temporarily use own fork of dispatch untill multiple \r patch is aded to
+   "main trunk
+   Plug 'thepith/vim-dispatch'
    Plug 'tpope/vim-surround'
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-commentary'

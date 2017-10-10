@@ -79,7 +79,7 @@ if !filereadable("Makefile")
    if !exists("w:TexMainFile")
       let w:TexMainFile = expand("%")
    endif
-   let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile.' | tr "\r" "\n"'
+   let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile
 endif
 set errorformat+=%f:%l:\ %m
 
