@@ -81,8 +81,14 @@ if !filereadable("Makefile")
    endif
    let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile
 endif
+" match c-style-errors
 set errorformat+=%f:%l:\ %m
+" ignore date stamps
+set errorformat^=%-G%.%#%\\d%\\+\/%\\d%\\+\/%\\d%\\+\/%\\d%\\+:%\\d%\\+:%\\d%\\+%.%#
 
 function! SetTexMain(InTexMainFile)
    let w:TexMainFile = a:InTexMainFile
 endfunction
+
+"voom
+   nnoremap <leader>vo :Voom latex<CR>
