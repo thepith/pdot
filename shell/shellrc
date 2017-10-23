@@ -32,33 +32,33 @@ alias less="less -qR"
 alias grep="grep --color"
 alias du1="du -h --max-depth=1"
 
-if [ -z ${VIMRUNTIME+x} ]; then
-   vimprompt=""
-else
-   vimprompt="{vim}"
-fi
+vim_ps1 ()
+{
+   if [ -z ${VIMRUNTIME+x} ]; then
+      printf -- ""
+   else
+      printf -- "{vim}"
+   fi
+}
 
 shell=${SHELL#*/bin/}
 if [ "$shell" = "bash" ] ; then
 #set up bash prompt
-   source "$HOME/.shell/git-prompt.sh"
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
-      PROMPT_COMMAND='__git_ps1 "\n\[\e[34m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]'" $vimprompt"'" "\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]"'
+      PS1='\n\[\e[34m\]@\h \[\e[33m\]\w\[\e[0m\] $(vim_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
    else
-      PROMPT_COMMAND='__git_ps1 "\n\[\e[32m\]@\h (\D{%T}) \[\e[33m\]\w\[\e[0m\]'" $vimprompt"'" "\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]"'
+      PS1='\n\[\e[32m\]@\h \[\e[33m\]\w\[\e[0m\] $(vim_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
    fi
 fi
 
 if [ "$shell" = "zsh" ] ; then
-   setopt PROMPT_SUBST
-   . $HOME/.shell/git-prompt.sh
 #set up zsh prompt
+   setopt PROMPT_SUBST
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
-   PROMPT=$'\n'$'\e[0;34m@%m (%D{%H:%M:%S}) \e[0;33m%~ \e[0;35m\e[0m$vimprompt$(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+      PROMPT=$'\n'$'\e[0;34m@%m \e[0;33m%~ \e[0;35m\e[0m$(vim_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    else
-   PROMPT=$'\n'$'\e[0;32m@%m (%D{%H:%M:%S}) \e[0;33m%~ \e[0;35m\e[0m$vimprompt$(__git_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+      PROMPT=$'\n'$'\e[0;32m@%m \e[0;33m%~ \e[0;35m\e[0m$(vim_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    fi
-   zstyle ':completion:*:*:git:*' script $HOME/.shell/git-completion.bash
 # `compinit` scans $fpath, so do this before calling it.
    autoload -Uz compinit && compinit
 fi
