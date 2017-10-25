@@ -51,6 +51,15 @@ if !has('compatible')
 endif
 let g:mapleader="\<Space>"
 
+if has('win32unix')
+   let g:netrw_browsex_viewer="cygstart"
+elseif has('win32')
+   let g:netrw_browsex_viewer="cmd /c start"
+elseif has('unix')
+   let g:netrw_browsex_viewer="xdg-open"
+endif
+
+
 " Plugins
 " solarized
 set background=light
