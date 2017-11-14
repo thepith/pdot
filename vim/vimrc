@@ -41,6 +41,19 @@ if !has('compatible')
    endif
    Plug 'junegunn/vim-easy-align'
 
+   "OrgMode
+   Plug 'jceb/vim-orgmode', {'for': ['org']}
+   Plug 'tpope/vim-speeddating', {'for': ['org']}
+   Plug 'vim-scripts/utl.vim', {'for': ['org']}
+   Plug 'mattn/calendar-vim'
+   Plug 'majutsushi/tagbar', {'for': ['org']}
+   Plug 'vim-scripts/SyntaxRange', {'for': ['org']}
+   Plug 'chrisbra/NrrwRgn', {'for': ['org']}
+
+   " vim Wiki
+   Plug 'vimwiki/vimwiki'
+   Plug 'mattn/calendar-vim'
+
    " Own plugins
    Plug 'thepith/vim-snippets'
 
@@ -57,6 +70,14 @@ elseif has('win32')
    let g:netrw_browsex_viewer="cmd /c start"
 elseif has('unix')
    let g:netrw_browsex_viewer="xdg-open"
+endif
+
+if &term =~ '^screen'
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
 endif
 
 
@@ -120,6 +141,26 @@ map <leader>cc :Commentary<CR>
 
 " vim-bbye
 nnoremap <Leader>q :Bdelete<CR>
+
+" orgmode
+let g:org_aggressive_conceal = 1
+let g:org_heading_shade_leading_stars = 1
+let g:org_indent = 1
+let g:org_agenda_files = ['~/org/*.org']
+
+" vimwiki stuff "
+" Run multiple wikis "
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1}]
+
+if has('win32unix')
+  function! s:linux_handler(url)
+    call system('cygstart ' . shellescape(a:url).' &')
+  endfunction
+endif
+
+"calendar
+let g:calendar_monday = 1
+
 
 " snippets
 let g:snipMate = {}
