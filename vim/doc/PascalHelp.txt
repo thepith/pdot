@@ -105,6 +105,7 @@ From plugins~
    * |cob| to toggle 'background'
    * gcc toggles commenting of the current line (see |commentary|)
    * use |:Voom| to open an index. For LaTeX files call `:Voom latex`
+      * to select a section use <C-]>
 
 ==============================================================================
 2. Visual Mode                                           *pascalhelp-visual*

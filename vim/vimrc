@@ -22,7 +22,7 @@ if !has('compatible')
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-commentary'
    Plug 'moll/vim-bbye'
-   Plug 'vim-voom/VOoM', {'for': ['markdown', 'tex'] }
+   Plug 'vim-voom/VOoM', {'for': ['markdown', 'tex', 'vimwiki'] }
 
    "Languages
    if v:version < 800
@@ -141,6 +141,9 @@ map <leader>cc :Commentary<CR>
 
 " vim-bbye
 nnoremap <Leader>q :Bdelete<CR>
+
+"voom
+let g:voom_return_key = "<C-]>"
 
 " orgmode
 let g:org_aggressive_conceal = 1
