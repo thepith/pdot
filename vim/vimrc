@@ -15,6 +15,7 @@ if !has('compatible')
 
    "usability
    Plug 'christoomey/vim-tmux-navigator'
+   Plug 'tmux-plugins/vim-tmux-focus-events'
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-dispatch'
@@ -205,6 +206,8 @@ if !has('compatible')
       e!
    endfunction
    command! MakeCtags :call GenerateCtags()
+   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+
 endif
 
 " General Settings
@@ -232,6 +235,7 @@ if exists('+breakindent')
    set breakindent             " indent wrapped lines
 endif
 set nostartofline              " Stop certain movements from always going to the first character of a line.
+set autoread
 
 " Status Line
 set laststatus=2                             " always show statusbar
