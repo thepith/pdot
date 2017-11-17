@@ -44,17 +44,16 @@ if !has('compatible')
 
    "OrgMode
    Plug 'jceb/vim-orgmode', {'for': ['org']}
-   Plug 'tpope/vim-speeddating', {'for': ['org']}
    Plug 'vim-scripts/utl.vim', {'for': ['org']}
-   Plug 'mattn/calendar-vim'
    Plug 'majutsushi/tagbar', {'for': ['org']}
    Plug 'vim-scripts/SyntaxRange', {'for': ['org']}
    Plug 'chrisbra/NrrwRgn', {'for': ['org']}
 
    " vim Wiki
    Plug 'vimwiki/vimwiki'
-   Plug 'mattn/calendar-vim'
-   Plug 'tbabej/taskwiki'
+   Plug 'mattn/calendar-vim', {'for': ['org', 'vimwiki']}
+   Plug 'tbabej/taskwiki', {'for': ['vimwiki']}
+   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki']}
 
    " Own plugins
    Plug 'thepith/vim-snippets'
