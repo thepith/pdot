@@ -53,6 +53,7 @@ if !has('compatible')
    " vim Wiki
    Plug 'vimwiki/vimwiki'
    Plug 'mattn/calendar-vim'
+   Plug 'tbabej/taskwiki'
 
    " Own plugins
    Plug 'thepith/vim-snippets'
@@ -154,6 +155,8 @@ let g:org_agenda_files = ['~/org/*.org']
 " vimwiki stuff "
 " Run multiple wikis "
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1}]
+let g:taskwiki_taskrc_location = '~/vimwiki/taskrc'
+let taskwiki_data_location = '~/vimwiki/.task'
 
 if has('win32unix')
   function! s:linux_handler(url)
