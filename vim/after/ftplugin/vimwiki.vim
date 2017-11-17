@@ -1,4 +1,5 @@
 setlocal spell
+set spelllang+=sciUS
 
 "voom
 nnoremap <leader>vo :Voom vimwiki<CR>
