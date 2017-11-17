@@ -317,10 +317,6 @@ noremap <Up>    :echo "Stop using arrow keys, stupid" <CR>
 noremap <Down>  :echo "Stop using arrow keys, stupid" <CR>
 noremap <Left>  :echo "Stop using arrow keys, stupid" <CR>
 noremap <Right> :echo "Stop using arrow keys, stupid" <CR>
-inoremap <Up>    <Esc>:echo "Stop using arrow keys, stupid" <CR> i
-inoremap <Down>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
-inoremap <Left>  <Esc>:echo "Stop using arrow keys, stupid" <CR> i
-inoremap <Right> <Esc>:echo "Stop using arrow keys, stupid" <CR> i
 " custom copy'n'paste
 vnoremap <leader>y :w! /tmp/$USER/.vim/vbuf<CR>
 nnoremap <leader>y :.w! /tmp/$USER/.vim/vbuf<CR>
