@@ -183,6 +183,14 @@ From pdot~
       * <leader>gc (grammar clear) to run |LanguageToolClear|
    * |snipmate|
    * vim-snippets (own version)
+   * |vimwiki|
+      * I use vimwiki with markdown code. The wiki will be located in
+        ~/vimwiki.
+      * The converstion to html uses pandoc. You need to install it. When
+        using cygwin install the windows version of pandoc. You can refer to
+        references in markdown using `@<bibtex-key>` where `<bibtex-key>` 
+        matches a bibtex key of you bibliography located in
+        `~/literature/bib.bib`
 
 ==============================================================================
 5. Settings for certain Filetypes Mode                   *pascalhelp-filetypes*
