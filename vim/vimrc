@@ -51,9 +51,10 @@ if !has('compatible')
 
    " vim Wiki
    Plug 'vimwiki/vimwiki'
-   Plug 'mattn/calendar-vim', {'for': ['org', 'vimwiki']}
-   Plug 'tbabej/taskwiki', {'for': ['vimwiki']}
-   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki']}
+   Plug 'DancingQuanta/taskwiki', {'branch': 'extra-syntaxes', 'for': ['vimwiki', 'markdown']}
+   Plug 'mattn/calendar-vim', {'for': ['org', 'vimwiki', 'markdown']}
+   " Plug 'tbabej/taskwiki', {'for': ['vimwiki', 'markdown']}
+   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
 
    " Own plugins
    Plug 'thepith/vim-snippets'
@@ -154,9 +155,11 @@ let g:org_agenda_files = ['~/org/*.org']
 
 " vimwiki stuff "
 " Run multiple wikis "
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1}]
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1, 'syntax': 'markdown', 'ext': '.md', 'custom_wiki2html': '~/.vim/vimwiki_pandoc/wiki2html.sh'}]
+let g:vimwiki_conceallevel = 0
 let g:taskwiki_taskrc_location = '~/vimwiki/taskrc'
-let taskwiki_data_location = '~/vimwiki/.task'
+let g:taskwiki_data_location = '~/vimwiki/.task'
+let g:taskwiki_syntax = 'markdown'
 
 if has('win32unix')
   function! s:linux_handler(url)
