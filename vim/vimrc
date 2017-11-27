@@ -326,8 +326,8 @@ nnoremap <leader>p :r /tmp/$USER/.vim/vbuf<CR>
 " navigate tabs
 nnoremap <leader>h :tabprevious<CR>
 nnoremap <leader>l :tabnext<CR>
-nnoremap <leader>H :tabm -1<CR>
-nnoremap <leader>L :tabm +1<CR>
+nnoremap <leader>H :tabmove -1<CR>
+nnoremap <leader>L :tabmove +1<CR>
 " navigate buffers
 nnoremap <leader>k :bprevious<CR>
 nnoremap <leader>j :bnext<CR>
