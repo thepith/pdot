@@ -33,8 +33,10 @@ easy_install-3.6 pip
 ```
 Link to mintty-terminal:
 ```
-C:\cygwin\bin\mintty.exe -e /bin/bash --login
+C:\cygwin\bin\mintty.exe -B frame -w max -p @1 -
 ```
+This allows only one instance and hides the window frame of cygwin.
+
 Set the terminal type to `xterm-256color` (right click on the terminal > Options... > Terminal > Type)
 
 Use [MikTex](https://miktex.org/howto/install-miktex) instead of [texlive](https://www.tug.org/texlive/). This will spare you some nerves. How to add a local `TEXMF` location is described in the [manual](http://docs.miktex.org/manual/localadditions.html) (please avoid spaces in the `TEXMF` path).
