@@ -24,6 +24,7 @@ if !has('compatible')
    Plug 'tpope/vim-commentary'
    Plug 'moll/vim-bbye'
    Plug 'vim-voom/VOoM', {'for': ['markdown', 'tex', 'vimwiki'] }
+   Plug 'gcmt/taboo.vim'
 
    "Languages
    if v:version < 800
@@ -50,7 +51,7 @@ if !has('compatible')
    Plug 'chrisbra/NrrwRgn', {'for': ['org']}
 
    " vim Wiki
-   Plug 'vimwiki/vimwiki'
+   Plug 'vimwiki/vimwiki', {'branch': 'dev'}
    Plug 'DancingQuanta/taskwiki', {'branch': 'extra-syntaxes', 'for': ['vimwiki', 'markdown']}
    Plug 'mattn/calendar-vim', {'for': ['org', 'vimwiki', 'markdown']}
    " Plug 'tbabej/taskwiki', {'for': ['vimwiki', 'markdown']}
@@ -61,6 +62,7 @@ if !has('compatible')
 
    "Undo
    Plug 'sjl/gundo.vim', {'on': ['GundoToggle']}
+
 
    call plug#end()
 endif
@@ -147,6 +149,10 @@ nnoremap <Leader>q :Bdelete<CR>
 "voom
 let g:voom_return_key = "<C-]>"
 
+"taboo
+set sessionoptions+=tabpages,globals
+
+
 " orgmode
 let g:org_aggressive_conceal = 1
 let g:org_heading_shade_leading_stars = 1
@@ -155,7 +161,7 @@ let g:org_agenda_files = ['~/org/*.org']
 
 " vimwiki stuff "
 " Run multiple wikis "
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1, 'syntax': 'markdown', 'ext': '.md', 'custom_wiki2html': '~/.vim/vimwiki_pandoc/wiki2html.sh'}]
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1, 'syntax': 'markdown', 'ext': '.md', 'custom_wiki2html': '~/.vim/vimwiki_pandoc/wiki2html.sh', 'custom_wiki2html_args': ''}]
 let g:vimwiki_conceallevel = 0
 let g:taskwiki_taskrc_location = '~/vimwiki/taskrc'
 let g:taskwiki_data_location = '~/vimwiki/.task'
@@ -208,7 +214,7 @@ if !has('compatible')
       e!
    endfunction
    command! MakeCtags :call GenerateCtags()
-   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
+   command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
 endif
 
