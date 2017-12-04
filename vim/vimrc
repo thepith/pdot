@@ -15,7 +15,9 @@ if !has('compatible')
 
    "usability
    Plug 'christoomey/vim-tmux-navigator'
-   Plug 'tmux-plugins/vim-tmux-focus-events'
+   if v:version >= 800
+      Plug 'tmux-plugins/vim-tmux-focus-events'
+   endif
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-dispatch'
