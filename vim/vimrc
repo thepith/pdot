@@ -54,10 +54,11 @@ if !has('compatible')
 
    " vim Wiki
    Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-   Plug 'DancingQuanta/taskwiki', {'branch': 'extra-syntaxes', 'for': ['vimwiki', 'markdown']}
    Plug 'mattn/calendar-vim', {'for': ['org', 'vimwiki', 'markdown']}
-   " Plug 'tbabej/taskwiki', {'for': ['vimwiki', 'markdown']}
    Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
+
+   " Simplenote
+   Plug 'mrtazz/simplenote.vim'
 
    " Own plugins
    Plug 'thepith/vim-snippets'
@@ -163,11 +164,18 @@ let g:org_agenda_files = ['~/org/*.org']
 
 " vimwiki stuff "
 " Run multiple wikis "
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1, 'syntax': 'markdown', 'ext': '.md', 'custom_wiki2html': '~/.vim/vimwiki_pandoc/wiki2html.sh', 'custom_wiki2html_args': ''}]
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1, 'ext': '.wiki',
+          \ 'template_path': '~/vimwiki/templates/',
+          \ 'template_default': 'default',
+          \ 'template_ext': '.tpl'}]
 let g:vimwiki_conceallevel = 0
-let g:taskwiki_taskrc_location = '~/vimwiki/taskrc'
-let g:taskwiki_data_location = '~/vimwiki/.task'
-let g:taskwiki_syntax = 'markdown'
+let g:vimwiki_folding = ''
+let g:vimwiki_autowriteall = 0
+
+" Simplenote
+source ~/.vim/simplenotes.vim
+nnoremap <leader>t :execute 'SimplenoteOpen' g:simplenoteTodoKey<CR>
+let g:SimplenoteFiletype="markdown"
 
 if has('win32unix')
   function! s:linux_handler(url)
@@ -188,8 +196,6 @@ let g:snipMate.snippet_version = 1
 xmap <leader>a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object
 nmap <leader>a <Plug>(EasyAlign)
-" Start to regex
-xnoremap <leader>t :EasyAlign //<left>
 
 "Gundo.vim
 nnoremap <leader>u :GundoToggle<CR>

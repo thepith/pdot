@@ -8,3 +8,4 @@ vim/plugged/*
 vim/view/
 vim/.netrwhist
 backupdir/
+vim/simplenotes.vim
