@@ -173,7 +173,10 @@ let g:vimwiki_folding = ''
 let g:vimwiki_autowriteall = 0
 
 " Simplenote
-source ~/.vim/simplenotes.vim
+if !empty(glob("$HOME/.vim/simplenotes.vim"))
+   source $HOME/.vim/simplenotes.vim
+endif
+
 nnoremap <leader>t :execute 'SimplenoteOpen' g:simplenoteTodoKey<CR>
 let g:SimplenoteFiletype="markdown"
 
