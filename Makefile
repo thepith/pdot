@@ -19,10 +19,10 @@ git:
 
 ins-vim: dot-vim
 	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
-	echo "##########################################################################"
-	echo "to use simplenotes copy vim/simplenotes.example.vim to vim/simplenotes.vim"
-	echo "and adapt the content"
-	echo "##########################################################################"
+	@echo "##########################################################################"
+	@echo "to use simplenotes copy vim/simplenotes.example.vim to vim/simplenotes.vim"
+	@echo "and adapt the content"
+	@echo "##########################################################################"
 ins-tmux: dot-tmux
 ins-shell: dot-shell
 	@rc=$${SHELL#*/bin/}rc ;\
