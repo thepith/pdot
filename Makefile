@@ -1,4 +1,4 @@
-dots = vim tmux shell sol gitlab vmd
+dots = vim tmux shell sol gitlab vmd sncli
 dotlist = $(addprefix dot-,$(dots))
 installlist = $(addprefix ins-,$(dots))
 home := $(shell echo $$HOME)
@@ -19,10 +19,6 @@ git:
 
 ins-vim: dot-vim
 	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
-	@echo "##########################################################################"
-	@echo "to use simplenotes copy vim/simplenotes.example.vim to vim/simplenotes.vim"
-	@echo "and adapt the content"
-	@echo "##########################################################################"
 ins-tmux: dot-tmux
 ins-shell: dot-shell
 	@rc=$${SHELL#*/bin/}rc ;\
@@ -35,7 +31,12 @@ ins-shell: dot-shell
 ins-sol: dot-sol dot-cnf
 ins-gitlab: dot-gitlab
 	pip install --user --upgrade python-gitlab
+
 ins-vmd: dot-vmd
+
+ins-sncli: dot-sncli
+	pip3 install --user --upgrade git+https://github.com/urwid/urwid
+	pip3 install --user --upgrade sncli
 
 dot-vim:    $(home)/.vim
 dot-tmux:   $(home)/.tmux.conf
@@ -44,14 +45,19 @@ dot-sol:    $(home)/.sol
 dot-gitlab: $(home)/.python-gitlab.cfg
 dot-vmd:    $(home)/$(vmdrc)
 dot-cnf:    $(home)/.pdot.conf
+dot-sncli:  $(home)/.snclirc
 
-python-gitlab.cfg: python-gitlab.skel pdot.conf
-	@source pdot.conf; sed "s/skelplace/$$tgitlabname/g" $< > $@
-	@source pdot.conf; sed "s|skelurl|$$tgitlaburl|g"  $< >> $@
-	@source pdot.conf; sed "s/skeltoken/$$tgitlabtoken/g"  $< >> $@
+python-gitlab.cfg: python-gitlab.skel pdot_secret.conf
+	@source pdot_secret.conf && sed "s/skelplace/$$tgitlabname/g; s|skelurl|$$tgitlaburl|g; s/skeltoken/$$tgitlabtoken/g" $< > $@
+
+snclirc: snclirc.skel pdot_secret.conf
+	source pdot_secret.conf && pw=$$(printf '%s\n' "$$tSimpleNotePassword" | sed 's:[\/&]:\\&:g;$$!s/$$/\\/') && sed "s/skelsnemail/$$tSimpleNoteEmail/g; s|skelsnpassword|$$pw|g" $< > $@
 
 pdot.conf: configure.sh
 	@echo -e "!!!!!\nERROR: pdot.conf is outdated. Run ./configure.sh!\n!!!!!" && exit 1
+
+pdot_secret.conf: configure.sh
+	@echo -e "!!!!!\nERROR: pdot_secret.conf is outdated. Run ./configure.sh!\n!!!!!" && exit 1
 
 $(home)/.%: %
 	@$(ln) $(PWD)/$< $@ && echo "linking $@" || { echo "please backup the existing $(@) (or run make backup)" && exit 1; }

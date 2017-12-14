@@ -1,5 +1,7 @@
 pdot.conf
+pdot_secret.conf
 python-gitlab.cfg
+snclirc
 *.swp
 backup-old/
 backup-org/

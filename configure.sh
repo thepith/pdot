@@ -28,24 +28,48 @@ for i in "${progs[@]}"; do
    echo "done"
 done
 
-#creating pdot.conf where user parameters are stored
+#creating pdot_secret.conf where user passwords are stored
+echo "Warning, the passwords you enter here will be stored in plain text on your machine. Do not use sensible passwords"
+confvar=( tgitlabname tgitlaburl tgitlabtoken tSimpleNoteEmail tSimpleNotePassword)
+confdef=( 'gitlab-name' 'https://some.whe.re' 'asdf1234' 'name@mail.com' '<secret>')
+if [[ -e pdot_secret.conf ]]; then
+   source pdot_secret.conf
+fi
+if [[ -e pdot.conf ]]; then
+   # source pdot.conf for legacy reasons
+   source pdot.conf
+fi
+for (( i=0; i<${#confvar[@]}; i++ )) ; do
+   if [ ! -z ${!confvar[$i]+x} ] ; then
+      confdef[$i]=${!confvar[$i]}
+   fi
+done
+for (( i=0; i<${#confvar[@]}; i++ )) ; do
+   read -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
+   confdef[$i]=$ans
+done
+for (( i=0; i<${#confvar[@]}; i++ )) ; do
+   echo "${confvar[$i]}='${confdef[$i]}'"
 
-confvar=( tsolarizecolor tgitlabname tgitlaburl tgitlabtoken)
-confdef=( 'dark' 'gitlab-name' 'https://some.whe.re' 'asdf1234')
+done > pdot_secret.conf
+
+#creating pdot.conf where user parameters are stored
+confvar=( tsolarizecolor )
+confdef=( 'dark' )
 if [[ -e pdot.conf ]]; then
    source pdot.conf
-   for (( i=0; i<${#confvar[@]}; i++ )) ; do
-      if [ ! -z ${!confvar[$i]+x} ] ; then
-         confdef[$i]=${!confvar[$i]}
-      fi
-   done
 fi
+for (( i=0; i<${#confvar[@]}; i++ )) ; do
+   if [ ! -z ${!confvar[$i]+x} ] ; then
+      confdef[$i]=${!confvar[$i]}
+   fi
+done
 
 for (( i=0; i<${#confvar[@]}; i++ )) ; do
    read -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
    confdef[$i]=$ans
 done
 for (( i=0; i<${#confvar[@]}; i++ )) ; do
-   echo "${confvar[$i]}=\"${confdef[$i]}\""
+   echo "${confvar[$i]}='${confdef[$i]}'"
 
 done > pdot.conf
