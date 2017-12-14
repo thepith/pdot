@@ -58,7 +58,7 @@ if !has('compatible')
    Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
 
    " Simplenote
-   Plug 'mrtazz/simplenote.vim'
+   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 
    " Own plugins
    Plug 'thepith/vim-snippets'
@@ -168,17 +168,9 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1, 'ext': '.wiki',
           \ 'template_path': '~/vimwiki/templates/',
           \ 'template_default': 'default',
           \ 'template_ext': '.tpl'}]
-let g:vimwiki_conceallevel = 0
+let g:vimwiki_conceallevel = 1
 let g:vimwiki_folding = ''
 let g:vimwiki_autowriteall = 0
-
-" Simplenote
-if !empty(glob("$HOME/.vim/simplenotes.vim"))
-   source $HOME/.vim/simplenotes.vim
-endif
-
-nnoremap <leader>t :execute 'SimplenoteOpen' g:simplenoteTodoKey<CR>
-let g:SimplenoteFiletype="markdown"
 
 if has('win32unix')
   function! s:linux_handler(url)
