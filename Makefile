@@ -3,6 +3,7 @@ dotlist = $(addprefix dot-,$(dots))
 installlist = $(addprefix ins-,$(dots))
 home := $(shell echo $$HOME)
 ln := ln -sfT
+cp := cp
 vmdrc = $(shell [[ "$$OSTYPE" == "cygwin" ]] && echo "vmd.rc" || echo ".vmdrc")
 
 .SUFFIXES:
@@ -62,8 +63,9 @@ pdot_secret.conf: configure.sh
 $(home)/.%: %
 	@$(ln) $(PWD)/$< $@ && echo "linking $@" || { echo "please backup the existing $(@) (or run make backup)" && exit 1; }
 
+# VMD using windows has problems with softlinks
 $(home)/vmd.rc: vmdrc
-	$(ln) $(PWD)/$< $@
+	$(cp) $(PWD)/$< $@
 
 backup: backupdir/.vim backupdir/.vimrc backupdir/.tmux.conf backupdir/.shell backupdir/.shellrc backupdir/.sol backupdir/.solrc backupdir/.python-gitlab.cfg backupdir/.vmdrc backupdir/vmd.rc backupdir/.tmux
 
