@@ -45,11 +45,11 @@ for (( i=0; i<${#confvar[@]}; i++ )) ; do
    fi
 done
 for (( i=0; i<${#confvar[@]}; i++ )) ; do
-   read -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
+   read -r -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
    confdef[$i]=$ans
 done
 for (( i=0; i<${#confvar[@]}; i++ )) ; do
-   echo "${confvar[$i]}='${confdef[$i]}'"
+   echo "${confvar[$i]}='"${confdef[$i]}"'"
 
 done > pdot_secret.conf
 
@@ -66,10 +66,10 @@ for (( i=0; i<${#confvar[@]}; i++ )) ; do
 done
 
 for (( i=0; i<${#confvar[@]}; i++ )) ; do
-   read -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
+   read -r -e -p "${confvar[$i]#t}? " -i "${confdef[$i]}" ans
    confdef[$i]=$ans
 done
 for (( i=0; i<${#confvar[@]}; i++ )) ; do
-   echo "${confvar[$i]}='${confdef[$i]}'"
+   echo "${confvar[$i]}='"${confdef[$i]}"'"
 
 done > pdot.conf
