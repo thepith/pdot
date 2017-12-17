@@ -36,7 +36,7 @@ ins-gitlab: dot-gitlab
 ins-vmd: dot-vmd
 
 ins-sncli: dot-sncli
-	pip3 install --user --upgrade git+https://github.com/urwid/urwid
+	pip3 install --user git+https://github.com/urwid/urwid
 	pip3 install --user --upgrade sncli
 
 dot-vim:    $(home)/.vim
