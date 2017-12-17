@@ -24,7 +24,7 @@ if !has('compatible')
    Plug 'tpope/vim-surround'
    Plug 'tpope/vim-repeat'
    Plug 'tpope/vim-commentary'
-   Plug 'moll/vim-bbye'
+   " Plug 'moll/vim-bbye'
    Plug 'vim-voom/VOoM', {'for': ['markdown', 'tex', 'vimwiki'] }
    Plug 'gcmt/taboo.vim'
 
@@ -35,9 +35,10 @@ if !has('compatible')
    Plug 'vim-scripts/indentpython.vim'
 
    "Tools
-   Plug 'MarcWeber/vim-addon-mw-utils'
-   Plug 'tomtom/tlib_vim'
-   Plug 'garbas/vim-snipmate'
+   " Plug 'MarcWeber/vim-addon-mw-utils'
+   " Plug 'tomtom/tlib_vim'
+   " Plug 'garbas/vim-snipmate'
+   Plug 'joereynolds/vim-minisnip'
    if v:version >= 800
       Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
    else
@@ -45,7 +46,7 @@ if !has('compatible')
    endif
    Plug 'junegunn/vim-easy-align'
 
-   "OrgMode
+   "OrgMode (to remove)
    Plug 'jceb/vim-orgmode', {'for': ['org']}
    Plug 'vim-scripts/utl.vim', {'for': ['org']}
    Plug 'majutsushi/tagbar', {'for': ['org']}
@@ -57,7 +58,7 @@ if !has('compatible')
    Plug 'mattn/calendar-vim', {'for': ['org', 'vimwiki', 'markdown']}
    Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
 
-   " Simplenote
+   " Markdown
    Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 
    " Own plugins
@@ -86,7 +87,6 @@ if &term =~ '^screen'
     execute "set <xRight>=\e[1;*C"
     execute "set <xLeft>=\e[1;*D"
 endif
-
 
 " Plugins
 " solarized
@@ -147,7 +147,7 @@ endif
 map <leader>cc :Commentary<CR>
 
 " vim-bbye
-nnoremap <Leader>q :Bdelete<CR>
+" nnoremap <Leader>q :Bdelete<CR>
 
 "voom
 let g:voom_return_key = "<C-]>"
