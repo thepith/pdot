@@ -44,7 +44,6 @@ if !has('compatible')
 
    " vim Wiki
    Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-   Plug 'mattn/calendar-vim', {'for': ['org', 'vimwiki', 'markdown']}
    Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
 
    " Markdown
@@ -157,9 +156,6 @@ if has('win32unix')
     call system('cygstart ' . shellescape(a:url).' &')
   endfunction
 endif
-
-"calendar
-let g:calendar_monday = 1
 
 "easy-align
 " Start interactive EasyAlign in visual mode
