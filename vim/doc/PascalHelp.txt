@@ -193,15 +193,20 @@ From pdot~
         `~/literature/bib.bib`
 
 ==============================================================================
-5. Settings for certain Filetypes Mode                   *pascalhelp-filetypes*
+5. SETTINGS FOR CERTAIN FILETYPES MODE                    *pascalhelp-filetypes*
+
 
 gnuplot~
    * .gpl and .gpi files are mapped as gnuplot files
+
 tex/latex~
    * enable spelling by default
    * define a sensible compiler
-Markdown~
+
+MARKDOWN                                                   *pascalhelp-markdown*
    * all .md files are set to be markdown files
+   * with <leader>C you switch the checkmark of an item
+   * with <leader>N you jump to the next unchecked item
 
 ==============================================================================
 6. Notes                                                 *pascalhelp-notes*
