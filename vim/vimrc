@@ -139,6 +139,7 @@ let g:voom_return_key = "<C-]>"
 
 "taboo
 set sessionoptions+=tabpages,globals
+nnoremap <leader>, :TabooRename<Space>
 
 
 " vimwiki stuff "
