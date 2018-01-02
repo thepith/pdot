@@ -34,7 +34,7 @@ if !has('compatible')
    endif
    Plug 'vim-scripts/indentpython.vim'
 
-   Plug 'joereynolds/vim-minisnip'
+   Plug 'thepith/vim-minisnip'
    if v:version >= 800
       Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
    else
@@ -45,6 +45,9 @@ if !has('compatible')
    " vim Wiki
    Plug 'vimwiki/vimwiki', {'branch': 'dev'}
    Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
+
+   "taskwarrior
+   Plug 'blindFS/vim-taskwarrior'
 
    " Markdown
    Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
@@ -147,10 +150,12 @@ nnoremap <leader>, :TabooRename<Space>
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1, 'ext': '.wiki',
           \ 'template_path': '~/vimwiki/templates/',
           \ 'template_default': 'default',
-          \ 'template_ext': '.tpl'}]
+          \ 'template_ext': '.tpl',
+          \ 'nested_syntaxes':  {'python': 'python', 'c++': 'cpp'}}]
 let g:vimwiki_conceallevel = 1
 let g:vimwiki_folding = ''
 let g:vimwiki_autowriteall = 0
+
 
 if has('win32unix')
   function! s:linux_handler(url)
