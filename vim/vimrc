@@ -46,9 +46,6 @@ if !has('compatible')
    Plug 'vimwiki/vimwiki', {'branch': 'dev'}
    Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
 
-   "taskwarrior
-   Plug 'blindFS/vim-taskwarrior'
-
    " Markdown
    Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 
