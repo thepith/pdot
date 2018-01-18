@@ -2,6 +2,6 @@
    \centering
    \includegraphics[{{+width=\textwidth+}}]{{{++}}}
    \caption{{{++}}}
-   \label{fig:{{+~\~2+}}}
+   \label{fig:{{+`~\~2+}}}
 \end{figure}
 {{++}}
