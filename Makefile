@@ -6,6 +6,9 @@ ln := ln -sfT
 cp := cp
 vmdrc = $(shell [[ "$$OSTYPE" == "cygwin" ]] && echo "vmd.rc" || echo ".vmdrc")
 
+vimspladd := $(wildcard vim/spell/*.add)
+vimsplbinadd := $(patsubst %.add,%.add.spl,$(vimspladd))
+
 .SUFFIXES:
 
 all: update
@@ -18,7 +21,7 @@ git:
 	git pull --ff-only
 	+$(MAKE) install
 
-ins-vim: dot-vim
+ins-vim: dot-vim $(vimsplbinadd)
 	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
 ins-tmux: dot-tmux
 ins-shell: dot-shell
@@ -47,6 +50,9 @@ dot-gitlab: $(home)/.python-gitlab.cfg
 dot-vmd:    $(home)/$(vmdrc)
 dot-cnf:    $(home)/.pdot.conf
 dot-sncli:  $(home)/.snclirc
+
+vim/spell/%.add.spl: vim/spell/%.add
+	vim +mkspell\ $< +qall
 
 python-gitlab.cfg: python-gitlab.skel pdot_secret.conf
 	@source pdot_secret.conf && sed "s/skelplace/$$tgitlabname/g; s|skelurl|$$tgitlaburl|g; s/skeltoken/$$tgitlabtoken/g" $< > $@
