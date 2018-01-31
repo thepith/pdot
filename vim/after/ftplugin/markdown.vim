@@ -29,7 +29,7 @@ function! markdown#SwitchStatus()
     return
   endif
 endfunction
-nnoremap <leader>C :call markdown#SwitchStatus()<CR>
+nnoremap <C-@> :call markdown#SwitchStatus()<CR>
 " }}}
 
 nnoremap <leader>N / *\* \[ \]<CR>
