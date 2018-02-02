@@ -1,0 +1,3 @@
+function {{+NAME+}}({{++}}) result({{+RESULT+}})
+   {{--}}
+end function {{+~\~3+}}

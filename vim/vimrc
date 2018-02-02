@@ -34,7 +34,7 @@ if !has('compatible')
    endif
    Plug 'vim-scripts/indentpython.vim'
 
-   Plug 'joereynolds/vim-minisnip'
+   Plug 'thepith/vim-minisnip', { 'branch': 'finalPosition' }
    if v:version >= 800
       Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
    else
