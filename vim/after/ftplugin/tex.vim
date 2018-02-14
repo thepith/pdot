@@ -65,6 +65,7 @@ inoremap <buffer> `vr \varrho
 
 " to use surround.vim
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+nnoremap <leader>vp :execute("!xdg-open " . expand('%:r').".pdf")<CR>
 
 "appearance
 set spell
