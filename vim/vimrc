@@ -90,12 +90,12 @@ silent! colorscheme solarized
 nnoremap <F5> :update<CR>:Dispatch ./% <CR>
 " Run last command executed by VimuxRunCommand
 nnoremap <F6> :update<CR>:Dispatch<CR>
-"" Prompt for a command to run
+" Prompt for a command to run
 nnoremap <F7> :update<CR>:FocusDispatch
-"" run make
+" run make
 let g:target = ''
-nnoremap <F8> :let g:target = ""<left>
-"" run make
+nnoremap <F8> :let g:target = ''<left>
+" run make
 nnoremap <F9> :update<CR>:exe 'Make '.target<Cr>
 
 
