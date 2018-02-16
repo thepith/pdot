@@ -292,6 +292,7 @@ map Y y$
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 " turn of highlight until the next search
+nnoremap s <nop>
 nnoremap <leader>nn :nohlsearch<CR>
 " use to naviage buffers easily
 nnoremap <leader>b :buffers<CR>:buffer<Space>
