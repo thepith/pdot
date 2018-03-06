@@ -1,11 +1,13 @@
 set encoding=utf-8
 scriptencoding utf-8
+filetype plugin indent on
+syntax enable
 " clear previous variable settings
 
 let g:mapleader="\<Space>"
 
 if has('win32')
-   let g:netrw_browsex_viewer='cmd /c start'
+   let g:netrw_browsex_viewer="cmd /c start"
 elseif has('unix')
    let g:netrw_browsex_viewer='xdg-open'
 endif
