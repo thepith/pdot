@@ -75,10 +75,10 @@ let g:tex_comment_nospell= 1
 "comilation
 let b:tex_flavor = 'pdflatex'
 compiler tex
-if !filereadable("Makefile")
+if !filereadable('Makefile')
    " Find the main TeX file
-   if !exists("w:TexMainFile")
-      let w:TexMainFile = expand("%")
+   if !exists('w:TexMainFile')
+      let w:TexMainFile = expand('%')
    endif
    let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile
 endif
@@ -92,4 +92,5 @@ function! SetTexMain(InTexMainFile)
 endfunction
 
 "voom
-   nnoremap <leader>vo :Voom latex<CR>
+packadd VOom
+nnoremap <leader>vo :Voom latex<CR>

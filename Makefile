@@ -18,11 +18,13 @@ install: $(installlist)
 update: git
 
 git:
+	git fetch --recurse-submodules --jobs=4
 	git pull --ff-only
+	git submodule update --init --recursive
 	+$(MAKE) install
 
 ins-vim: dot-vim $(vimsplbinadd)
-	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
+	vim +helptags\ ALL +qall
 ins-tmux: dot-tmux
 ins-shell: dot-shell
 	@rc=$${SHELL#*/bin/}rc ;\

@@ -2,54 +2,9 @@ set encoding=utf-8
 scriptencoding utf-8
 " clear previous variable settings
 
-if empty(glob('$HOME/.vim/autoload/plug.vim'))
-    " Download the actual plugin manager
-    silent execute '!mkdir -p $HOME/.vim/autoload/'
-    silent execute '!wget -P $HOME/.vim/autoload https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-endif
-
-if !has('compatible')
-   call plug#begin('$HOME/.vim/plugged')
-   " Appearance
-   Plug 'altercation/vim-colors-solarized'
-
-   "usability
-   Plug 'tpope/vim-fugitive'
-   Plug 'tpope/vim-unimpaired'
-   Plug 'tpope/vim-dispatch'
-   Plug 'tpope/vim-surround'
-   Plug 'tpope/vim-repeat'
-   Plug 'tpope/vim-commentary'
-   " Plug 'moll/vim-bbye'
-   Plug 'vim-voom/VOoM', {'for': ['tex', 'vimwiki'] }
-   Plug 'gcmt/taboo.vim'
-
-   "Languages
-   Plug 'vim-scripts/gnuplot.vim'
-   Plug 'vim-scripts/indentpython.vim'
-
-   Plug 'joereynolds/vim-minisnip'
-   Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
-   Plug 'junegunn/vim-easy-align'
-
-   " vim Wiki
-   Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
-
-   " Markdown
-   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
-
-   "Undo
-   Plug 'sjl/gundo.vim', {'on': ['GundoToggle']}
-
-
-   call plug#end()
-endif
 let g:mapleader="\<Space>"
 
-if has('win32unix')
-   let g:netrw_browsex_viewer='cygstart'
-elseif has('win32')
+if has('win32')
    let g:netrw_browsex_viewer='cmd /c start'
 elseif has('unix')
    let g:netrw_browsex_viewer='xdg-open'
@@ -94,7 +49,7 @@ let g:airline#extensions#ale#enabled=0
 let g:ale_linters = {'fortran': ['gfortran']}
 let g:ale_enabled = 0
 "command to run ale
-nnoremap <leader>sc :update<CR>:ALEToggle<CR>
+nnoremap <leader>sc :update<CR> :ALEToggle<CR>
 
 " commentary
 nnoremap <leader>cc :Commentary<CR>
@@ -290,6 +245,8 @@ nnoremap Q <nop>
 " Quickly open/reload vim
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+" easy access to terminal
+nnoremap <leader>te :terminal<CR>
 
 "folding
 if !has('compatible')

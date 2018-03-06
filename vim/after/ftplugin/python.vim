@@ -1,3 +1,4 @@
+packadd indentpython.vim
 let g:python_highlight_all=1
 setlocal tabstop=4 |
 setlocal softtabstop=4 |
