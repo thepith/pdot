@@ -25,9 +25,6 @@
 [submodule "vim/pack/plugins/start/taboo.vim"]
 	path = vim/pack/plugins/start/taboo.vim
 	url = git@github.com:gcmt/taboo.vim
-[submodule "vim/pack/plugins/start/vim-minisnip"]
-	path = vim/pack/plugins/start/vim-minisnip
-	url = git@github.com:thepith/vim-minisnip
 [submodule "vim/pack/plugins/start/vim-easy-align"]
 	path = vim/pack/plugins/start/vim-easy-align
 	url = git@github.com:junegunn/vim-easy-align
@@ -56,3 +53,6 @@
 	path = vim/pack/plugins/start/vimwiki
 	url = git@github.com:vimwiki/vimwiki.git
 	branch = dev
+[submodule "vim/pack/plugins/start/vim-minisnip"]
+	path = vim/pack/plugins/start/vim-minisnip
+	url = git@github.com:joereynolds/vim-minisnip.git
