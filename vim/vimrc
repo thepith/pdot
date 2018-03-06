@@ -54,7 +54,7 @@ let g:ale_enabled = 0
 nnoremap <leader>sc :update<CR> :ALEToggle<CR>
 
 " commentary
-nnoremap <leader>cc :Commentary<CR>
+noremap <leader>cc :Commentary<CR>
 
 " vim-bbye
 " nnoremap <Leader>q :Bdelete<CR>
