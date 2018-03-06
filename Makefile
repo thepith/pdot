@@ -22,6 +22,7 @@ git:
 	+$(MAKE) install
 
 ins-vim: dot-vim $(vimsplbinadd)
+	git submodule sync
 	git fetch --recurse-submodules --jobs 4
 	git submodule update --init --recursive --jobs 4
 	vim +helptags\ ALL +qall
