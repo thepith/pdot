@@ -18,9 +18,9 @@ install: $(installlist)
 update: git
 
 git:
-	git fetch --recurse-submodules --jobs=4
+	git fetch --recurse-submodules --jobs 4
 	git pull --ff-only
-	git submodule update --init --recursive
+	git submodule update --init --recursive --jobs 4
 	+$(MAKE) install
 
 ins-vim: dot-vim $(vimsplbinadd)
