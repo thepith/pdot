@@ -14,10 +14,6 @@ if !has('compatible')
    Plug 'altercation/vim-colors-solarized'
 
    "usability
-   Plug 'christoomey/vim-tmux-navigator'
-   if v:version >= 800
-      Plug 'tmux-plugins/vim-tmux-focus-events'
-   endif
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-dispatch'
@@ -29,17 +25,11 @@ if !has('compatible')
    Plug 'gcmt/taboo.vim'
 
    "Languages
-   if v:version < 800
    Plug 'vim-scripts/gnuplot.vim'
-   endif
    Plug 'vim-scripts/indentpython.vim'
 
    Plug 'joereynolds/vim-minisnip'
-   if v:version >= 800
-      Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
-   else
-      Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
-   endif
+   Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
    Plug 'junegunn/vim-easy-align'
 
    " vim Wiki
@@ -99,34 +89,12 @@ nnoremap <F8> :let g:target = ''<left>
 nnoremap <F9> :update<CR>:exe 'Make '.target<Cr>
 
 
-if v:version >= 800
-   " ale
-   let g:airline#extensions#ale#enabled=0
-   let g:ale_linters = {'fortran': ['gfortran']}
-   let g:ale_enabled = 0
-   "command to run ale
-   nnoremap <leader>sc :update<CR>:ALEToggle<CR>
-else
-   " Syntastic
-   let g:syntastic_always_populate_loc_list = 1
-   let g:syntastic_auto_loc_list = 0 " Don't auto open/close location list
-   let g:syntastic_check_on_open = 0 " Never run syntastic automatically
-   let g:syntastic_check_on_wq = 0   " Never run syntastic automatically
-   let g:syntastic_enable_signs=1
-   let g:syntastic_quiet_messages = { 'regex': '\max'}
-   let g:syntastic_vim_checkers = ['vint']
-   if executable('ifort')
-      let g:syntastic_fortran_compiler = 'ifort'
-      let g:syntastic_fortran_compiler_options = '-no-save-temps
-               \ -y -warn -nogen-interfaces'
-   else
-      let g:syntastic_fortran_compiler = 'gfortran'
-      let g:syntastic_fortran_compiler_options = '-Wall -O0'
-   endif
-   let g:syntastic_mode_map={'mode' : 'passive'}
-   "command to run syntastic
-   nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
-endif
+" ale
+let g:airline#extensions#ale#enabled=0
+let g:ale_linters = {'fortran': ['gfortran']}
+let g:ale_enabled = 0
+"command to run ale
+nnoremap <leader>sc :update<CR>:ALEToggle<CR>
 
 " commentary
 nnoremap <leader>cc :Commentary<CR>
@@ -233,14 +201,12 @@ set statusline+=%=                           " right align remainder
 set statusline+=%5(%l%),%-9(%c%V%)\          " line, character
 
 " set the status line up to change the status line based on mode
-if v:version >= 700
-   highlight StatusLine ctermfg=6 ctermbg=0
-   augroup statusHighlight
-      autocmd!
-      autocmd InsertEnter * highlight StatusLine ctermfg=3 ctermbg=0
-      autocmd InsertLeave * highlight StatusLine ctermfg=6 ctermbg=0
-   augroup END
-endif
+highlight StatusLine ctermfg=6 ctermbg=0
+augroup statusHighlight
+   autocmd!
+   autocmd InsertEnter * highlight StatusLine ctermfg=3 ctermbg=0
+   autocmd InsertLeave * highlight StatusLine ctermfg=6 ctermbg=0
+augroup END
 
 set confirm " Instead of failing a command because of unsaved changes, instead raise a dialogue asking if you wish to save changed files.
 if exists('&belloff')
