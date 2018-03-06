@@ -13,18 +13,19 @@ vimsplbinadd := $(patsubst %.add,%.add.spl,$(vimspladd))
 
 all: update
 
-install: $(installlist)
+install: pdot.conf pdot_secret.conf $(installlist)
 
 update: git
 
 git:
-	git fetch --recurse-submodules --jobs 4
 	git pull --ff-only
-	git submodule update --init --recursive --jobs 4
 	+$(MAKE) install
 
 ins-vim: dot-vim $(vimsplbinadd)
+	git fetch --recurse-submodules --jobs 4
+	git submodule update --init --recursive --jobs 4
 	vim +helptags\ ALL +qall
+
 ins-tmux: dot-tmux
 ins-shell: dot-shell
 	@rc=$${SHELL#*/bin/}rc ;\
