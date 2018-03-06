@@ -248,7 +248,7 @@ nnoremap Q <nop>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 " easy access to terminal
-nnoremap <leader>te :vsplit<CR> :terminal ++close ++curwin<CR>
+nnoremap <leader>te :vertical terminal ++close<CR>
 " easy access to terminal in the location of the file
 nnoremap <leader>tc :vsplit<CR> :lcd %:p:h<CR> :terminal ++close ++curwin<CR>
 
