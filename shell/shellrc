@@ -46,9 +46,9 @@ shell=${SHELL#*/bin/}
 if [ "$shell" = "bash" ] ; then
 #set up bash prompt
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
-      PS1='\n\[\e[34m\]@\h \[\e[33m\]\w\[\e[0m\] $(vim_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+      PS1='\n\[\e[34m\]@\h \[\e[33m\]\w\[\e[0m\]\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
    else
-      PS1='\n\[\e[32m\]@\h \[\e[33m\]\w\[\e[0m\] $(vim_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+      PS1='\n\[\e[32m\]@\h \[\e[33m\]\w\[\e[0m\]\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
    fi
 fi
 
@@ -56,9 +56,9 @@ if [ "$shell" = "zsh" ] ; then
 #set up zsh prompt
    setopt PROMPT_SUBST
    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
-      PROMPT=$'\n'$'\e[0;34m@%m \e[0;33m%~ \e[0;35m\e[0m$(vim_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+      PROMPT=$'\n'$'\e[0;34m@%m \e[0;33m%~ \e[0;35m\e[0m'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    else
-      PROMPT=$'\n'$'\e[0;32m@%m \e[0;33m%~ \e[0;35m\e[0m$(vim_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+      PROMPT=$'\n'$'\e[0;32m@%m \e[0;33m%~ \e[0;35m\e[0m'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
    fi
 # `compinit` scans $fpath, so do this before calling it.
    autoload -Uz compinit && compinit

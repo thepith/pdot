@@ -22,12 +22,14 @@ if [ ! -z ${TMUX+x} ]; then
    post='\e\\'
 fi
 
-if [ "$SOLVAR" = "dark" ]; then
-   echo -ne "$pre"'\e]10;#839496\a'"$post"  # Foreground   -> base0
-   echo -ne "$pre"'\e]11;#002B36\a'"$post"  # Background   -> base03
-elif [ "$SOLVAR" = "light" ]; then
-   echo -ne  "$pre"'\e]10;#657B83\a'"$post"  # Foreground   -> base00
-   echo -ne  "$pre"'\e]11;#FDF6E3\a'"$post"  # Background   -> base3
+if [ -z ${VIMRUNTIME+x} ]; then
+   if [ "$SOLVAR" = "dark" ]; then
+      echo -ne "$pre"'\e]10;#839496\a'"$post"  # Foreground   -> base0
+      echo -ne "$pre"'\e]11;#002B36\a'"$post"  # Background   -> base03
+   elif [ "$SOLVAR" = "light" ]; then
+      echo -ne  "$pre"'\e]10;#657B83\a'"$post"  # Foreground   -> base00
+      echo -ne  "$pre"'\e]11;#FDF6E3\a'"$post"  # Background   -> base3
+   fi
 fi
 
 echo -ne "$pre"'\e]12;#DC322F\a'"$post"  # Cursor       -> red
