@@ -75,13 +75,9 @@ let g:tex_comment_nospell= 1
 "comilation
 let b:tex_flavor = 'pdflatex'
 compiler tex
-if !filereadable('Makefile')
-   " Find the main TeX file
-   if !exists('w:TexMainFile')
-      let w:TexMainFile = expand('%')
-   endif
-   let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile
-endif
+
+let &makeprg='if [ -f [mM]akefile ]; then make; else cd '.expand('%:p:h').' && pdflatex -interaction=nonstopmode -c-style-errors '.expand('%:t').' ; fi'
+
 " match c-style-errors
 set errorformat+=%f:%l:\ %m
 " ignore date stamps
