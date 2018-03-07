@@ -91,9 +91,9 @@ xmap <leader>a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object
 nmap <leader>a <Plug>(EasyAlign)
 
-"Gundo.vim
-nnoremap <leader>u :GundoToggle<CR>
-
+"undotree
+nnoremap <leader>u :UndotreeToggle<CR>
+let g:undotree_ShortIndicators=1
 "
 "Own functions
 if !has('compatible')
