@@ -3,11 +3,7 @@ pdot_secret.conf
 python-gitlab.cfg
 snclirc
 *.swp
-backup-old/
-backup-org/
-vim/autoload/*
-vim/view/
 vim/spell/*.add.spl
 vim/.netrwhist
 backupdir/
-vim/simplenotes.vim
+vim/pack/local/
