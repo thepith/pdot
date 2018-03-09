@@ -76,7 +76,7 @@ let g:tex_comment_nospell= 1
 let b:tex_flavor = 'pdflatex'
 compiler tex
 
-let &makeprg='if [ -f [mM]akefile ]; then make; else cd '.expand('%:p:h').' && pdflatex -interaction=nonstopmode -c-style-errors '.expand('%:t').' ; fi'
+let &l:makeprg='if [ -f [mM]akefile ]; then make; else cd '.expand('%:p:h').' && pdflatex -interaction=nonstopmode -c-style-errors '.expand('%:t').' ; fi'
 
 " match c-style-errors
 set errorformat+=%f:%l:\ %m
