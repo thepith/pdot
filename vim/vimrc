@@ -251,7 +251,8 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>te :vertical terminal ++close<CR>
 " easy access to terminal in the location of the file
 nnoremap <leader>tc :vsplit<CR> :lcd %:p:h<CR> :terminal ++close ++curwin<CR>
-
+tnoremap <C-W>cd <C-C> pwd >! /tmp/$USER/.vim/cwd<CR><C-W>:execute 'cd '.system('cat /tmp/$USER/.vim/cwd')<CR>
+" :execute 'cd '.system('cat /tmp/$USER/.vim/cwd')<CR>
 
 "folding
 if !has('compatible')
