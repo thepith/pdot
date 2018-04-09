@@ -59,9 +59,6 @@
 [submodule "vim/pack/plugins/start/undotree"]
 	path = vim/pack/plugins/start/undotree
 	url = git@github.com:mbbill/undotree.git
-[submodule "vim/pack/plugins/start/vim-tmux-navigator"]
-	path = vim/pack/plugins/start/vim-tmux-navigator
-	url = git@github.com:christoomey/vim-tmux-navigator.git
 [submodule "vim/pack/plugins/start/vim-tmux-focus-events"]
 	path = vim/pack/plugins/start/vim-tmux-focus-events
 	url = git@github.com:tmux-plugins/vim-tmux-focus-events.git
