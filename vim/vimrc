@@ -45,6 +45,14 @@ nnoremap <F8> :let g:target = ''<left>
 " run make
 nnoremap <F9> :update<CR>:exe 'Make '.target<Cr>
 
+" tmux
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-w> h :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-w> j :TmuxNavigateDown<cr>
+nnoremap <silent> <C-w> k :TmuxNavigateUp<cr>
+nnoremap <silent> <C-w> l :TmuxNavigateRight<cr>
+nnoremap <silent> <C-w> p :TmuxNavigatePrevious<cr>
 
 " ale
 let g:airline#extensions#ale#enabled=0
