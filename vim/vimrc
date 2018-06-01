@@ -11,45 +11,45 @@ endif
 if !has('compatible')
    call plug#begin('$HOME/.vim/plugged')
    " Appearance
-   Plug 'altercation/vim-colors-solarized' " done
+   Plug 'altercation/vim-colors-solarized'
 
    "usability
    Plug 'christoomey/vim-tmux-navigator'
    if v:version >= 800
-      Plug 'tmux-plugins/vim-tmux-focus-events' " done
+      Plug 'tmux-plugins/vim-tmux-focus-events'
    endif
-   Plug 'tpope/vim-fugitive' " done
-   Plug 'tpope/vim-unimpaired' "done
-   Plug 'tpope/vim-dispatch' " done
-   Plug 'tpope/vim-surround' " done
-   Plug 'tpope/vim-repeat' " done
-   Plug 'tpope/vim-commentary' " done
-   Plug 'vim-voom/VOoM', {'for': ['tex', 'vimwiki'] } " done
-   Plug 'gcmt/taboo.vim' " done
-   Plug 'junegunn/vim-peekaboo' " done
-   Plug 'rhysd/vim-grammarous' " done
+   Plug 'tpope/vim-fugitive'
+   Plug 'tpope/vim-unimpaired'
+   Plug 'tpope/vim-dispatch'
+   Plug 'tpope/vim-surround'
+   Plug 'tpope/vim-repeat'
+   Plug 'tpope/vim-commentary'
+   Plug 'vim-voom/VOoM', {'for': ['tex', 'vimwiki'] }
+   Plug 'gcmt/taboo.vim'
+   Plug 'junegunn/vim-peekaboo'
+   Plug 'rhysd/vim-grammarous'
 
    "Languages
-   Plug 'vim-scripts/gnuplot.vim', {'for': ['gnuplot']} " done
-   Plug 'vim-scripts/indentpython.vim' {'for': ['python']}" done
+   Plug 'vim-scripts/gnuplot.vim', {'for': ['gnuplot']}
+   Plug 'vim-scripts/indentpython.vim', {'for': ['python']}
 
-   Plug 'joereynolds/vim-minisnip' " done
+   Plug 'joereynolds/vim-minisnip'
    if v:version >= 800
-      Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']} " done
+      Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
    else
       Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
    endif
-   Plug 'junegunn/vim-easy-align' " done
+   Plug 'junegunn/vim-easy-align'
 
    " vim Wiki
-   Plug 'vimwiki/vimwiki', {'branch': 'dev'} " done
-   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']} " done
+   Plug 'vimwiki/vimwiki', {'branch': 'dev'}
+   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
 
    " Markdown
-   Plug 'plasticboy/vim-markdown', {'for': ['markdown']} " done
+   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 
    "Undo
-   Plug 'mbbill/undotree', {'on': ['UndotreeToggle']} " done
+   Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
 
    call plug#end()
 endif
