@@ -1,3 +1,3 @@
-subroutine {{+MODULE_NAME+}}
-   
-end subroutine {{+~\~1+}}
+subroutine {{+NAME+}}({{++}})
+   {{--}}
+end subroutine {{+~\~2+}}

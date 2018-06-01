@@ -58,11 +58,11 @@ set omnifunc=syntaxcomplete#Complete
 let g:mapleader="\<Space>"
 
 if has('win32unix')
-   let g:netrw_browsex_viewer="cygstart"
+   let g:netrw_browsex_viewer='cygstart'
 elseif has('win32')
-   let g:netrw_browsex_viewer="cmd /c start"
+   let g:netrw_browsex_viewer='cmd /c start'
 elseif has('unix')
-   let g:netrw_browsex_viewer="xdg-open"
+   let g:netrw_browsex_viewer='xdg-open'
 endif
 
 if &term =~? '^screen'
@@ -90,12 +90,12 @@ silent! colorscheme solarized
 nnoremap <F5> :update<CR>:Dispatch ./% <CR>
 " Run last command executed by VimuxRunCommand
 nnoremap <F6> :update<CR>:Dispatch<CR>
-"" Prompt for a command to run
+" Prompt for a command to run
 nnoremap <F7> :update<CR>:FocusDispatch
-"" run make
+" run make
 let g:target = ''
-nnoremap <F8> :let g:target = ""<left>
-"" run make
+nnoremap <F8> :let g:target = ''<left>
+" run make
 nnoremap <F9> :update<CR>:exe 'Make '.target<Cr>
 
 
@@ -135,7 +135,7 @@ nnoremap <leader>cc :Commentary<CR>
 " nnoremap <Leader>q :Bdelete<CR>
 
 "voom
-let g:voom_return_key = "<C-]>"
+let g:voom_return_key = '<C-]>'
 
 "taboo
 set sessionoptions+=tabpages,globals
@@ -293,11 +293,13 @@ inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 " turn of highlight until the next search
 nnoremap <leader>nn :nohlsearch<CR>
+" free s of mappings, to use alt-s as an alternative for <esc>
+nnoremap s <nop>
 " use to naviage buffers easily
 nnoremap <leader>b :buffers<CR>:buffer<Space>
 " use to naviage buffers in current dir
 nnoremap <leader>cb :filter /^[^\/]*$/ buffers<CR>:buffer<Space>
-" do not use arrow keys!
+" force myselft to learn not using the arrow keys!
 noremap <Up>    :echo "Stop using arrow keys, stupid" <CR>
 noremap <Down>  :echo "Stop using arrow keys, stupid" <CR>
 noremap <Left>  :echo "Stop using arrow keys, stupid" <CR>
