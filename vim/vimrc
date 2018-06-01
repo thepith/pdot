@@ -2,7 +2,10 @@ set encoding=utf-8
 scriptencoding utf-8
 filetype plugin indent on
 syntax enable
-" clear previous variable settings
+
+filetype plugin on
+
+set omnifunc=syntaxcomplete#Complete
 
 let g:mapleader="\<Space>"
 
@@ -215,8 +218,6 @@ inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 " turn of highlight until the next search
 nnoremap <leader>nn :nohlsearch<CR>
-" free s of mappings, to use alt-s as an alternative for <esc>
-nnoremap s <nop>
 " use to naviage buffers easily
 nnoremap <leader>b :buffers<CR>:buffer<Space>
 " use to naviage buffers in current dir
@@ -252,6 +253,10 @@ nnoremap <leader>te :vertical terminal ++close<CR>
 nnoremap <leader>tc :vsplit<CR> :lcd %:p:h<CR> :terminal ++close ++curwin<CR>
 tnoremap <C-W>cd <C-C> pwd >\| /tmp/$USER/.vim/cwd<CR><C-W>:execute 'cd '.system('cat /tmp/$USER/.vim/cwd')<CR>
 " :execute 'cd '.system('cat /tmp/$USER/.vim/cwd')<CR>
+inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+inoremap <C-p> <Esc>
+nnoremap <C-p> <Esc>
 
 "folding
 if !has('compatible')
