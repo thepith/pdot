@@ -62,3 +62,9 @@
 [submodule "vim/pack/plugins/start/vim-grammarous"]
 	path = vim/pack/plugins/start/vim-grammarous
 	url = https://github.com/rhysd/vim-grammarous.git
+[submodule "vim/pack/plugins/start/vim-tmux-focus-events"]
+	path = vim/pack/plugins/start/vim-tmux-focus-events
+	url = git@github.com:tmux-plugins/vim-tmux-focus-events.git
+[submodule "vim/pack/plugins/start/vim-easymotion"]
+	path = vim/pack/plugins/start/vim-easymotion
+	url = git@github.com:easymotion/vim-easymotion.git
