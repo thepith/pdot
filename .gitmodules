@@ -59,3 +59,6 @@
 [submodule "vim/pack/plugins/start/undotree"]
 	path = vim/pack/plugins/start/undotree
 	url = git@github.com:mbbill/undotree.git
+[submodule "vim/pack/plugins/start/vim-grammarous"]
+	path = vim/pack/plugins/start/vim-grammarous
+	url = https://github.com/rhysd/vim-grammarous.git
