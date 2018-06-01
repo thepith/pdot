@@ -13,7 +13,7 @@ vimsplbinadd := $(patsubst %.add,%.add.spl,$(vimspladd))
 
 all: update
 
-install: $(installlist)
+install: pdot.conf pdot_secret.conf $(installlist)
 
 update: git
 

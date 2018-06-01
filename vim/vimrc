@@ -11,50 +11,50 @@ endif
 if !has('compatible')
    call plug#begin('$HOME/.vim/plugged')
    " Appearance
-   Plug 'altercation/vim-colors-solarized'
+   Plug 'altercation/vim-colors-solarized' " done
 
    "usability
    Plug 'christoomey/vim-tmux-navigator'
    if v:version >= 800
-      Plug 'tmux-plugins/vim-tmux-focus-events'
+      Plug 'tmux-plugins/vim-tmux-focus-events' " done
    endif
-   Plug 'tpope/vim-fugitive'
-   Plug 'tpope/vim-unimpaired'
-   Plug 'tpope/vim-dispatch'
-   Plug 'tpope/vim-surround'
-   Plug 'tpope/vim-repeat'
-   Plug 'tpope/vim-commentary'
-   " Plug 'moll/vim-bbye'
-   Plug 'vim-voom/VOoM', {'for': ['tex', 'vimwiki'] }
-   Plug 'gcmt/taboo.vim'
+   Plug 'tpope/vim-fugitive' " done
+   Plug 'tpope/vim-unimpaired' "done
+   Plug 'tpope/vim-dispatch' " done
+   Plug 'tpope/vim-surround' " done
+   Plug 'tpope/vim-repeat' " done
+   Plug 'tpope/vim-commentary' " done
+   Plug 'vim-voom/VOoM', {'for': ['tex', 'vimwiki'] } " done
+   Plug 'gcmt/taboo.vim' " done
+   Plug 'junegunn/vim-peekaboo' " done
+   Plug 'rhysd/vim-grammarous' " done
 
    "Languages
-   if v:version < 800
-   Plug 'vim-scripts/gnuplot.vim'
-   endif
-   Plug 'vim-scripts/indentpython.vim'
+   Plug 'vim-scripts/gnuplot.vim', {'for': ['gnuplot']} " done
+   Plug 'vim-scripts/indentpython.vim' {'for': ['python']}" done
 
-   Plug 'joereynolds/vim-minisnip'
+   Plug 'joereynolds/vim-minisnip' " done
    if v:version >= 800
-      Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
+      Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']} " done
    else
       Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
    endif
-   Plug 'junegunn/vim-easy-align'
+   Plug 'junegunn/vim-easy-align' " done
 
    " vim Wiki
-   Plug 'vimwiki/vimwiki', {'branch': 'dev'}
-   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
+   Plug 'vimwiki/vimwiki', {'branch': 'dev'} " done
+   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']} " done
 
    " Markdown
-   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
+   Plug 'plasticboy/vim-markdown', {'for': ['markdown']} " done
 
    "Undo
-   Plug 'sjl/gundo.vim', {'on': ['GundoToggle']}
-
+   Plug 'mbbill/undotree', {'on': ['UndotreeToggle']} " done
 
    call plug#end()
 endif
+
+set omnifunc=syntaxcomplete#Complete
 let g:mapleader="\<Space>"
 
 if has('win32unix')
@@ -65,7 +65,7 @@ elseif has('unix')
    let g:netrw_browsex_viewer="xdg-open"
 endif
 
-if &term =~ '^screen'
+if &term =~? '^screen'
     " tmux will send xterm-style keys when its xterm-keys option is on
     execute "set <xUp>=\e[1;*A"
     execute "set <xDown>=\e[1;*B"
@@ -129,7 +129,7 @@ else
 endif
 
 " commentary
-map <leader>cc :Commentary<CR>
+nnoremap <leader>cc :Commentary<CR>
 
 " vim-bbye
 " nnoremap <Leader>q :Bdelete<CR>
@@ -166,10 +166,10 @@ xmap <leader>a <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object
 nmap <leader>a <Plug>(EasyAlign)
 
-"Gundo.vim
-nnoremap <leader>u :GundoToggle<CR>
+"Undo
+nnoremap <leader>u ::UndotreeToggle<CR>
+let g:undotree_ShortIndicators=1
 
-"
 "Own functions
 if !has('compatible')
    set nrformats=hex,alpha
@@ -322,6 +322,22 @@ nnoremap Q <nop>
 " Quickly open/reload vim
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
+
+if has('terminal')
+   " easy access to terminal
+   nnoremap <leader>te :vertical terminal ++close<CR>
+   " easy access to terminal in the location of the file
+   nnoremap <leader>tc :vsplit<CR> :lcd %:p:h<CR> :terminal ++close ++curwin<CR>
+   tnoremap <C-W>cd <C-C> pwd >\| /tmp/$USER/.vim/cwd<CR><C-W>:execute 'cd '.system('cat /tmp/$USER/.vim/cwd')<CR>
+endif
+
+"easy navigation of completion window
+inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+
+"to prevent errenous usage of C-p for esc
+inoremap <C-p> <Esc>
+nnoremap <C-p> <Esc>
 
 "folding
 if !has('compatible')

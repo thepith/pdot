@@ -1,0 +1,908 @@
+diff --git a/.gitignore b/.gitignore
+index 8b9e13c..d78bf9e 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -6,4 +6,4 @@ snclirc
+ vim/spell/*.add.spl
+ vim/.netrwhist
+ backupdir/
+-vim/pack/local/
++vim/plugged/*
+diff --git a/.gitmodules b/.gitmodules
+deleted file mode 100644
+index b2bd701..0000000
+--- a/.gitmodules
++++ /dev/null
+@@ -1,70 +0,0 @@
+-[submodule "vim/pack/plugins/start/vim-fugitive"]
+-	path = vim/pack/plugins/start/vim-fugitive
+-	url = git@github.com:tpope/vim-fugitive
+-[submodule "vim/pack/plugins/start/vim-unimpaired"]
+-	path = vim/pack/plugins/start/vim-unimpaired
+-	url = git@github.com:tpope/vim-unimpaired
+-[submodule "vim/pack/plugins/start/vim-dispatch"]
+-	path = vim/pack/plugins/start/vim-dispatch
+-	url = git@github.com:tpope/vim-dispatch
+-[submodule "vim/pack/plugins/start/vim-surround"]
+-	path = vim/pack/plugins/start/vim-surround
+-	url = git@github.com:tpope/vim-surround
+-[submodule "vim/pack/plugins/start/vim-repeat"]
+-	path = vim/pack/plugins/start/vim-repeat
+-	url = git@github.com:tpope/vim-repeat
+-[submodule "vim/pack/plugins/start/vim-commentary"]
+-	path = vim/pack/plugins/start/vim-commentary
+-	url = git@github.com:tpope/vim-commentary
+-[submodule "vim/pack/plugins/start/vim-colors-solarized"]
+-	path = vim/pack/plugins/start/vim-colors-solarized
+-	url = git@github.com:altercation/vim-colors-solarized
+-[submodule "vim/pack/plugins/start/VOoM"]
+-	path = vim/pack/plugins/start/VOoM
+-	url = git@github.com:vim-voom/VOoM
+-[submodule "vim/pack/plugins/start/taboo.vim"]
+-	path = vim/pack/plugins/start/taboo.vim
+-	url = git@github.com:gcmt/taboo.vim
+-[submodule "vim/pack/plugins/start/vim-easy-align"]
+-	path = vim/pack/plugins/start/vim-easy-align
+-	url = git@github.com:junegunn/vim-easy-align
+-[submodule "vim/pack/plugins/start/vim-speeddating"]
+-	path = vim/pack/plugins/start/vim-speeddating
+-	url = git@github.com:tpope/vim-speeddating
+-[submodule "vim/pack/plugins/start/ale"]
+-	path = vim/pack/plugins/start/ale
+-	url = git@github.com:w0rp/ale.git
+-[submodule "vim/pack/plugins/opt/VOoM"]
+-	path = vim/pack/plugins/opt/VOoM
+-	url = git@github.com:vim-voom/VOoM
+-[submodule "vim/pack/syntax/opt/gnuplot.vim"]
+-	path = vim/pack/syntax/opt/gnuplot.vim
+-	url = git@github.com:vim-scripts/gnuplot.vim
+-[submodule "vim/pack/syntax/opt/vim-markdown"]
+-	path = vim/pack/syntax/opt/vim-markdown
+-	url = git@github.com:plasticboy/vim-markdown
+-[submodule "vim/pack/syntax/opt/indentpython.vim"]
+-	path = vim/pack/syntax/opt/indentpython.vim
+-	url = git@github.com:vim-scripts/indentpython.vim
+-[submodule "vim/pack/plugins/start/vimwiki"]
+-	path = vim/pack/plugins/start/vimwiki
+-	url = git@github.com:vimwiki/vimwiki.git
+-	branch = dev
+-[submodule "vim/pack/plugins/start/vim-minisnip"]
+-	path = vim/pack/plugins/start/vim-minisnip
+-	url = git@github.com:joereynolds/vim-minisnip.git
+-[submodule "vim/pack/plugins/start/vim-peekaboo"]
+-	path = vim/pack/plugins/start/vim-peekaboo
+-	url = git@github.com:junegunn/vim-peekaboo.git
+-[submodule "vim/pack/plugins/start/undotree"]
+-	path = vim/pack/plugins/start/undotree
+-	url = git@github.com:mbbill/undotree.git
+-[submodule "vim/pack/plugins/start/vim-grammarous"]
+-	path = vim/pack/plugins/start/vim-grammarous
+-	url = https://github.com/rhysd/vim-grammarous.git
+-[submodule "vim/pack/plugins/start/vim-tmux-focus-events"]
+-	path = vim/pack/plugins/start/vim-tmux-focus-events
+-	url = git@github.com:tmux-plugins/vim-tmux-focus-events.git
+-[submodule "vim/pack/plugins/start/vim-easymotion"]
+-	path = vim/pack/plugins/start/vim-easymotion
+-	url = git@github.com:easymotion/vim-easymotion.git
+diff --git a/Makefile b/Makefile
+index b4b1fc7..1706197 100644
+--- a/Makefile
++++ b/Makefile
+@@ -13,7 +13,7 @@ vimsplbinadd := $(patsubst %.add,%.add.spl,$(vimspladd))
+ 
+ all: update
+ 
+-install: pdot.conf pdot_secret.conf $(installlist)
++install: $(installlist)
+ 
+ update: git
+ 
+@@ -22,13 +22,7 @@ git:
+ 	+$(MAKE) install
+ 
+ ins-vim: dot-vim $(vimsplbinadd)
+-	git clean -f -f -d vim/pack/plugins/
+-	git clean -f -f -d vim/pack/syntax/
+-	git submodule sync
+-	git fetch --recurse-submodules --jobs 4
+-	git submodule update --init --recursive --jobs 4
+-	vim +helptags\ ALL +qall
+-
++	vim +PlugUpgrade +PlugClean! +PlugUpdate! +qall
+ ins-tmux: dot-tmux
+ ins-shell: dot-shell
+ 	@rc=$${SHELL#*/bin/}rc ;\
+diff --git a/shell/shellrc b/shell/shellrc
+index f26b8c8..96bb97c 100644
+--- a/shell/shellrc
++++ b/shell/shellrc
+@@ -46,9 +46,9 @@ shell=${SHELL#*/bin/}
+ if [ "$shell" = "bash" ] ; then
+ #set up bash prompt
+    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
+-      PS1='\n\[\e[34m\]@\h \[\e[33m\]\w\[\e[0m\]\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
++      PS1='\n\[\e[34m\]@\h \[\e[33m\]\w\[\e[0m\] $(vim_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+    else
+-      PS1='\n\[\e[32m\]@\h \[\e[33m\]\w\[\e[0m\]\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
++      PS1='\n\[\e[32m\]@\h \[\e[33m\]\w\[\e[0m\] $(vim_ps1)\[\e[0m\]\n\$ \[\eD\eD\e[A\e[A\]'
+    fi
+ fi
+ 
+@@ -56,9 +56,9 @@ if [ "$shell" = "zsh" ] ; then
+ #set up zsh prompt
+    setopt PROMPT_SUBST
+    if [ "$SESSION_TYPE" = "remote/ssh" ] ; then
+-      PROMPT=$'\n'$'\e[0;34m@%m \e[0;33m%~ \e[0;35m\e[0m'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
++      PROMPT=$'\n'$'\e[0;34m@%m \e[0;33m%~ \e[0;35m\e[0m$(vim_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+    else
+-      PROMPT=$'\n'$'\e[0;32m@%m \e[0;33m%~ \e[0;35m\e[0m'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
++      PROMPT=$'\n'$'\e[0;32m@%m \e[0;33m%~ \e[0;35m\e[0m$(vim_ps1)'$'\n'$'$ %{\eD\eD\e[A\e[A%}'
+    fi
+ # `compinit` scans $fpath, so do this before calling it.
+    autoload -Uz compinit && compinit
+diff --git a/sol/colors/sol.sh b/sol/colors/sol.sh
+index 3814504..62a8efd 100644
+--- a/sol/colors/sol.sh
++++ b/sol/colors/sol.sh
+@@ -22,14 +22,12 @@ if [ ! -z ${TMUX+x} ]; then
+    post='\e\\'
+ fi
+ 
+-if [ -z ${VIMRUNTIME+x} ]; then
+-   if [ "$SOLVAR" = "dark" ]; then
+-      echo -ne "$pre"'\e]10;#839496\a'"$post"  # Foreground   -> base0
+-      echo -ne "$pre"'\e]11;#002B36\a'"$post"  # Background   -> base03
+-   elif [ "$SOLVAR" = "light" ]; then
+-      echo -ne  "$pre"'\e]10;#657B83\a'"$post"  # Foreground   -> base00
+-      echo -ne  "$pre"'\e]11;#FDF6E3\a'"$post"  # Background   -> base3
+-   fi
++if [ "$SOLVAR" = "dark" ]; then
++   echo -ne "$pre"'\e]10;#839496\a'"$post"  # Foreground   -> base0
++   echo -ne "$pre"'\e]11;#002B36\a'"$post"  # Background   -> base03
++elif [ "$SOLVAR" = "light" ]; then
++   echo -ne  "$pre"'\e]10;#657B83\a'"$post"  # Foreground   -> base00
++   echo -ne  "$pre"'\e]11;#FDF6E3\a'"$post"  # Background   -> base3
+ fi
+ 
+ echo -ne "$pre"'\e]12;#DC322F\a'"$post"  # Cursor       -> red
+diff --git a/tmux.conf b/tmux.conf
+index bf07ceb..49140bb 100644
+--- a/tmux.conf
++++ b/tmux.conf
+@@ -51,6 +51,13 @@ run -b 'tmux bind -T copy-mode-vi Escape send -X cancel 2> /dev/null || true'
+ run -b 'tmux bind -t vi-copy H start-of-line 2> /dev/null || true'
+ run -b 'tmux bind -T copy-mode-vi L send -X end-of-line 2> /dev/null || true'
+ 
++# smart pane switching with awareness of vim splits
++bind -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-h) || tmux select-pane -L"
++bind -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-j) || tmux select-pane -D"
++bind -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-k) || tmux select-pane -U"
++bind -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-l) || tmux select-pane -R"
++# bind -n C-\ run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys 'C-\\') || tmux select-pane -l"
++
+ # move around panes with hjkl, as one would in vim after pressing ctrl-w
+ bind h select-pane -L
+ bind j select-pane -D
+@@ -94,6 +101,10 @@ bind -n M-k \
+ 	unbind -n M-l \; \
+ 	unbind -n M-H \; \
+ 	unbind -n M-L \; \
++	unbind -n C-h\; \
++	unbind -n C-j\; \
++	unbind -n C-k\; \
++	unbind -n C-l\; \
+ 	unbind-key M-Space\; \
+ 	set -g prefix C-q\; \
+ 	bind-key C-q send-prefix
+@@ -106,6 +117,10 @@ bind -n M-j \
+ 	bind -n M-l next \; \
+ 	bind -n M-H swap-window -t -1 \; \
+ 	bind -n M-L swap-window -t +1 \; \
++	bind -n C-h run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-h) || tmux select-pane -L"\; \
++	bind -n C-j run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-j) || tmux select-pane -D"\; \
++	bind -n C-k run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-k) || tmux select-pane -U"\; \
++	bind -n C-l run "(tmux display-message -p '#{pane_current_command}' | grep -iq vim && tmux send-keys C-l) || tmux select-pane -R"\; \
+ 	unbind-key C-q\; \
+ 	set -g prefix M-Space\; \
+ 	bind-key Space send-prefix
+diff --git a/vim/after/ftplugin/fortran.vim b/vim/after/ftplugin/fortran.vim
+index 3a9cdb0..e1279c6 100644
+--- a/vim/after/ftplugin/fortran.vim
++++ b/vim/after/ftplugin/fortran.vim
+@@ -1,7 +1,7 @@
+ let g:fortran_free_source=1
+ let g:fortran_do_enddo=1
+ let g:fortran_have_tabs=1
+-let &l:errorformat="\ forrtl:\ severe\ (%n):\ %m,".&errorformat
++let &errorformat="\ forrtl:\ severe\ (%n):\ %m,".&errorformat
+ let b:wantedfoldmethod="syntax"
+ setlocal textwidth=132
+ let g:easy_align_delimiters = {
+diff --git a/vim/after/ftplugin/gnuplot.vim b/vim/after/ftplugin/gnuplot.vim
+index 66f3540..c78aff1 100644
+--- a/vim/after/ftplugin/gnuplot.vim
++++ b/vim/after/ftplugin/gnuplot.vim
+@@ -1,8 +1,6 @@
+ let &l:keywordprg='gnuplot -e help\'
+-packadd gnuplot.vim
+ setlocal commentstring =#\ %s
+ 
+-nnoremap <leader>vp :execute("!xdg-open " . expand('%:r').".pdf")<CR>
+ if !filereadable("Makefile")
+-   let &l:makeprg='gnuplot '.expand("%")
++   let &makeprg='gnuplot '.expand("%")
+ endif
+diff --git a/vim/after/ftplugin/markdown.vim b/vim/after/ftplugin/markdown.vim
+index ed49357..dab86e7 100644
+--- a/vim/after/ftplugin/markdown.vim
++++ b/vim/after/ftplugin/markdown.vim
+@@ -1,6 +1,5 @@
+ setlocal spell
+-packadd vim-markdown
+-packadd VOom
++
+ " vim-markdown
+ nnoremap <leader>vo :Toc<CR>
+ let g:vim_markdown_new_list_item_indent = 3
+@@ -8,29 +7,29 @@ let g:vim_markdown_new_list_item_indent = 3
+ " from https://github.com/gabrielelana/vim-markdown/blob/master/autoload/markdown.vim
+ " {{{ SWITCH STATUS
+ function! markdown#SwitchStatus()
+-  let l:current_line = getline('.')
+-  if match(l:current_line, '^\s*[*\-+] \[ \]') >= 0
+-    call setline('.', substitute(l:current_line, '^\(\s*[*\-+]\) \[ \]', '\1 [x]', ''))
++  let current_line = getline('.')
++  if match(current_line, '^\s*[*\-+] \[ \]') >= 0
++    call setline('.', substitute(current_line, '^\(\s*[*\-+]\) \[ \]', '\1 [x]', ''))
+     return
+   endif
+-  if match(l:current_line, '^\s*[*\-+] \[x\]') >= 0
+-    call setline('.', substitute(l:current_line, '^\(\s*[*\-+]\) \[x\]', '\1', ''))
++  if match(current_line, '^\s*[*\-+] \[x\]') >= 0
++    call setline('.', substitute(current_line, '^\(\s*[*\-+]\) \[x\]', '\1', ''))
+     return
+   endif
+-  if match(l:current_line, '^\s*[*\-+] \(\[[x ]\]\)\@!') >= 0
+-    call setline('.', substitute(l:current_line, '^\(\s*[*\-+]\)', '\1 [ ]', ''))
++  if match(current_line, '^\s*[*\-+] \(\[[x ]\]\)\@!') >= 0
++    call setline('.', substitute(current_line, '^\(\s*[*\-+]\)', '\1 [ ]', ''))
+     return
+   endif
+-  if match(l:current_line, '^\s*#\{1,5}\s') >= 0
+-    call setline('.', substitute(l:current_line, '^\(\s*#\{1,5}\) \(.*$\)', '\1# \2', ''))
++  if match(current_line, '^\s*#\{1,5}\s') >= 0
++    call setline('.', substitute(current_line, '^\(\s*#\{1,5}\) \(.*$\)', '\1# \2', ''))
+     return
+   endif
+-  if match(l:current_line, '^\s*#\{6}\s') >= 0
+-    call setline('.', substitute(l:current_line, '^\(\s*\)#\{6} \(.*$\)', '\1# \2', ''))
++  if match(current_line, '^\s*#\{6}\s') >= 0
++    call setline('.', substitute(current_line, '^\(\s*\)#\{6} \(.*$\)', '\1# \2', ''))
+     return
+   endif
+ endfunction
+-nnoremap <C-@> :call markdown#SwitchStatus()<CR>
++nnoremap <leader>C :call markdown#SwitchStatus()<CR>
+ " }}}
+ 
+ nnoremap <leader>N / *\* \[ \]<CR>
+diff --git a/vim/after/ftplugin/python.vim b/vim/after/ftplugin/python.vim
+index f4dfd0a..b12ffbf 100644
+--- a/vim/after/ftplugin/python.vim
++++ b/vim/after/ftplugin/python.vim
+@@ -1,4 +1,3 @@
+-packadd indentpython.vim
+ let g:python_highlight_all=1
+ setlocal tabstop=4 |
+ setlocal softtabstop=4 |
+diff --git a/vim/after/ftplugin/tex.vim b/vim/after/ftplugin/tex.vim
+index 2b6eaf4..7bbc4c1 100644
+--- a/vim/after/ftplugin/tex.vim
++++ b/vim/after/ftplugin/tex.vim
+@@ -62,11 +62,9 @@ inoremap <buffer> `vf \varphi
+ inoremap <buffer> `vk \varkappa
+ inoremap <buffer> `vq \vartheta
+ inoremap <buffer> `vr \varrho
+-inoremap <buffer> `~ \approx
+ 
+ " to use surround.vim
+ let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+-nnoremap <leader>vp :execute("!xdg-open " . expand('%:r').".pdf")<CR>
+ 
+ "appearance
+ set spell
+@@ -76,22 +74,21 @@ let g:tex_comment_nospell= 1
+ "comilation
+ let b:tex_flavor = 'pdflatex'
+ compiler tex
+-
+-let &l:makeprg='make'
+-
++if !filereadable("Makefile")
++   " Find the main TeX file
++   if !exists("w:TexMainFile")
++      let w:TexMainFile = expand("%")
++   endif
++   let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile
++endif
+ " match c-style-errors
+ set errorformat+=%f:%l:\ %m
+ " ignore date stamps
+ set errorformat^=%-G%.%#%\\d%\\+\/%\\d%\\+\/%\\d%\\+\/%\\d%\\+:%\\d%\\+:%\\d%\\+%.%#
+ 
+-function! UsePdflatex()
+-   let &l:makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.expand('%:t').''
+-endfunction
+-
+-function! UseLatexmk()
+-   let &l:makeprg='latexmk -pdf -interaction=batchmode -quiet -c-style-errors '.expand('%:t').''
++function! SetTexMain(InTexMainFile)
++   let w:TexMainFile = a:InTexMainFile
+ endfunction
+ 
+ "voom
+-packadd VOom
+-nnoremap <leader>vo :Voom latex<CR>
++   nnoremap <leader>vo :Voom latex<CR>
+diff --git a/vim/minisnip/_fortran_fun b/vim/minisnip/_fortran_fun
+deleted file mode 100644
+index 2951e4e..0000000
+--- a/vim/minisnip/_fortran_fun
++++ /dev/null
+@@ -1,3 +0,0 @@
+-function {{+NAME+}}({{++}}) result({{+RESULT+}})
+-   {{--}}
+-end function {{+~\~3+}}
+diff --git a/vim/minisnip/_fortran_mod b/vim/minisnip/_fortran_mod
+index 0f618a7..de1d73c 100644
+--- a/vim/minisnip/_fortran_mod
++++ b/vim/minisnip/_fortran_mod
+@@ -1,3 +1,3 @@
+ module {{+MODULE_NAME+}}
+-   {{--}}
++   
+ end module {{+~\~1+}}
+diff --git a/vim/minisnip/_fortran_sub b/vim/minisnip/_fortran_sub
+index 471c39b..8a45e73 100644
+--- a/vim/minisnip/_fortran_sub
++++ b/vim/minisnip/_fortran_sub
+@@ -1,3 +1,3 @@
+-subroutine {{+NAME+}}({{++}})
+-   {{--}}
+-end subroutine {{+~\~2+}}
++subroutine {{+MODULE_NAME+}}
++   
++end subroutine {{+~\~1+}}
+diff --git a/vim/minisnip/_sh_bash b/vim/minisnip/_sh_bash
+index 466ef29..6e87746 100644
+--- a/vim/minisnip/_sh_bash
++++ b/vim/minisnip/_sh_bash
+@@ -1,3 +1,2 @@
+ #!/usr/bin/env bash
+ set -euo pipefail
+-{{++}}
+diff --git a/vim/minisnip/_sh_for b/vim/minisnip/_sh_for
+deleted file mode 100644
+index 999e412..0000000
+--- a/vim/minisnip/_sh_for
++++ /dev/null
+@@ -1,4 +0,0 @@
+-for (( {{+i+}} = {{+0+}}; {{+~\~2+}} {{+ <= +}}; {{+~\~4+}}{{++++}} ))
+-do
+-   {{--}}
+-done
+diff --git a/vim/minisnip/_tex_begin b/vim/minisnip/_tex_begin
+deleted file mode 100644
+index 2374dfa..0000000
+--- a/vim/minisnip/_tex_begin
++++ /dev/null
+@@ -1,3 +0,0 @@
+-\begin{{{++}}}
+-   {{--}}
+-\end{{{+~\~1+}}}
+diff --git a/vim/minisnip/_tex_table b/vim/minisnip/_tex_table
+deleted file mode 100644
+index 382fc8c..0000000
+--- a/vim/minisnip/_tex_table
++++ /dev/null
+@@ -1,6 +0,0 @@
+-\begin{table}[{{++}}]
+-   \centering
+-   \begin{tabular}{{{+clr+}}}
+-      {{--}}
+-   \end{tabular}
+-\end{table}
+diff --git a/vim/minisnip/modeline b/vim/minisnip/modeline
+deleted file mode 100644
+index 68cf2c2..0000000
+--- a/vim/minisnip/modeline
++++ /dev/null
+@@ -1 +0,0 @@
+-{{+~split(&commentstring, '%s')[-1]+}} vim: set spelllang={{+~&spelllang+}} tw={{+~&tw+}} sw={{+~&sw+}} ts={{+~&ts+}} : {{+~split(&commentstring, '%s')[-1]+}}
+diff --git a/vim/pack/plugins/opt/VOoM b/vim/pack/plugins/opt/VOoM
+deleted file mode 160000
+index 423600d..0000000
+--- a/vim/pack/plugins/opt/VOoM
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 423600d0ab98254bae6fa2ca60d06057ecfb748a
+diff --git a/vim/pack/plugins/start/ale b/vim/pack/plugins/start/ale
+deleted file mode 160000
+index 0a05355..0000000
+--- a/vim/pack/plugins/start/ale
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 0a0535546f4d9a0dfe02671630fdaba72ea5828d
+diff --git a/vim/pack/plugins/start/taboo.vim b/vim/pack/plugins/start/taboo.vim
+deleted file mode 160000
+index 1367baf..0000000
+--- a/vim/pack/plugins/start/taboo.vim
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 1367baf547ff931b63ea6a389e551f4ed280eadf
+diff --git a/vim/pack/plugins/start/undotree b/vim/pack/plugins/start/undotree
+deleted file mode 160000
+index cdbb902..0000000
+--- a/vim/pack/plugins/start/undotree
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit cdbb9022b8972d3e156b8d60af33bf795625b058
+diff --git a/vim/pack/plugins/start/vim-colors-solarized b/vim/pack/plugins/start/vim-colors-solarized
+deleted file mode 160000
+index 528a59f..0000000
+--- a/vim/pack/plugins/start/vim-colors-solarized
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 528a59f26d12278698bb946f8fb82a63711eec21
+diff --git a/vim/pack/plugins/start/vim-commentary b/vim/pack/plugins/start/vim-commentary
+deleted file mode 160000
+index 89f43af..0000000
+--- a/vim/pack/plugins/start/vim-commentary
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 89f43af18692d22ed999c3097e449f12fdd8b299
+diff --git a/vim/pack/plugins/start/vim-dispatch b/vim/pack/plugins/start/vim-dispatch
+deleted file mode 160000
+index e83ac42..0000000
+--- a/vim/pack/plugins/start/vim-dispatch
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit e83ac42fefa4bcf2b4197bec2b4d917e15225815
+diff --git a/vim/pack/plugins/start/vim-easy-align b/vim/pack/plugins/start/vim-easy-align
+deleted file mode 160000
+index 1cd724d..0000000
+--- a/vim/pack/plugins/start/vim-easy-align
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 1cd724dc239c3a0f7a12e0fac85945cc3dbe07b0
+diff --git a/vim/pack/plugins/start/vim-easymotion b/vim/pack/plugins/start/vim-easymotion
+deleted file mode 160000
+index 342549e..0000000
+--- a/vim/pack/plugins/start/vim-easymotion
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 342549e7a1e5b07a030803e0e4b6f0415aa51275
+diff --git a/vim/pack/plugins/start/vim-fugitive b/vim/pack/plugins/start/vim-fugitive
+deleted file mode 160000
+index b82abd5..0000000
+--- a/vim/pack/plugins/start/vim-fugitive
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit b82abd5bd583cfb90be63ae12adc36a84577bd45
+diff --git a/vim/pack/plugins/start/vim-grammarous b/vim/pack/plugins/start/vim-grammarous
+deleted file mode 160000
+index fc7e73f..0000000
+--- a/vim/pack/plugins/start/vim-grammarous
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit fc7e73f2af96fb1745887dabde9bf8b945d0273d
+diff --git a/vim/pack/plugins/start/vim-minisnip b/vim/pack/plugins/start/vim-minisnip
+deleted file mode 160000
+index c5a4585..0000000
+--- a/vim/pack/plugins/start/vim-minisnip
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit c5a458551dac42316022f57077f05f1df4a4590c
+diff --git a/vim/pack/plugins/start/vim-peekaboo b/vim/pack/plugins/start/vim-peekaboo
+deleted file mode 160000
+index a7c940b..0000000
+--- a/vim/pack/plugins/start/vim-peekaboo
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit a7c940b15b008afdcea096d3fc4d25e3e431eb49
+diff --git a/vim/pack/plugins/start/vim-repeat b/vim/pack/plugins/start/vim-repeat
+deleted file mode 160000
+index 8106e14..0000000
+--- a/vim/pack/plugins/start/vim-repeat
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 8106e142dfdc278ff3eaaadd7b362ad7949d4357
+diff --git a/vim/pack/plugins/start/vim-speeddating b/vim/pack/plugins/start/vim-speeddating
+deleted file mode 160000
+index a418667..0000000
+--- a/vim/pack/plugins/start/vim-speeddating
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit a418667791f03694065948342f2d6c5cca8d0f32
+diff --git a/vim/pack/plugins/start/vim-surround b/vim/pack/plugins/start/vim-surround
+deleted file mode 160000
+index e49d6c2..0000000
+--- a/vim/pack/plugins/start/vim-surround
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit e49d6c2459e0f5569ff2d533b4df995dd7f98313
+diff --git a/vim/pack/plugins/start/vim-tmux-focus-events b/vim/pack/plugins/start/vim-tmux-focus-events
+deleted file mode 160000
+index 48595bd..0000000
+--- a/vim/pack/plugins/start/vim-tmux-focus-events
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 48595bdef7d25087111c86cd3c6ca34bc60909c7
+diff --git a/vim/pack/plugins/start/vim-unimpaired b/vim/pack/plugins/start/vim-unimpaired
+deleted file mode 160000
+index c77939c..0000000
+--- a/vim/pack/plugins/start/vim-unimpaired
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit c77939c4aff30b2ed68deb1752400ec15f17c3a2
+diff --git a/vim/pack/plugins/start/vimwiki b/vim/pack/plugins/start/vimwiki
+deleted file mode 160000
+index 4bacbe0..0000000
+--- a/vim/pack/plugins/start/vimwiki
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 4bacbe00005f23d72d247fdde3a9e857d690b44b
+diff --git a/vim/pack/syntax/opt/gnuplot.vim b/vim/pack/syntax/opt/gnuplot.vim
+deleted file mode 160000
+index 0d57b08..0000000
+--- a/vim/pack/syntax/opt/gnuplot.vim
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 0d57b080f9fae8573c688b6679b31eb1666edc4c
+diff --git a/vim/pack/syntax/opt/indentpython.vim b/vim/pack/syntax/opt/indentpython.vim
+deleted file mode 160000
+index 6aaddfd..0000000
+--- a/vim/pack/syntax/opt/indentpython.vim
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 6aaddfde21fe9e7acbe448b92b3cbb67f2fe1fc1
+diff --git a/vim/pack/syntax/opt/vim-markdown b/vim/pack/syntax/opt/vim-markdown
+deleted file mode 160000
+index 861e84f..0000000
+--- a/vim/pack/syntax/opt/vim-markdown
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 861e84fc0bc97be8387e92ac2fc180599dc2b5a3
+diff --git a/vim/simplenotes.example.vim b/vim/simplenotes.example.vim
+new file mode 100644
+index 0000000..6eb93f9
+--- /dev/null
++++ b/vim/simplenotes.example.vim
+@@ -0,0 +1,3 @@
++let g:SimplenoteUsername = 'your simplenote username'
++let g:SimplenotePassword = 'your simplenote password'
++let g:simplenoteTodoKey = '<you todolist note id>' " get id of note from :SimplenoteVersionInfo
+diff --git a/vim/spell/de.utf-8.add b/vim/spell/de.utf-8.add
+index 9b1aa65..a6ea0e0 100644
+--- a/vim/spell/de.utf-8.add
++++ b/vim/spell/de.utf-8.add
+@@ -1,12 +1 @@
+-Aggregationsverhalten
+ Herbstsprechertreffen
+-Kurzzusammenfassung
+-Miktoarm
+-Model/!
+-Polymereigenschaften
+-Sternpolymer
+-Sternpolymere
+-Sternpolymeren
+-Sternpolymers
+-heteroarm
+-vorherzusagen
+diff --git a/vim/spell/en.utf-8.add b/vim/spell/en.utf-8.add
+index 52ca119..61df20f 100644
+--- a/vim/spell/en.utf-8.add
++++ b/vim/spell/en.utf-8.add
+@@ -1,131 +1,36 @@
+-Aldrich
+-Birshtein
+-Blencowe
+ Chemistry
+-Chodera
+-DEAAM
+-DEAM
+-DFG
+-Daoud
+ FCI
+-FP
+ Fonds der Chemischen Industrie
+-Hadjichristidis
+ Hebbeker
+-Hebbeker2016a
+-Hebbeker2016b
+-Hebbeker2017b
+-Hebbeker2018a
+-Hebbeker2018b
+-Hofzumahaus
+-IPEC
+-Khanna
+-Kirkwood's
+-LCST
+-LLRANDOM
+ Langen
+-Likos
+ Linse
+-MSDS
+ Molsim
+-NIPAM
+-Nernst
+ PDMAEMA
+-PDMAEMA100
+-PDMAEMA17
+-PDMAEMA220
+-PDMAEMA34
+-PDMAEMA350
+-PDMAEMA90
+-PEO
+-PEO114
+ PPO
+-PPO114
+-PPO69
+ Plamper
+ RWTH
+ Richtering
+ Steinschulte
+-THF
+ Tabea
+-Verlet
+-Yakuwa
+-Yukawa
+-addressability
+-bead1
+-bead1o
+-bead2
+-bead3
+-behaviour/!
+ bimodal
+ bimodally
+-box1
+-box2
+-box3
+-box4
+-box5
+-complexating
+-copolymers
+-daoud
+-dimensionality
+-divergently
+-dls
+-efficiencies
+ enthalpicly
+-equ
+-equilibrated
+-equilibration
+ et al.
+-graining
+-heb2016a
+ heteroarm
+-homoarm
+-interarm
+-interblock
+ interpolyelectrolyte
+-intra
+-ipec
+-lcst
+-macroions
+-mc
+ micelles
+ micellization
+-microcapsules
+-microgels
+ miktoarm
+-multicompartment
+-multifunctional
+-multiresponsive
+-nonneg
+ pc.rwth-aachen.de
+-pdeaam
+-pdm
+-peo
+-phototoxic
+-pmaa
+-pnipam
++pc.rwth-aachen.de
+ poly(dimethylaminoethyl methacrylate)
+ poly(propylene oxide)
+-ppo
+-rbead1
+-rbead1o
+-rbead2
+-rbead3
+-renormalization
+-reptation
+ schneider
+-segregative
+-sidegroups
+-sls
+-solvophilic
+-surfactants
+-synergetic
+-th
+-toc
+ topologies
+-tostart
+-tostart2
+-towards/!
++copolymers
+ transformative
+-unimers
+-unswollen
++microgels
++phototoxic
++sidegroups
++Likos
++Kirkwood's
+diff --git a/vim/vimrc b/vim/vimrc
+index 53514df..070bb69 100644
+--- a/vim/vimrc
++++ b/vim/vimrc
+@@ -1,12 +1,60 @@
+ set encoding=utf-8
+ scriptencoding utf-8
+-filetype plugin indent on
+-syntax enable
++" clear previous variable settings
+ 
+-filetype plugin on
++if empty(glob('$HOME/.vim/autoload/plug.vim'))
++    " Download the actual plugin manager
++    silent execute '!mkdir -p $HOME/.vim/autoload/'
++    silent execute '!wget -P $HOME/.vim/autoload https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
++endif
++
++if !has('compatible')
++   call plug#begin('$HOME/.vim/plugged')
++   " Appearance
++   Plug 'altercation/vim-colors-solarized'
++
++   "usability
++   Plug 'christoomey/vim-tmux-navigator'
++   if v:version >= 800
++      Plug 'tmux-plugins/vim-tmux-focus-events'
++   endif
++   Plug 'tpope/vim-fugitive'
++   Plug 'tpope/vim-unimpaired'
++   Plug 'tpope/vim-dispatch'
++   Plug 'tpope/vim-surround'
++   Plug 'tpope/vim-repeat'
++   Plug 'tpope/vim-commentary'
++   " Plug 'moll/vim-bbye'
++   Plug 'vim-voom/VOoM', {'for': ['tex', 'vimwiki'] }
++   Plug 'gcmt/taboo.vim'
++
++   "Languages
++   if v:version < 800
++   Plug 'vim-scripts/gnuplot.vim'
++   endif
++   Plug 'vim-scripts/indentpython.vim'
++
++   Plug 'joereynolds/vim-minisnip'
++   if v:version >= 800
++      Plug 'w0rp/ale', {'on': ['ALELint', 'ALEInfo', 'ALEToggle']}
++   else
++      Plug 'scrooloose/syntastic', {'on': ['SyntasticCheck', 'SyntasticInfo']}
++   endif
++   Plug 'junegunn/vim-easy-align'
++
++   " vim Wiki
++   Plug 'vimwiki/vimwiki', {'branch': 'dev'}
++   Plug 'tpope/vim-speeddating', {'for': ['org', 'vimwiki', 'markdown']}
+ 
+-set omnifunc=syntaxcomplete#Complete
++   " Markdown
++   Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
+ 
++   "Undo
++   Plug 'sjl/gundo.vim', {'on': ['GundoToggle']}
++
++
++   call plug#end()
++endif
+ let g:mapleader="\<Space>"
+ 
+ if has('win32unix')
+@@ -17,7 +65,7 @@ elseif has('unix')
+    let g:netrw_browsex_viewer="xdg-open"
+ endif
+ 
+-if &term =~? '^screen'
++if &term =~ '^screen'
+     " tmux will send xterm-style keys when its xterm-keys option is on
+     execute "set <xUp>=\e[1;*A"
+     execute "set <xDown>=\e[1;*B"
+@@ -42,12 +90,12 @@ silent! colorscheme solarized
+ nnoremap <F5> :update<CR>:Dispatch ./% <CR>
+ " Run last command executed by VimuxRunCommand
+ nnoremap <F6> :update<CR>:Dispatch<CR>
+-" Prompt for a command to run
++"" Prompt for a command to run
+ nnoremap <F7> :update<CR>:FocusDispatch
+-" run make
++"" run make
+ let g:target = ''
+-nnoremap <F8> :let g:target = ''<left>
+-" run make
++nnoremap <F8> :let g:target = ""<left>
++"" run make
+ nnoremap <F9> :update<CR>:exe 'Make '.target<Cr>
+ 
+ 
+@@ -81,13 +129,13 @@ else
+ endif
+ 
+ " commentary
+-noremap <leader>cc :Commentary<CR>
++map <leader>cc :Commentary<CR>
+ 
+ " vim-bbye
+ " nnoremap <Leader>q :Bdelete<CR>
+ 
+ "voom
+-let g:voom_return_key = '<C-]>'
++let g:voom_return_key = "<C-]>"
+ 
+ "taboo
+ set sessionoptions+=tabpages,globals
+@@ -118,9 +166,9 @@ xmap <leader>a <Plug>(EasyAlign)
+ " Start interactive EasyAlign for a motion/text object
+ nmap <leader>a <Plug>(EasyAlign)
+ 
+-"undotree
+-nnoremap <leader>u :UndotreeToggle<CR>
+-let g:undotree_ShortIndicators=1
++"Gundo.vim
++nnoremap <leader>u :GundoToggle<CR>
++
+ "
+ "Own functions
+ if !has('compatible')
+@@ -201,7 +249,6 @@ else
+    set visualbell " Use visual bell instead of beeping when doing something wrong
+    set t_vb= " And reset the terminal code for the visual bell. If visualbell is set, and this line is also included, vim will neither flash nor beep. If visualbell is unset, this does nothing.
+ endif
+-
+ set shortmess=a " shorter messages
+ set cmdheight=2 " prevent press enter
+ set notimeout ttimeout ttimeoutlen=200 " Quickly time out on keycodes, but never time out on mappings
+@@ -250,7 +297,7 @@ nnoremap <leader>nn :nohlsearch<CR>
+ nnoremap <leader>b :buffers<CR>:buffer<Space>
+ " use to naviage buffers in current dir
+ nnoremap <leader>cb :filter /^[^\/]*$/ buffers<CR>:buffer<Space>
+-" force myselft to learn not using the arrow keys!
++" do not use arrow keys!
+ noremap <Up>    :echo "Stop using arrow keys, stupid" <CR>
+ noremap <Down>  :echo "Stop using arrow keys, stupid" <CR>
+ noremap <Left>  :echo "Stop using arrow keys, stupid" <CR>
+@@ -276,22 +323,6 @@ nnoremap Q <nop>
+ nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+ nnoremap <leader>sv :source $MYVIMRC<CR>
+ 
+-if has('terminal')
+-   " easy access to terminal
+-   nnoremap <leader>te :vertical terminal ++close<CR>
+-   " easy access to terminal in the location of the file
+-   nnoremap <leader>tc :vsplit<CR> :lcd %:p:h<CR> :terminal ++close ++curwin<CR>
+-   tnoremap <C-W>cd <C-C> pwd >\| /tmp/$USER/.vim/cwd<CR><C-W>:execute 'cd '.system('cat /tmp/$USER/.vim/cwd')<CR>
+-endif
+-
+-"easy navigation of completion window
+-inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+-inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+-
+-"to prevent errenous usage of C-p for esc
+-inoremap <C-p> <Esc>
+-nnoremap <C-p> <Esc>
+-
+ "folding
+ if !has('compatible')
+    set nofoldenable

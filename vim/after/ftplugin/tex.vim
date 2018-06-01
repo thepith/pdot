@@ -62,9 +62,12 @@ inoremap <buffer> `vf \varphi
 inoremap <buffer> `vk \varkappa
 inoremap <buffer> `vq \vartheta
 inoremap <buffer> `vr \varrho
+inoremap <buffer> `~ \approx
 
 " to use surround.vim
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
+
+nnoremap <leader>vp :execute("!xdg-open " . expand('%:r').".pdf")<CR>
 
 "appearance
 set spell
@@ -74,21 +77,18 @@ let g:tex_comment_nospell= 1
 "comilation
 let b:tex_flavor = 'pdflatex'
 compiler tex
-if !filereadable("Makefile")
-   " Find the main TeX file
-   if !exists("w:TexMainFile")
-      let w:TexMainFile = expand("%")
-   endif
-   let &makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.w:TexMainFile
-endif
+let &l:makeprg='make'
 " match c-style-errors
 set errorformat+=%f:%l:\ %m
 " ignore date stamps
 set errorformat^=%-G%.%#%\\d%\\+\/%\\d%\\+\/%\\d%\\+\/%\\d%\\+:%\\d%\\+:%\\d%\\+%.%#
+function! UsePdflatex()
+   let &l:makeprg='pdflatex -interaction=nonstopmode -c-style-errors '.expand('%:t').''
+endfunction
 
-function! SetTexMain(InTexMainFile)
-   let w:TexMainFile = a:InTexMainFile
+function! UseLatexmk()
+   let &l:makeprg='latexmk -pdf -interaction=batchmode -quiet -c-style-errors '.expand('%:t').''
 endfunction
 
 "voom
-   nnoremap <leader>vo :Voom latex<CR>
+nnoremap <leader>vo :Voom latex<CR>
