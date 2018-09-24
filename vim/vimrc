@@ -49,7 +49,7 @@ if !has('compatible')
    Plug 'plasticboy/vim-markdown', {'for': ['markdown']}
 
    "Undo
-   Plug 'mbbill/undotree', {'on': ['UndotreeToggle']}
+   Plug 'mbbill/undotree' ", {'on': ['UndotreeToggle']}
 
    call plug#end()
 endif
@@ -167,7 +167,7 @@ xmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
 
 "Undo
-nnoremap <leader>u ::UndotreeToggle<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
 let g:undotree_ShortIndicators=1
 
 "Own functions
