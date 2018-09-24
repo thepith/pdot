@@ -342,14 +342,16 @@ inoremap <C-p> <Esc>
 nnoremap <C-p> <Esc>
 
 "folding
-if !has('compatible')
-   set nofoldenable
-   set foldmethod=manual
-   set foldlevel=0
-   set foldnestmax=2
-   let g:fortran_fold=1
-   nnoremap <leader>fo :let &foldmethod=b:wantedfoldmethod<CR>
-endif
+" if !has('compatible')
+"    set nofoldenable
+"    set foldmethod=manual
+"    set foldlevel=0
+"    set foldnestmax=2
+"    let g:fortran_fold=1
+"    nnoremap <leader>fo :let &foldmethod=b:wantedfoldmethod<CR>
+" endif
+"
+set foldmethod=syntax
 
 " tex
 let g:tex_flavor = 'latex'
