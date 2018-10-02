@@ -276,7 +276,7 @@ set smarttab
 highlight clear SpellBad
 highlight SpellBad cterm=underline
 "use system clipboad
-set clipboard^=unnamed
+set clipboard^=unnamed,unnamedplus
 " easy split
 set splitbelow
 set splitright
