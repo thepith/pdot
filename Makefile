@@ -1,4 +1,6 @@
-dots = vim tmux shell sol gitlab vmd sncli
+dots = vim tmux shell sol vmd
+# dots+= gitlab
+# dots+= sncli
 dotlist = $(addprefix dot-,$(dots))
 installlist = $(addprefix ins-,$(dots))
 home := $(shell echo $$HOME)

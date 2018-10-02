@@ -30,7 +30,8 @@ done
 
 #creating pdot_secret.conf where user passwords are stored
 echo "Warning, the passwords you enter here will be stored in plain text on your machine. Do not use sensible passwords"
-confvar=( tgitlabname tgitlaburl tgitlabtoken tSimpleNoteEmail tSimpleNotePassword)
+# confvar=( tgitlabname tgitlaburl tgitlabtoken tSimpleNoteEmail tSimpleNotePassword)
+confvar=()
 confdef=( 'gitlab-name' 'https://some.whe.re' 'asdf1234' 'name@mail.com' '<secret>')
 if [[ -e pdot_secret.conf ]]; then
    source pdot_secret.conf
