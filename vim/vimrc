@@ -154,7 +154,8 @@ let g:vimwiki_list = [
          \ 'auto_tags': 1,
          \ 'ext': '.md',
          \ 'syntax': 'markdown',
-         \ 'nested_syntaxes':  {'python': 'python', 'c++': 'cpp'}}
+         \ 'nested_syntaxes':  {'python': 'python', 'c++': 'cpp'},
+         \ 'custom_wiki2html': '~/labjournal/text/vimwiki_stuff/wiki2html.sh'}
          \]
 let g:vimwiki_conceallevel = 1
 let g:vimwiki_folding = 'expr'
