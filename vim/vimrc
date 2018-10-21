@@ -144,15 +144,24 @@ nnoremap <leader>, :TabooRename<Space>
 
 " vimwiki stuff "
 " Run multiple wikis "
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'auto_tags': 1, 'ext': '.wiki',
-          \ 'template_path': '~/vimwiki/templates/',
-          \ 'template_default': 'default',
-          \ 'template_ext': '.tpl',
-          \ 'nested_syntaxes':  {'python': 'python', 'c++': 'cpp'}}]
+let g:vimwiki_list = [
+         \ {'path': '~/wiki/',
+         \ 'auto_tags': 1,
+         \ 'ext': '.md',
+         \ 'syntax': 'markdown',
+         \ 'nested_syntaxes':  {'python': 'python', 'c++': 'cpp'}},
+         \ {'path': '~/labjournal/text/',
+         \ 'auto_tags': 1,
+         \ 'ext': '.md',
+         \ 'syntax': 'markdown',
+         \ 'nested_syntaxes':  {'python': 'python', 'c++': 'cpp'}}
+         \]
 let g:vimwiki_conceallevel = 1
 let g:vimwiki_folding = ''
 let g:vimwiki_autowriteall = 0
-
+let g:vimwiki_table_mappings = 0
+" mapping to open labjournal
+nnoremap <leader>wl :call vimwiki#base#goto_index(2)<CR>
 
 if has('win32unix')
   function! s:linux_handler(url)
