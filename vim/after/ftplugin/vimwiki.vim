@@ -1,6 +1,8 @@
 setlocal spell
 set spelllang+=sciUS
 
+set foldlevel=1
+
 "voom
 nnoremap <leader>vo :Voom markdown<CR>
 
