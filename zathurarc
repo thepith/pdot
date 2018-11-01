@@ -1,0 +1,1 @@
+map <C-x> feedkeys ":exec okular $FILE<Return>"

@@ -1,4 +1,4 @@
-dots = vim tmux shell sol vmd
+dots = vim tmux shell sol vmd zathura
 # dots+= gitlab
 # dots+= sncli
 dotlist = $(addprefix dot-,$(dots))
@@ -44,6 +44,8 @@ ins-sncli: dot-sncli
 	pip3 install --user git+https://github.com/urwid/urwid
 	pip3 install --user --upgrade sncli
 
+ins-zathura: dot-zathura
+
 dot-vim:    $(home)/.vim
 dot-tmux:   $(home)/.tmux.conf
 dot-shell:  $(home)/.shell
@@ -52,6 +54,7 @@ dot-gitlab: $(home)/.python-gitlab.cfg
 dot-vmd:    $(home)/$(vmdrc)
 dot-cnf:    $(home)/.pdot.conf
 dot-sncli:  $(home)/.snclirc
+dot-zathura: $(home)/.config/zathura/zathurarc
 
 vim/spell/%.add.spl: vim/spell/%.add
 	vim +mkspell\ $< +qall
@@ -74,6 +77,11 @@ $(home)/.%: %
 # VMD using windows has problems with softlinks
 $(home)/vmd.rc: vmdrc
 	$(cp) $(PWD)/$< $@
+
+# zathura needs subfolder
+$(home)/.config/zathura/zathurarc: zathurarc
+	mkdir -p $(home)/.config/zathura
+	@$(ln) $(PWD)/$< $@ && echo "linking $@" || { echo "please backup the existing $(@) (or run make backup)" && exit 1; }
 
 backup: backupdir/.vim backupdir/.vimrc backupdir/.tmux.conf backupdir/.shell backupdir/.shellrc backupdir/.sol backupdir/.solrc backupdir/.python-gitlab.cfg backupdir/.vmdrc backupdir/vmd.rc backupdir/.tmux
 
