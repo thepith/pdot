@@ -149,6 +149,8 @@ let g:vimwiki_list = [
          \ 'auto_tags': 1,
          \ 'ext': '.md',
          \ 'syntax': 'markdown',
+         \ 'path_html': '~/wiki_html/',
+         \ 'custom_wiki2html': '~/wiki_html/vimwiki_stuff/wiki2html.sh',
          \ 'nested_syntaxes':  {'python': 'python', 'c++': 'cpp'}},
          \ {'path': '~/labjournal/text/',
          \ 'auto_tags': 1,
