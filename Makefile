@@ -1,9 +1,12 @@
-dots = vim tmux shell sol vmd zathura
+PROGRAMS = vim tmux vmd zathura
+K := $(foreach exec,$(PROGRAMS), $(if $(shell which $(exec) 2> /dev/null ),$(exec),$(warning "No $(exec) in PATH. Not installing")))
+dots := shell sol $(K)
 # dots+= gitlab
 # dots+= sncli
 dotlist = $(addprefix dot-,$(dots))
 installlist = $(addprefix ins-,$(dots))
 home := $(shell echo $$HOME)
+SHELL := $(shell echo $$SHELL)
 ln := ln -sfT
 cp := cp
 vmdrc = $(shell [[ "$$OSTYPE" == "cygwin" ]] && echo "vmd.rc" || echo ".vmdrc")
@@ -15,7 +18,7 @@ vimsplbinadd := $(patsubst %.add,%.add.spl,$(vimspladd))
 
 all: update
 
-install: pdot.conf pdot_secret.conf $(installlist)
+install: pdot.conf pdot_secret.conf | $(installlist)
 
 update: git
 
@@ -28,12 +31,9 @@ ins-vim: dot-vim $(vimsplbinadd)
 ins-tmux: dot-tmux
 ins-shell: dot-shell
 	@rc=$${SHELL#*/bin/}rc ;\
-	if grep -xq "^source ~/.shellrc" ~/.$$rc ; then \
-        sed -i '/^source ~\/.shellrc/d' ~/.$$rc; fi
-	@rc=$${SHELL#*/bin/}rc ;\
-	if grep -xq "^source ~/.shell/shellrc" ~/.$$rc ; then \
+	if grep -xq "^\[\[ \$- == \*i\* \]\] \&\& source ~/.shell/shellrc" ~/.$$rc ; then \
 	echo "shell already sources" ; else \
-	echo 'source ~/.shell/shellrc' >> ~/.$$rc; fi
+	echo '[[ $$- == *i* ]] && source ~/.shell/shellrc' >> ~/.$$rc; fi
 ins-sol: dot-sol dot-cnf
 ins-gitlab: dot-gitlab
 	pip install --user --upgrade python-gitlab
