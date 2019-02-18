@@ -73,7 +73,6 @@ nnoremap <leader>vp :execute("!xdg-open " . expand('%:r').".pdf")<CR>
 "appearance
 set spell
 set linebreak
-let g:tex_comment_nospell= 1
 
 "comilation
 let b:tex_flavor = 'pdflatex'
@@ -93,3 +92,7 @@ endfunction
 
 "voom
 nnoremap <leader>vo :Voom latex<CR>
+
+"ALE
+let b:ale_linters = ['chktex']
+set foldmethod=marker

@@ -32,6 +32,9 @@ if !has('compatible')
    "Languages
    Plug 'vim-scripts/gnuplot.vim', {'for': ['gnuplot']}
    Plug 'vim-scripts/indentpython.vim', {'for': ['python']}
+   Plug 'davidhalter/jedi-vim', {'for': ['python']}
+   Plug 'Konfekt/FastFold', {'for': ['python']}
+   Plug 'tmhedberg/SimpylFold', {'for': ['python']}
 
    Plug 'joereynolds/vim-minisnip'
    if v:version >= 800
@@ -98,14 +101,33 @@ nnoremap <F8> :let g:target = ''<left>
 " run make
 nnoremap <F9> :update<CR>:exe 'Make '.target<Cr>
 
+let g:minisnip_dir = '~/.vim/minisnip:./.minisnip/'
 
 if v:version >= 800
    " ale
    let g:airline#extensions#ale#enabled=0
    let g:ale_linters = {'fortran': ['gfortran']}
+   let g:ale_linters = {'python': ['flake8', 'mypy']}
+   let g:ale_fixers = {'python': ['autopep8']}
    let g:ale_enabled = 0
    "command to run ale
-   nnoremap <leader>sc :update<CR>:ALEToggle<CR>
+   "Ale statusline
+   if !has('compatible')
+      function! ALEStatus()
+         if exists(g:ale_enabled) == 0
+            if g:ale_enabled == 1
+               if matchstr(&statusline, "ALE$") == ""
+                  set statusline+=ALE
+               endif
+            else
+               if matchstr(&statusline, "ALE$") == "ALE"
+                  set statusline-=ALE
+               endif
+            endif
+         endif
+      endfunction
+   endif
+   nnoremap <leader>sc :update<CR>:ALEToggle<CR>:call ALEStatus()<CR>
 else
    " Syntastic
    let g:syntastic_always_populate_loc_list = 1
@@ -128,8 +150,18 @@ else
    nnoremap <leader>sc :update<CR>:SyntasticCheck<CR>
 endif
 
+"jedi
+let g:jedi#popup_on_dot = 0
+let g:jedi#show_call_signatures = 2
+
 " commentary
 noremap <leader>cc :Commentary<CR>
+
+"grammarous
+let g:grammarous#use_location_list=1
+nnoremap <leader>gi <Plug>(grammarous-open-info-window)
+nnoremap <leader>gc :GrammarousCheck<CR>
+
 
 " vim-bbye
 " nnoremap <Leader>q :Bdelete<CR>
@@ -163,6 +195,8 @@ let g:vimwiki_conceallevel = 1
 let g:vimwiki_folding = 'expr'
 let g:vimwiki_autowriteall = 0
 let g:vimwiki_table_mappings = 0
+" do not create a new wiki on opening any markdown file
+let g:vimwiki_global_ext = 0
 " mapping to open labjournal
 nnoremap <leader>wl :call vimwiki#base#goto_index(2)<CR>
 
@@ -205,9 +239,26 @@ if !has('compatible')
    command! MakeCtags :call GenerateCtags()
    command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 
+   function! ConvertToASCII()
+      %s/“/"/g
+      %s/”/"/g
+      %s/–/-/g
+      %s/š/s/g
+      %s/’/'/g
+   endfunction
+   function! SoftWrap()
+       let s:old_fo = &formatoptions
+       let s:old_tw = &textwidth
+       set fo=
+       set tw=999999 " works for paragraphs up to 12k lines
+       normal gggqG
+       let &fo = s:old_fo
+       let &tw = s:old_tw
+   endfunction
 endif
 
 " General Settings
+set modeline
 set scrolloff=5                " keep 5 lines to border of window
 set sidescrolloff=5            " keep 5 characters to border of window
 set display+=lastline
@@ -233,6 +284,7 @@ if exists('+breakindent')
 endif
 set nostartofline              " Stop certain movements from always going to the first character of a line.
 set autoread
+set diffopt+=vertical
 
 " Status Line
 set laststatus=2                             " always show statusbar
@@ -367,6 +419,7 @@ set foldmethod=syntax
 
 " tex
 let g:tex_flavor = 'latex'
+let g:tex_comment_nospell= 1
 
 " Initialize Directories
 if exists('*mkdir')

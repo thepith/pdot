@@ -33,3 +33,5 @@ nnoremap <C-@> :call markdown#SwitchStatus()<CR>
 " }}}
 
 nnoremap <leader>N / *\* \[ \]<CR>
+set foldlevelstart=3
+set foldlevel=3

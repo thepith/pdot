@@ -1,7 +1,6 @@
 setlocal spell
 set spelllang+=sciUS
 
-set foldlevel=1
 
 "voom
 nnoremap <leader>vo :Voom markdown<CR>
@@ -35,3 +34,15 @@ function! VimwikiLinkHandler(link)
     return 1
   endif
 endfunction
+
+function! AddReference()
+  normal! G
+  normal! "+p
+  let l:save = winsaveview()
+  substitute/ \(http.*\)\.$/ <\1>./
+  call winrestview(l:save)
+  normal! 0i* [] 
+  normal! h
+  startinsert
+endfunction
+set foldlevel=3
