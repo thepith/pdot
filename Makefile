@@ -36,7 +36,7 @@ ins-shell: dot-shell
 	echo '[[ $$- == *i* ]] && source ~/.shell/shellrc' >> ~/.$$rc; fi
 ins-sol: dot-sol dot-cnf
 ins-gitlab: dot-gitlab
-	pip install --user --upgrade python-gitlab
+	pip3 install --user --upgrade python-gitlab
 
 ins-vmd: dot-vmd
 
