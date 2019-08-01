@@ -1,0 +1,4 @@
+class {{+NAME+}}({{++}}):
+    """{{+DOCSTRING+}}"""
+    def __init__(self, {{+ARGUMENT+}}):
+        self.{{+~\~1+}} = {{+~\~1+}}{{--}}

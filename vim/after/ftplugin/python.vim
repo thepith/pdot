@@ -7,3 +7,5 @@ setlocal expandtab |
 setlocal autoindent |
 setlocal fileformat=unix
 let b:wantedfoldmethod="indent"
+nnoremap <silent> <leader>faw :ArgWrap<CR>
+let g:jedi#smart_auto_mappings = 0

@@ -1,4 +1,5 @@
 " Mappings for symbols
+inoremap <buffer> `` ``
 inoremap <buffer> `0 \emptyset
 inoremap <buffer> `6 \partial
 inoremap <buffer> `8 \infty
@@ -96,3 +97,6 @@ nnoremap <leader>vo :Voom latex<CR>
 "ALE
 let b:ale_linters = ['chktex']
 set foldmethod=marker
+
+setlocal nocursorline
+" :NoMatchParen

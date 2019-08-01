@@ -35,13 +35,14 @@ if !has('compatible')
    Plug 'junegunn/vim-peekaboo'
    Plug 'rhysd/vim-grammarous'
    Plug 'samoshkin/vim-mergetool'
+   Plug 'andymass/vim-matchup'
 
    "Languages
    Plug 'vim-scripts/gnuplot.vim', {'for': ['gnuplot']}
    Plug 'vim-scripts/indentpython.vim', {'for': ['python']}
    Plug 'davidhalter/jedi-vim', {'for': ['python']}
-   Plug 'Konfekt/FastFold', {'for': ['python']}
-   Plug 'tmhedberg/SimpylFold', {'for': ['python']}
+   " Plug 'Konfekt/FastFold', {'for': ['python']}
+   " Plug 'tmhedberg/SimpylFold', {'for': ['python']}
    Plug 'FooSoft/vim-argwrap', {'for': ['python']}
 
    Plug 'joereynolds/vim-minisnip'
@@ -68,6 +69,8 @@ endif
 set omnifunc=syntaxcomplete#Complete
 let g:mapleader="\<Space>"
 
+let g:matchup_matchparen_deferred = 1
+
 if has('win32unix')
    let g:netrw_browsex_viewer='cygstart'
 elseif has('win32')
@@ -87,7 +90,7 @@ endif
 " Plugins
 " solarized
 set background=light
-let g:solarized_visibility='high'
+" let g:solarized_contrast='high'
 let g:solenv=$SOLVAR
 if g:solenv ==? 'light'
    set background=light
@@ -120,7 +123,7 @@ if v:version >= 800
    " ale
    let g:airline#extensions#ale#enabled=0
    let g:ale_linters = {'fortran': ['gfortran']}
-   let g:ale_linters = {'python': ['flake8', 'mypy', 'pylint']}
+   let g:ale_linters = {'python': ['flake8', 'mypy']}
    let g:ale_fixers = {'python': ['autopep8']}
    let g:ale_enabled = 0
    "command to run ale
@@ -462,10 +465,6 @@ if has('persistent_undo')      "check if your vim version supports it
    set undofile
 endif
 
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-         \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-         \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
 if has('syntax') && has('eval')
   packadd! matchit
 endif
@@ -491,6 +490,6 @@ function! CenterBuf(...)
    call CleanEmptyBuffers()
 endfunction
 
-
-
-
+map <F2> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
