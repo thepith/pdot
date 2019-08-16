@@ -17,11 +17,6 @@ if !has('compatible')
    " Appearance
    Plug 'altercation/vim-colors-solarized'
 
-   "usability
-   Plug 'christoomey/vim-tmux-navigator'
-   if v:version >= 800
-      Plug 'tmux-plugins/vim-tmux-focus-events'
-   endif
    Plug 'tpope/vim-fugitive'
    Plug 'tpope/vim-unimpaired'
    Plug 'tpope/vim-dispatch'
@@ -30,8 +25,6 @@ if !has('compatible')
    Plug 'tpope/vim-commentary'
    Plug 'tpope/vim-abolish'
    Plug 'vim-voom/VOoM', {'for': ['tex', 'vimwiki'] }
-   Plug 'AndrewRadev/linediff.vim'
-   Plug 'gcmt/taboo.vim'
    Plug 'junegunn/vim-peekaboo'
    Plug 'rhysd/vim-grammarous'
    Plug 'samoshkin/vim-mergetool'
@@ -98,7 +91,7 @@ elseif g:solenv ==? 'dark'
    set background=dark
 endif
 colorscheme solarized
-set t_Co=16
+" set t_Co=16
 " set termguicolors
 
 " let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -339,7 +332,8 @@ let &showbreak = ' ►' " show wrapping line
 set nolist  " list disables linebreak
 
 "show ExtraWhitespace as red
-highlight ExtraWhitespace ctermbg=9
+highlight ExtraWhitespace ctermbg=7
+
 match ExtraWhitespace /\s\+$/
 augroup extraWhitespaceHighlight
    autocmd!
@@ -404,7 +398,7 @@ nnoremap <leader>o :buffer#<CR>
 " change current dir of the window
 nnoremap <leader>cd :lcd %:p:h<CR>:pwd<CR>
 " unmap ex mode
-nnoremap Q <nop>
+" nnoremap Q <nop>
 " Quickly open/reload vim
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -414,7 +408,7 @@ if has('terminal')
    nnoremap <leader>te :vertical terminal ++close<CR>
    " easy access to terminal in the location of the file
    nnoremap <leader>tc :vsplit<CR> :lcd %:p:h<CR> :terminal ++close ++curwin<CR>
-   tnoremap <C-W>cd <C-C> pwd >\| /tmp/$USER/.vim/cwd<CR><C-W>:execute 'cd '.system('cat /tmp/$USER/.vim/cwd')<CR>
+   " tnoremap <C-W>cd <C-C> pwd >\| /tmp/$USER/.vim/cwd<CR><C-W>:execute 'cd '.system('cat /tmp/$USER/.vim/cwd')<CR>
 endif
 
 "easy navigation of completion window
