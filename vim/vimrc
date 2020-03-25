@@ -72,17 +72,22 @@ elseif has('unix')
    let g:netrw_browsex_viewer='xdg-open'
 endif
 
-if &term =~? '^screen'
-    " tmux will send xterm-style keys when its xterm-keys option is on
-    execute "set <xUp>=\e[1;*A"
-    execute "set <xDown>=\e[1;*B"
-    execute "set <xRight>=\e[1;*C"
-    execute "set <xLeft>=\e[1;*D"
+if &term =~? '^tmux'
+   " tmux will send xterm-style keys when its xterm-keys option is on
+   execute "set <xUp>=\e[1;*A"
+   execute "set <xDown>=\e[1;*B"
+   execute "set <xRight>=\e[1;*C"
+   execute "set <xLeft>=\e[1;*D"
+   map [6;5~ gt
+   map [5;5~ gT
 endif
+
+tmap [5;5 <C-W>:tabprevious<CR>
+tmap [6;5~ <C-W>:tabnext<CR>
 
 " Plugins
 " solarized
-set background=light
+set background=dark
 " let g:solarized_contrast='high'
 let g:solenv=$SOLVAR
 if g:solenv ==? 'light'
